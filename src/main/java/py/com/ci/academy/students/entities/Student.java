@@ -12,9 +12,9 @@ public class Student {
     private String email;
 
 
-    public int getIdStudent() {
-        return idStudent;
-    }
+    /*public Student(int idStudent) {
+        this.idStudent = idStudent;
+    }*/
 
     public void setIdStudent(int idStudent) {
         this.idStudent = idStudent;

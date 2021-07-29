@@ -12,13 +12,51 @@ import java.util.List;
 
 public class StudentManager {
     //Private static final long serialVersionUID = 1L;
+    Student student= new Student();
 
     public String getStatement() {
         String statement = "SELECT id_student, name, lastname,cellphone,address,email FROM public.student";
         return statement;
     }
 
-    public Student getById(Integer idStudent) {
+    public void add(String name, String lastName, String cellphone, String address, String email){
+        String sql= "INSERT INTO public.student(name, lastname,cellphone,address,email) VALUES ( ?,?,?,?,?)";
+        student.setName(name);
+        student.setLastName(lastName);
+        student.setCellphone(cellphone);
+        student.setAddress(address);
+        student.setEmail(email);
+        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
+            s1.setString(1, student.getName());
+            s1.setString(2, student.getLastName());
+            s1.setString(3, student.getCellphone());
+            s1.setString(4,student.getAddress());
+            s1.setString(5,student.getEmail());
+            s1.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public Student getById(Integer idStudent){
+        String sql = getStatement()+ " where id_student ="+ idStudent;
+        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
+            s1.setMaxRows(20);
+            try (ResultSet rs = s1.executeQuery()) {
+                while(rs.next()){
+                    student.setIdStudent(rs.getInt("id_student"));
+                    student.setName(rs.getString("name"));
+                    return student;
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
+    /*public Student getById(Integer idStudent) {
         String sql = getStatement() + " where id_student =" + idStudent;
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setMaxRows(100);
@@ -70,6 +108,7 @@ public class StudentManager {
     public Boolean add(Student entity) {
         String statement = "INSERT INTO public.student; (name, lastname,cellphone,address,email) VALUES ( ?,?,?,?,?)";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(statement)) {
+            //s1.setInt(1,entity.getId());
             s1.setString(1, entity.getName());
             s1.setString(2, entity.getLastName());
             s1.setString(3, entity.getCellphone());
@@ -84,5 +123,6 @@ public class StudentManager {
             return false;
         }
         return false;
-    }
+    }*/
+
 }
