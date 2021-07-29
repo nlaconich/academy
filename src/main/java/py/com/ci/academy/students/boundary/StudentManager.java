@@ -14,18 +14,15 @@ public class StudentManager {
     //Private static final long serialVersionUID = 1L;
     Student student= new Student();
 
+
     public String getStatement() {
         String statement = "SELECT id_student, name, lastname,cellphone,address,email FROM public.student";
         return statement;
     }
 
-    public void add(String name, String lastName, String cellphone, String address, String email){
+    public void add(Student student){
         String sql= "INSERT INTO public.student(name, lastname,cellphone,address,email) VALUES ( ?,?,?,?,?)";
-        student.setName(name);
-        student.setLastName(lastName);
-        student.setCellphone(cellphone);
-        student.setAddress(address);
-        student.setEmail(email);
+
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setString(1, student.getName());
             s1.setString(2, student.getLastName());
@@ -55,22 +52,6 @@ public class StudentManager {
         }
         return null;
     }
-
-    /*public Student getById(Integer idStudent) {
-        String sql = getStatement() + " where id_student =" + idStudent;
-        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setMaxRows(100);
-            try (ResultSet rs = s1.executeQuery()) {
-                while (rs.next()) {
-                    return getFromRsStudent(rs);
-                }
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
     public List<Student> getAll() {
         List<Student> listStudent = new ArrayList();
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(getStatement())) {
@@ -88,7 +69,7 @@ public class StudentManager {
     }
 
 
-   public Student getFromRsStudent(ResultSet rs) {
+    public Student getFromRsStudent(ResultSet rs) {
         try {
             Student data = new Student();
             data.setIdStudent(rs.getInt("id_student"));
@@ -104,6 +85,23 @@ public class StudentManager {
             return null;
         }
     }
+
+    /*public Student getById(Integer idStudent) {
+        String sql = getStatement() + " where id_student =" + idStudent;
+        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
+            s1.setMaxRows(100);
+            try (ResultSet rs = s1.executeQuery()) {
+                while (rs.next()) {
+                    return getFromRsStudent(rs);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+
 
     public Boolean add(Student entity) {
         String statement = "INSERT INTO public.student; (name, lastname,cellphone,address,email) VALUES ( ?,?,?,?,?)";

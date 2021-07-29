@@ -32,12 +32,6 @@ public class ConnectionManager {
             return null;
         }
 
-        if (connection != null) {
-            System.out.println("Connections ready");
-
-        } else {
-            System.out.println("Error connections");
-        }
 
         return connection;
     }
