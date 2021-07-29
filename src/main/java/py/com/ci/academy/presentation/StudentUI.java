@@ -39,6 +39,7 @@ public class StudentUI {
             }
             mainMenu();
         }catch (Exception ex){
+            
             mainMenu();
         }
     }
