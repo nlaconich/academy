@@ -35,20 +35,17 @@ public class StudentManager {
         }
     }
 
-    public Student getById(Integer idStudent){
-        String sql = getStatement()+ " where id_student ="+ idStudent;
+    public Student getById(Integer idStudent) {
+        String sql = getStatement() + " where id_student =" + idStudent;
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setMaxRows(20);
+            s1.setMaxRows(100);
             try (ResultSet rs = s1.executeQuery()) {
-                while(rs.next()){
-                    student.setIdStudent(rs.getInt("id_student"));
-                    student.setName(rs.getString("name"));
-                    return student;
+                while (rs.next()) {
+                    return getFromRsStudent(rs);
                 }
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return null;
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return null;
     }
@@ -68,6 +65,37 @@ public class StudentManager {
         }
     }
 
+    public int deleteById(Student student){
+        String sql="DELETE FROM public.student WHERE id_student= ?";
+        int rows= 0;
+        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
+            s1.setInt(1,student.getIdStudent());
+            rows= s1.executeUpdate();
+            return rows;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int updateById(Student student){
+        int rows=0;
+        String sql= "UPDATE public.student SET name=?, lastname=?,cellphone=?,address=?,email=? WHERE id_student=?";
+        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
+            s1.setString(1,student.getName());
+            s1.setString(2, student.getLastName());
+            s1.setString(3,student.getCellphone());
+            s1.setString(4,student.getAddress());
+            s1.setString(5,student.getEmail());
+            s1.setInt(6,student.getIdStudent());
+            rows= s1.executeUpdate();
+            return rows;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return 0;
+        }
+    }
+
 
     public Student getFromRsStudent(ResultSet rs) {
         try {
@@ -78,7 +106,6 @@ public class StudentManager {
             data.setCellphone(rs.getString("cellphone"));
             data.setAddress(rs.getString("address"));
             data.setEmail(rs.getString("email"));
-            //data.setIdStudent(rs.getInt("id_student"));
             return data;
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -86,20 +113,7 @@ public class StudentManager {
         }
     }
 
-    /*public Student getById(Integer idStudent) {
-        String sql = getStatement() + " where id_student =" + idStudent;
-        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setMaxRows(100);
-            try (ResultSet rs = s1.executeQuery()) {
-                while (rs.next()) {
-                    return getFromRsStudent(rs);
-                }
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
+    /*
 
 
 
