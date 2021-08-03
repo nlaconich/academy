@@ -1,4 +1,4 @@
 /target/
 target/*
-/src/main/java/py/com/ci/academy/utils/*
+/src/main/java/py/com/ci/academy/utils/**
 /db/*
