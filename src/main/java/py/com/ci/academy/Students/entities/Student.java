@@ -1,4 +1,4 @@
-package py.com.ci.academy.students.entities;
+package py.com.ci.academy.Students.entities;
 
 /**
  * @author nick
