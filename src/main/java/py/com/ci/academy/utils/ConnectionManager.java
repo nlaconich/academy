@@ -36,7 +36,7 @@ public class ConnectionManager {
 
     public static void main(String[] args) throws SQLException {
         if (new ConnectionManager().getConnection() != null) {
-            System.out.println("CONNECTION OK!!!");
+            System.out.println("CONNECTION OK!");
         } else {
             System.out.println("ERROR CONNECTION");
         }
