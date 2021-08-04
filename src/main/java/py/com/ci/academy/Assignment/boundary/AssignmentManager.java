@@ -56,9 +56,11 @@ public class AssignmentManager {
     }
 
     public boolean updateAssignment(Assignment assignment) {
-        String sql = "UPDATE public.assignment(name_assignment) WHERE id_statement=?;";
+        String sql = "UPDATE public.assignment SET name_assignment=? WHERE id_assignment=?;";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setString(1, assignment.getNameAssignment());
+            s1.setInt(2,assignment.getIdAssignment());
+            s1.executeUpdate();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,6 +72,7 @@ public class AssignmentManager {
         String sql="DELETE FROM public.assignment WHERE id_assignment=?;";
         try (PreparedStatement s1= ConnectionManager.getConnection().prepareStatement(sql)){
             s1.setInt(1,assignment.getIdAssignment());
+            s1.executeUpdate();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
