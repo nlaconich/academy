@@ -111,7 +111,7 @@ public class StudentUI {
         cellphone= sc.nextLine();
         System.out.println("Insert new Address");
         address= sc.nextLine();
-        System.out.println("Insert new Mail");
+        System.out.println("Insert new Mail ");
         email= sc.nextLine();
         student.setIdStudent(id);
         student.setName(name);
