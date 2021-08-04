@@ -1,5 +1,6 @@
 package py.com.ci.academy.Teacher.boundary;
 
+import py.com.ci.academy.Students.entities.Student;
 import py.com.ci.academy.Teacher.entities.Teacher;
 import py.com.ci.academy.utils.ConnectionManager;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class TeacherManager {
     //private static final long serialVersionUID = 1L;
 
+    /*
     public Teacher getById(Integer idTeacher) {
         String sql = getStatement() + " where idTeacher =" + idTeacher;
         try (PreparedStatement s1 = ConnectionManager.getConnection()
@@ -29,7 +31,7 @@ public class TeacherManager {
         }
         return null;
     }
-
+    */
     public List<Teacher> getAll() {
         List<Teacher> listTeacher = new ArrayList();
         try (PreparedStatement s1 = ConnectionManager.getConnection()
@@ -48,16 +50,16 @@ public class TeacherManager {
     }
 
     public String getStatement() {
-        String statement = "SELECT idTeacher, nameTeacher, lastName, cellphone, address, email,  url FROM public.Teacher;";
+        String statement = "SELECT id_teacher, name_teacher, lastName, cellphone, address, email FROM public.teacher;";
         return statement;
     }
 
     public Teacher getFromRsTeacher(ResultSet rs) {
         try {
             Teacher data = new Teacher();
-            data.setIdTeacher(rs.getInt("idTeacher"));
-            data.setNameTeacher(rs.getString("nameTeacher"));
-            data.setLastName(rs.getString("lastName"));
+            data.setIdTeacher(rs.getInt("id_teacher"));
+            data.setNameTeacher(rs.getString("name_teacher"));
+            data.setLastName(rs.getString("lastname"));
             data.setCellphone(rs.getString("cellphone"));
             data.setAddress(rs.getString("address"));
             data.setEmail(rs.getString("email"));
@@ -69,15 +71,14 @@ public class TeacherManager {
     }
 
     public Boolean add(Teacher entity) {
-        String statement = "INSERT INTO public.Teacher; (idTeacher, nameTeacher, lastName, cellphone, address, email) VALUES ( ?, ?, ?, ?, ?)";
+        String statement = "INSERT INTO public.teacher(name_teacher, lastname, cellphone, address, email) VALUES ( ?, ?, ?, ?, ?)";
         try (PreparedStatement s1 = ConnectionManager.getConnection()
                 .prepareStatement(statement)) {
-            s1.setInt(1, entity.getIdTeacher());
-            s1.setString(2, entity.getNameTeacher());
-            s1.setString(3, entity.getLastName());
-            s1.setString(4, entity.getCellphone());
-            s1.setString(5, entity.getAddress());
-            s1.setString(6, entity.getEmail());
+            s1.setString(1, entity.getNameTeacher());
+            s1.setString(2, entity.getLastName());
+            s1.setString(3, entity.getCellphone());
+            s1.setString(4, entity.getAddress());
+            s1.setString(5, entity.getEmail());
             Integer rs = s1.executeUpdate();
             if (rs > 0) {
                 return true;
@@ -87,5 +88,36 @@ public class TeacherManager {
             return false;
         }
         return false;
+    }
+
+    public int deleteById(Teacher teacher){
+        String sql="DELETE FROM public.teacher WHERE id_teacher= ?";
+        int rows= 0;
+        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
+            s1.setInt(1,teacher.getIdTeacher());
+            rows= s1.executeUpdate();
+            return rows;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int updateById(Teacher teacher){
+        int rows=0;
+        String sql= "UPDATE public.teacher SET name_teacher=?, lastname=?,cellphone=?,address=?,email=? WHERE id_teacher=?";
+        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
+            s1.setString(1,teacher.getNameTeacher());
+            s1.setString(2, teacher.getLastName());
+            s1.setString(3,teacher.getCellphone());
+            s1.setString(4,teacher.getAddress());
+            s1.setString(5,teacher.getEmail());
+            s1.setInt(6,teacher.getIdTeacher());
+            rows= s1.executeUpdate();
+            return rows;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return 0;
+        }
     }
 }
