@@ -90,7 +90,7 @@ public class AssignmentUI {
 
     private void updateAssignment() {
 
-        System.out.println("Insert Id ");
+        System.out.println("Insert Id");
         int id = sc.nextInt();
 
         sc.nextLine();
