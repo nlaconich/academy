@@ -1,31 +1,37 @@
-package py.com.ci.academy.students.entities;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package py.com.ci.academy.Teacher.entities;
 
 /**
- * @author nick
+ *
+ * @author martin
  */
-public class Student {
-    private int idStudent;
-    private String name;
+public class Teacher {
+    
+    private int idTeacher;
+    private String nameTeacher;
     private String lastName;
     private String cellphone;
     private String address;
     private String email;
 
-
-    public int getIdStudent() {
-        return idStudent;
+    public int getIdTeacher() {
+        return idTeacher;
     }
 
-    public void setIdStudent(int idStudent) {
-        this.idStudent = idStudent;
+    public void setIdTeacher(int idTeacher) {
+        this.idTeacher = idTeacher;
     }
 
-    public String getName() {
-        return name;
+    public String getNameTeacher() {
+        return nameTeacher;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameTeacher(String nameTeacher) {
+        this.nameTeacher = nameTeacher;
     }
 
     public String getLastName() {
@@ -36,9 +42,7 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public String getCellphone() {
-        return cellphone;
-    }
+    public String getCellphone() { return cellphone; }
 
     public void setCellphone(String cellphone) {
         this.cellphone = cellphone;
@@ -62,14 +66,13 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Students{" +
-                "idStudent=" + idStudent +
-                ", name='" + name + '\'' +
+        return "Teacher{" +
+                "idTeacher=" + idTeacher +
+                ", nameTeacher='" + nameTeacher + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", cellphone='" + cellphone + '\'' +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
-
 }

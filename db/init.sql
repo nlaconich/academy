@@ -1,25 +1,19 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- * Author:  nick
- * Created: 27 jul. 2021
- */
+-- Table: public.teacher
 
-CREATE TABLE IF NOT EXISTS public.student
+-- DROP TABLE public.teacher;
+
+CREATE TABLE IF NOT EXISTS public.teacher
 (
-    id_student integer NOT NULL DEFAULT nextval('student_id_student_seq'::regclass),
-    name character varying COLLATE pg_catalog."default",
-    lastname character varying COLLATE pg_catalog."default",
+    id_teacher integer NOT NULL,
+    "nameTeacher" character varying COLLATE pg_catalog."default",
+    "lastName" character varying COLLATE pg_catalog."default",
     cellphone character varying COLLATE pg_catalog."default",
     address character varying COLLATE pg_catalog."default",
     email character varying COLLATE pg_catalog."default",
-    CONSTRAINT pk_student PRIMARY KEY (id_student)
+    CONSTRAINT teacher_pkey PRIMARY KEY (id_teacher)
 )
 
 TABLESPACE pg_default;
 
-ALTER TABLE public.student
-    OWNER to developer;
+ALTER TABLE public.teacher
+    OWNER to jespinola;
