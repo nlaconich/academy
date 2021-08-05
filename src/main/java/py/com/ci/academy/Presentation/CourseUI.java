@@ -52,7 +52,7 @@ public class CourseUI {
         }
     }
 
-    private void listAllCourses() {
+    public void listAllCourses() {
         List<Course> courses = manager.getAll();
         if (!courses.isEmpty()) {
             for (Course course : courses) {

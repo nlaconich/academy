@@ -53,7 +53,7 @@ public class AssignmentUI {
         }
     }
 
-    private void listAllAssignment() {
+    public void listAllAssignment() {
         List<Assignment> assignments = manager.getAll();
         if (!assignments.isEmpty()) {
             for (Assignment assignment : assignments) {

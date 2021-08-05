@@ -66,12 +66,10 @@ public class InscriptionUI {
 
     private void registerInscription() {
         sc.nextLine();
-        System.out.println("Insert Id Course");
-        int idCourse = sc.nextInt();
+
         System.out.println("Insert Id Student");
         int idStudent = sc.nextInt();
 
-        inscription.setIdCourse(idCourse);
         inscription.setIdStudent(idStudent);
 
         manager.addInscription(inscription);
@@ -98,13 +96,12 @@ public class InscriptionUI {
         int idInscription = sc.nextInt();
 
         sc.nextLine();
-        System.out.println("Insert new Id Course");
-        int idCourse = sc.nextInt();
+
         System.out.println("Insert new Id Student");
         int idStudent = sc.nextInt();
 
         inscription.setIdInscription(idInscription);
-        inscription.setIdCourse(idCourse);
+
         inscription.setIdStudent(idStudent);
 
         boolean ban = manager.updateInscription(inscription);
