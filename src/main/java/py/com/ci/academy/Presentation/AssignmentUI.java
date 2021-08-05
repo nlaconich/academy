@@ -65,7 +65,7 @@ public class AssignmentUI {
     }
 
     private void registerAssignment() {
-        String name = JOptionPane.showInputDialog("Insert Name");
+        String name = JOptionPane.showInputDialog("Insert Name ");
 
         assignment.setNameAssignment(name);
 
