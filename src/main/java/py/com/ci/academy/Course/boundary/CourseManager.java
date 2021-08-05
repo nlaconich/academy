@@ -3,7 +3,6 @@ package py.com.ci.academy.Course.boundary;
 import py.com.ci.academy.Course.entities.Course;
 import py.com.ci.academy.utils.ConnectionManager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
