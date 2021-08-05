@@ -93,7 +93,7 @@ public class InscriptionUI {
 
         boolean ban = manager.deleteInscription(inscription);
         if (ban == true) {
-            System.out.println("Delete successful ");
+            System.out.println("Delete successful");
         } else {
             System.out.println("Error");
         }
