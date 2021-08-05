@@ -22,7 +22,7 @@ public class ConnectionManager {
             return null;
         }
 
-
+/*
         if(connection!=null){
             System.out.println("Connections ready");
 
@@ -30,7 +30,7 @@ public class ConnectionManager {
         else{
             System.out.println("Error connections");
         }
-
+*/
         return connection;
     }
     public static void main(String[] args) throws SQLException {

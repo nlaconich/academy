@@ -61,19 +61,18 @@ public class StudentUI {
         }
     }
     private  void registerStudent() {
-        String name = null, lastName = null, cellphone = null, address = null, email = null;
 
         sc.nextLine();
         System.out.println("Insert Name");
-        name= sc.nextLine();
+        String name = sc.nextLine();
         System.out.println("Insert Last Name");
-        lastName= sc.nextLine();
+        String lastName = sc.nextLine();
         System.out.println("Insert Phone");
-        cellphone= sc.nextLine();
+        String cellphone = sc.nextLine();
         System.out.println("Insert Address");
-        address= sc.nextLine();
+        String address = sc.nextLine();
         System.out.println("Insert Mail");
-        email= sc.nextLine();
+        String email = sc.nextLine();
 
         student.setName(name);
         student.setLastName(lastName);
@@ -85,13 +84,12 @@ public class StudentUI {
     }
 
     private void deleteStudent(){
-        int id=0, rows=0;
 
         System.out.println("Insert Id ");
-        id=sc.nextInt();
+        int id = sc.nextInt();
         student.setIdStudent(id);
 
-        rows= studentManager.deleteById(student);
+        int rows = studentManager.deleteById(student);
         System.out.println("Applied, "+rows+" affected");
     }
 

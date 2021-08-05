@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class AssignmentManager {
-    Assignment assignment = new Assignment();
 
     private String getStatement() {
         String statement = "SELECT id_assignment, name_assignment FROM public.assignment";
@@ -18,9 +17,10 @@ public class AssignmentManager {
 
     private Assignment getFromRsAssignment(ResultSet rs) {
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(getStatement())) {
-            assignment.setIdAssignment(rs.getInt("id_assignment"));
-            assignment.setNameAssignment(rs.getString("name_assignment"));
-            return assignment;
+            Assignment data= new Assignment();
+            data.setIdAssignment(rs.getInt("id_assignment"));
+            data.setNameAssignment(rs.getString("name_assignment"));
+            return data;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -56,14 +56,14 @@ public class AssignmentManager {
     }
 
     public boolean updateAssignment(Assignment assignment) {
-        String sql = "UPDATE public.assignment SET name_assignment=? WHERE id_assignment=?;";
+        String sql= "UPDATE public.assignment SET name_assignment=? WHERE id_assignment=?";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setString(1, assignment.getNameAssignment());
-            s1.setInt(2,assignment.getIdAssignment());
+            s1.setString(1,assignment.getNameAssignment());
+            s1.setInt(2, assignment.getIdAssignment());
             s1.executeUpdate();
             return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
             return false;
         }
     }

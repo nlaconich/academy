@@ -3,6 +3,7 @@ package py.com.ci.academy.Presentation;
 import py.com.ci.academy.Assignment.boundary.AssignmentManager;
 import py.com.ci.academy.Assignment.entities.Assignment;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Scanner;
 
@@ -64,9 +65,7 @@ public class AssignmentUI {
     }
 
     private void registerAssignment() {
-        sc.nextLine();
-        System.out.println("Insert Name");
-        String name = sc.nextLine();
+        String name = JOptionPane.showInputDialog("Insert Name");
 
         assignment.setNameAssignment(name);
 
