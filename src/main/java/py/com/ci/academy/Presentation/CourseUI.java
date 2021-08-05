@@ -59,7 +59,7 @@ public class CourseUI {
                 System.out.println(course);
             }
         } else {
-            System.out.println("No course found");
+            System.out.println("No course found ");
         }
     }
 
