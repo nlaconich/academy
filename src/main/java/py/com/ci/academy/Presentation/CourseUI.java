@@ -16,7 +16,7 @@ public class CourseUI {
         test.mainMenu();
     }
 
-    private void mainMenu() {
+    public void mainMenu() {
         System.out.println("Welcome to CourseUI beta 0.0");
         System.out.println("----------------------------------------");
         System.out.println("Choose an option ");
@@ -52,38 +52,29 @@ public class CourseUI {
         }
     }
 
-    private void listAllCourses() {
+    public void listAllCourses() {
         List<Course> courses = manager.getAll();
         if (!courses.isEmpty()) {
             for (Course course : courses) {
                 System.out.println(course);
             }
         } else {
-            System.out.println("No course found");
+            System.out.println("No course found ");
         }
     }
 
     private void registerCourse() {
         sc.nextLine();
-        System.out.println("Insert Name");
-        String name = sc.nextLine();
-        System.out.println("Insert Assignment 1");
-        int assignment = sc.nextInt();
-        /*System.out.println("Insert Assignment 2");
-        int assignment2 = sc.nextInt();
-        System.out.println("Insert Assignment 3");
-        int assignment3 = sc.nextInt();
-        System.out.println("Insert Assignment 4");
-        int assignment4 = sc.nextInt();*/
-        System.out.println("Insert Teacher");
+        System.out.println("Insert Course Name");
+        String nameCourse = sc.nextLine();
+        System.out.println("Insert Teacher Id");
         int teacherId = sc.nextInt();
+        System.out.println("Insert Teacher Name");
+        String nameTeacher = sc.nextLine();
 
-        course.setNameCourse(name);
-        course.setIdAssignment(assignment);
-        /*course.setIdAssignment2(assignment2);
-        course.setIdAssignment3(assignment3);
-        course.setIdAssignment4(assignment4);*/
+        course.setNameCourse(nameCourse);
         course.setIdTeacher(teacherId);
+        course.setNameTeacher(nameTeacher);
 
         manager.addCourse(course);
     }
@@ -109,26 +100,16 @@ public class CourseUI {
         int id = sc.nextInt();
 
         sc.nextLine();
-        System.out.println("Insert new Name");
-        String name = sc.nextLine();
-        System.out.println("Insert new Assignment 1");
-        int assignment = sc.nextInt();
-        /*System.out.println("Insert new Assignment 2");
-        int assignment2 = sc.nextInt();
-        System.out.println("Insert new Assignment 3");
-        int assignment3 = sc.nextInt();
-        System.out.println("Insert new Assignment 4");
-        int assignment4 = sc.nextInt();*/
-        System.out.println("Insert new Teacher");
+        System.out.println("Insert new Course Name");
+        String nameCourse = sc.nextLine();
+        System.out.println("Insert new Teacher Id");
         int teacherId = sc.nextInt();
+        System.out.println("Insert new Teacher Name");
+        String nameTeacher = sc.nextLine();
 
-        course.setIdCourse(id);
-        course.setNameCourse(name);
-        course.setIdAssignment(assignment);
-        /*course.setIdAssignment2(assignment2);
-        course.setIdAssignment3(assignment3);
-        course.setIdAssignment4(assignment4);*/
+        course.setNameCourse(nameCourse);
         course.setIdTeacher(teacherId);
+        course.setNameTeacher(nameTeacher);
 
 
         boolean ban = manager.updateCourse(course);

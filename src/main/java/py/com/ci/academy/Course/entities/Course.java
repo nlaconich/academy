@@ -3,25 +3,8 @@ package py.com.ci.academy.Course.entities;
 public class Course {
     private int idCourse;
     private String nameCourse;
-    private int idAssignment;
     private int idTeacher;
-    private String nameAssignment;
-
-    public String getNameAssignment() {
-        return nameAssignment;
-    }
-
-    public void setNameAssignment(String nameAssignment) {
-        this.nameAssignment = nameAssignment;
-    }
-
-    public int getIdTeacher() {
-        return idTeacher;
-    }
-
-    public void setIdTeacher(int idTeacher) {
-        this.idTeacher = idTeacher;
-    }
+    private  String nameTeacher;
 
     public int getIdCourse() {
         return idCourse;
@@ -39,12 +22,20 @@ public class Course {
         this.nameCourse = nameCourse;
     }
 
-    public int getIdAssignment() {
-        return idAssignment;
+    public int getIdTeacher() {
+        return idTeacher;
     }
 
-    public void setIdAssignment(int idAssignment) {
-        this.idAssignment = idAssignment;
+    public void setIdTeacher(int idTeacher) {
+        this.idTeacher = idTeacher;
+    }
+
+    public String getNameTeacher() {
+        return nameTeacher;
+    }
+
+    public void setNameTeacher(String nameTeacher) {
+        this.nameTeacher = nameTeacher;
     }
 
     @Override
@@ -52,9 +43,8 @@ public class Course {
         return "Course{" +
                 "idCourse=" + idCourse +
                 ", nameCourse='" + nameCourse + '\'' +
-                ", idAssignment=" + idAssignment +
-                ", nameAssignment='" + nameAssignment + '\'' +
                 ", idTeacher=" + idTeacher +
+                ", nameTeacher='" + nameTeacher + '\'' +
                 '}';
     }
 }
