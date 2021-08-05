@@ -31,10 +31,11 @@ public class InscriptionManager {
     }
 
     public void addInscription(Inscription report) {
-        String sql = "INSERT INTO public.inscription(id_course, id_student) VALUES(?,?);";
-        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setInt(1, report.getIdCourse());
-            s1.setInt(1, report.getIdStudent());
+        String sql = "INSERT INTO public.inscription(id_course,id_student) VALUES (?,?)";
+        try (PreparedStatement s1= ConnectionManager.getConnection().prepareStatement(sql)){
+            s1.setInt(1,report.getIdCourse());
+            s1.setInt(2,report.getIdStudent());
+            s1.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -57,7 +58,7 @@ public class InscriptionManager {
     }
 
     public boolean updateInscription(Inscription inscription) {
-        String sql = "UPDATE public.inscription SET id_course=?, id_student=? WHERE id_inscription=?";
+        String sql = "UPDATE public.inscription SET id_course=?, id_student= ? WHERE id_inscription=?";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setInt(1, inscription.getIdCourse());
             s1.setInt(2, inscription.getIdStudent());
