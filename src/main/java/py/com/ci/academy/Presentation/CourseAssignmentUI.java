@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class CourseAssignmentUI {
     Scanner sc = new Scanner(System.in);
     CourseAssignmentManager manager = new CourseAssignmentManager();
-    CourseAssignment course = new CourseAssignment();
+    CourseAssignment courseAssignment = new CourseAssignment();
 
     CourseUI courseUI= new CourseUI();
     AssignmentUI assignmentUI= new AssignmentUI();
@@ -78,19 +78,19 @@ public class CourseAssignmentUI {
         System.out.println("Insert Assignment Id");
         int idAssignment = sc.nextInt();
 
-        course.setIdCourse(idCourse);
-        course.setIdAssignment(idAssignment);
+        courseAssignment.setIdCourse(idCourse);
+        courseAssignment.setIdAssignment(idAssignment);
 
-        manager.addCourseAssignment(course);
+        manager.addCourseAssignment(courseAssignment);
     }
 
     private void deleteCourseAssignment() {
 
         System.out.println("Insert Id");
         int id = sc.nextInt();
-        course.setIdCourse(id);
+        courseAssignment.setIdCourseAssignment(id);
 
-        boolean ban = manager.deleteCourseAssignment(course);
+        boolean ban = manager.deleteCourseAssignment(courseAssignment);
         if (ban == true) {
             System.out.println("Delete successful");
         } else {
@@ -102,6 +102,11 @@ public class CourseAssignmentUI {
     private void updateCourseAssignment() {
         System.out.println("List of all Courses with Assignments");
         this.listAllCourseAssignments();
+        System.out.println("List of Courses");
+        courseUI.listAllCourses();
+        System.out.println("List of Assignments");
+        assignmentUI.listAllAssignment();
+
         System.out.println("Insert Id");
         int id = sc.nextInt();
 
@@ -110,10 +115,12 @@ public class CourseAssignmentUI {
         int idCourse = sc.nextInt();
         System.out.println("Insert new Assignment Id");
         int idAssignment = sc.nextInt();
-        course.setIdCourse(idCourse);
-        course.setIdAssignment(idAssignment);
 
-        boolean ban = manager.updateCourseAssignment(course);
+        courseAssignment.setIdCourseAssignment(id);
+        courseAssignment.setIdCourse(idCourse);
+        courseAssignment.setIdAssignment(idAssignment);
+
+        boolean ban = manager.updateCourseAssignment(courseAssignment);
         if (ban == true) {
             System.out.println("Update successful");
         } else {

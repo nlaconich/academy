@@ -59,10 +59,10 @@ public class CourseAssignmentManager {
         }
     }
 
-    public boolean updateCourseAssignment(CourseAssignment courseAssignment) {
-        String sql = "UPDATE public.courseassignment SET id_course=?, id_assignment=? WHERE id_cxa=?";
+    public boolean updateCourseAssignment(CourseAssignment courseAssignment){
+        String sql="UPDATE public.courseassignment SET id_course=?, id_assignment=? WHERE id_cxa=?";
         try (PreparedStatement s1= ConnectionManager.getConnection().prepareStatement(sql)){
-            s1.setInt(1,courseAssignment.getIdCourse());
+            s1.setInt(1, courseAssignment.getIdCourse());
             s1.setInt(2,courseAssignment.getIdAssignment());
             s1.setInt(3,courseAssignment.getIdCourseAssignment());
             s1.executeUpdate();
