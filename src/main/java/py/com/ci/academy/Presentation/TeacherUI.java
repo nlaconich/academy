@@ -17,7 +17,7 @@ public class TeacherUI {
         teacherUI.mainMenu();
     }
 
-    private void mainMenu(){
+    public void mainMenu(){
         System.out.println("Welcome to teacher academy beta 0.0");
         System.out.println("-----------------------------------");
         System.out.println("Choose an option: ");

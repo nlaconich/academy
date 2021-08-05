@@ -17,7 +17,7 @@ public class InscriptionUI {
         test.mainMenu();
     }
 
-    private void mainMenu() {
+    public void mainMenu() {
         System.out.println("Welcome to InscriptionUI beta 0.0");
         System.out.println("----------------------------------------");
         System.out.println("Choose an option ");

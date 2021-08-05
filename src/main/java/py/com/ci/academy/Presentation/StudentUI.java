@@ -14,7 +14,7 @@ public class StudentUI {
         StudentUI test = new StudentUI();
         test.mainMenu();
     }
-    private  void mainMenu(){
+    public void mainMenu(){
         System.out.println("Welcome to Student Academy beta 0.0");
         System.out.println("----------------------------------------");
         System.out.println("Choose an option ");
