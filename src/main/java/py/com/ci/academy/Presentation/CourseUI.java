@@ -16,7 +16,7 @@ public class CourseUI {
         test.mainMenu();
     }
 
-    private void mainMenu() {
+    public void mainMenu() {
         System.out.println("Welcome to CourseUI beta 0.0");
         System.out.println("----------------------------------------");
         System.out.println("Choose an option ");
