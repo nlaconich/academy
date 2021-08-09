@@ -32,14 +32,16 @@ public class CourseAssignmentManager {
         }
     }
 
-    public void addCourseAssignment(CourseAssignment course) {
-        String sql = "INSERT INTO public.course(id_course, id_assignment) VALUES(?,?);";
+    public boolean addCourseAssignment(CourseAssignment course) {
+        String sql = "INSERT INTO public.courseassignment(id_course, id_assignment) VALUES(?,?);";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setInt(1, course.getIdCourse());
             s1.setInt(2, course.getIdAssignment());
             s1.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 

@@ -9,20 +9,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class InscriptionManager {
     private String getStatement() {
-        String sql = "SELECT i.id_inscription, i.id_course, c.name_course, i.id_student, s.name FROM public.inscription i, public.course c, public.student s WHERE (i.id_course=c.id_course) and (i.id_student=s.id_student)";
+        String sql = "SELECT i.id_inscription, i.id_student, s.name,i.id_cxa, co.name_course, a.name_assignment FROM public.inscription i, public.assignment a, public.course co, public.courseassignment ca, public.student s WHERE (i.id_student = s.id_student) AND (i.id_cxa= ca.id_cxa) AND (ca.id_assignment= a.id_assignment) AND (ca.id_course = co.id_course)";
         return sql;
     }
 
     private Inscription getFromRsInscription(ResultSet rs) {
         try {
-            Inscription inscription = new Inscription();
+            Inscription inscription= new Inscription();
             inscription.setIdInscription(rs.getInt("id_inscription"));
-            inscription.setIdCourse(rs.getInt("id_course"));
-            inscription.setNameCourse(rs.getString("name_course"));
             inscription.setIdStudent(rs.getInt("id_student"));
             inscription.setNameStudent(rs.getString("name"));
+            inscription.setIdCxA(rs.getInt("id_cxa"));
+            inscription.setNameCourse(rs.getString("name_course"));
+            inscription.setNameAssignment(rs.getString("name_assignment"));
             return inscription;
         } catch (Exception e) {
             e.printStackTrace();
@@ -31,10 +33,10 @@ public class InscriptionManager {
     }
 
     public void addInscription(Inscription report) {
-        String sql = "INSERT INTO public.inscription(id_course,id_student) VALUES (?,?)";
+        String sql = "INSERT INTO public.inscription(id_student, id_cxa) VALUES (?,?)";
         try (PreparedStatement s1= ConnectionManager.getConnection().prepareStatement(sql)){
-            s1.setInt(1,report.getIdCourse());
-            s1.setInt(2,report.getIdStudent());
+            s1.setInt(1,report.getIdStudent());
+            s1.setInt(2,report.getIdCxA());
             s1.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,11 +60,11 @@ public class InscriptionManager {
     }
 
     public boolean updateInscription(Inscription inscription) {
-        String sql = "UPDATE public.inscription SET id_course=?, id_student= ? WHERE id_inscription=?";
+        String sql = "UPDATE public.inscription SET id_student= ? ,id_cxa=? WHERE id_inscription=?";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setInt(1, inscription.getIdCourse());
-            s1.setInt(2, inscription.getIdStudent());
-            s1.setInt(3, inscription.getIdInscription());
+            s1.setInt(1, inscription.getIdStudent());
+            s1.setInt(2, inscription.getIdCxA());
+            s1.setInt(3,inscription.getIdInscription());
             s1.executeUpdate();
             return true;
         } catch (SQLException throwables) {

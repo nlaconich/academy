@@ -13,11 +13,11 @@ public class TeacherUI {
 
 
     public static void main(String[] args) {
-        TeacherUI teacherUI= new TeacherUI();
+        TeacherUI teacherUI = new TeacherUI();
         teacherUI.mainMenu();
     }
 
-    public void mainMenu(){
+    public void mainMenu() {
         System.out.println("Welcome to teacher academy beta 0.0");
         System.out.println("-----------------------------------");
         System.out.println("Choose an option: ");
@@ -26,11 +26,11 @@ public class TeacherUI {
         System.out.println("3 : Delete a teacher");
         System.out.println("4 : Update a teacher");
         System.out.println("5 : Exit");
-        System.out.println("Option: ___");
-        String option =     sc.next();
-        try{
+        System.out.print("Option: ");
+        String option = sc.next();
+        try {
             Integer selectedOption = Integer.parseInt(option);
-            switch (selectedOption){
+            switch (selectedOption) {
                 case 1:
                     listAllTeachers();
                     break;
@@ -47,38 +47,37 @@ public class TeacherUI {
                     return;
             }
             mainMenu();
-        }catch (Exception ex){
+        } catch (Exception ex) {
 
             mainMenu();
         }
     }
 
-    private  void listAllTeachers() {
+    public void listAllTeachers() {
         List<Teacher> listTeachers = teacherManager.getAll();
-        if (!listTeachers.isEmpty()){
-            for(Teacher teacher: listTeachers){
+        if (!listTeachers.isEmpty()) {
+            for (Teacher teacher : listTeachers) {
                 System.out.println(teacher);
             }
-        }
-        else{
+        } else {
             System.out.println("No teacher found");
         }
     }
 
-    private  void registerTeacher() {
+    private void registerTeacher() {
         String name = null, lastName = null, cellphone = null, address = null, email = null;
 
         sc.nextLine();
         System.out.println("Insert Name");
-        name= sc.nextLine();
+        name = sc.nextLine();
         System.out.println("Insert Last Name");
-        lastName= sc.nextLine();
+        lastName = sc.nextLine();
         System.out.println("Insert Phone");
-        cellphone= sc.nextLine();
+        cellphone = sc.nextLine();
         System.out.println("Insert Address");
-        address= sc.nextLine();
+        address = sc.nextLine();
         System.out.println("Insert Mail");
-        email= sc.nextLine();
+        email = sc.nextLine();
 
         teacher.setNameTeacher(name);
         teacher.setLastName(lastName);
@@ -87,42 +86,39 @@ public class TeacherUI {
         teacher.setEmail(email);
 
         boolean tm = teacherManager.add(teacher);
-            if(tm == true){
-                System.out.println("Opration succesful");
+        if (tm == true) {
+            System.out.println("Operation successfully");
 
-            }else{
-                System.out.println("Error");
-            }
+        } else {
+            System.out.println("Error");
+        }
     }
 
-    private void deleteTeacher(){
-        int id=0, rows=0;
-
+    private void deleteTeacher() {
+        this.listAllTeachers();
         System.out.println("Insert Id ");
-        id=sc.nextInt();
+        int id = sc.nextInt();
         teacher.setIdTeacher(id);
 
-        rows= teacherManager.deleteById(teacher);
-        System.out.println("Applied, "+rows+" affected");
+        int rows = teacherManager.deleteById(teacher);
+        System.out.println("Applied, " + rows + " affected");
     }
 
-   private void updateTeacher(){
-        int id=0, rows=0;
-        String name = null, lastName = null, cellphone = null, address = null, email = null;
-
+    private void updateTeacher() {
+        this.listAllTeachers();
         System.out.println("Insert Id ");
-        id= sc.nextInt();
+        int id = sc.nextInt();
         sc.nextLine();
         System.out.println("Insert new Name");
-        name= sc.nextLine();
+        String name = sc.nextLine();
         System.out.println("Insert new Last Name");
-        lastName= sc.nextLine();
+        String lastName = sc.nextLine();
         System.out.println("Insert new Phone");
-        cellphone= sc.nextLine();
+        String cellphone = sc.nextLine();
         System.out.println("Insert new Address");
-        address= sc.nextLine();
+        String address = sc.nextLine();
         System.out.println("Insert new Mail");
-        email= sc.nextLine();
+        String email = sc.nextLine();
         teacher.setIdTeacher(id);
         teacher.setNameTeacher(name);
         teacher.setLastName(lastName);
@@ -130,8 +126,8 @@ public class TeacherUI {
         teacher.setAddress(address);
         teacher.setEmail(email);
 
-        rows= teacherManager.updateById(teacher);
-        System.out.println("Applied, "+rows+" affected");
+        int rows = teacherManager.updateById(teacher);
+        System.out.println("Applied, " + rows + " affected");
     }
 
 

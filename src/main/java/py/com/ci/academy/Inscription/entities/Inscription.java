@@ -3,8 +3,11 @@ package py.com.ci.academy.Inscription.entities;
 public class Inscription {
     private int idInscription;
     private int idCourse;
+    private int idCxA;
+    private int idAssignment;
     private int idStudent;
     private String nameCourse;
+    private String nameAssignment;
     private String nameStudent;
 
     public int getIdInscription() {
@@ -23,6 +26,22 @@ public class Inscription {
         this.idCourse = idCourse;
     }
 
+    public int getIdCxA() {
+        return idCxA;
+    }
+
+    public void setIdCxA(int idCxA) {
+        this.idCxA = idCxA;
+    }
+
+    public int getIdAssignment() {
+        return idAssignment;
+    }
+
+    public void setIdAssignment(int idAssignment) {
+        this.idAssignment = idAssignment;
+    }
+
     public int getIdStudent() {
         return idStudent;
     }
@@ -39,6 +58,14 @@ public class Inscription {
         this.nameCourse = nameCourse;
     }
 
+    public String getNameAssignment() {
+        return nameAssignment;
+    }
+
+    public void setNameAssignment(String nameAssignment) {
+        this.nameAssignment = nameAssignment;
+    }
+
     public String getNameStudent() {
         return nameStudent;
     }
@@ -49,12 +76,12 @@ public class Inscription {
 
     @Override
     public String toString() {
-        return "Inscription{" +
-                "idInscription=" + idInscription +
-                ", idCourse=" + idCourse +
-                ", idStudent=" + idStudent +
-                ", nameCourse='" + nameCourse + '\'' +
-                ", nameStudent='" + nameStudent + '\'' +
-                '}';
+        return "idInscription= " + idInscription +
+                ", idCoursexAssignment= " + idCxA +
+                ", idStudent= " + idStudent +
+                ", nameCourse= " + nameCourse +
+                ", nameAssignment= " + nameAssignment +
+                ", nameStudent= " + nameStudent +
+                "\n----------------------------------------";
     }
 }

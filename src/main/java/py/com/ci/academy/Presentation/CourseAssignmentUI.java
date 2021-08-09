@@ -24,12 +24,12 @@ public class CourseAssignmentUI {
         System.out.println("Welcome to CourseAssignmentUI beta 0.0");
         System.out.println("----------------------------------------");
         System.out.println("Choose an option ");
-        System.out.println("1 : List all courses");
-        System.out.println("2 : Add a course");
-        System.out.println("3 : Delete a course");
-        System.out.println("4 : Update a course");
+        System.out.println("1 : List all Courses with Assignments");
+        System.out.println("2 : Set an Assignment to a Course");
+        System.out.println("3 : Delete a Relationship");
+        System.out.println("4 : Update a Relationship");
         System.out.println("5 : Exit");
-        System.out.println("Option: ___");
+        System.out.print("Option: ");
         String option = sc.next();
         try {
             Integer selectedOption = Integer.parseInt(option);
@@ -56,35 +56,46 @@ public class CourseAssignmentUI {
         }
     }
 
-    private void listAllCourseAssignments() {
+    public void listAllCourseAssignments() {
         List<CourseAssignment> courses = manager.getAll();
         if (!courses.isEmpty()) {
             for (CourseAssignment course : courses) {
                 System.out.println(course);
             }
         } else {
-            System.out.println("No course found ");
+            System.out.println("No Relationship Found ");
         }
     }
 
     private void registerCourseAssignment() {
         System.out.println("List of Courses");
         courseUI.listAllCourses();
-        System.out.println("List of Assignments");
-        assignmentUI.listAllAssignment();
-        sc.nextLine();
+
         System.out.println("Insert Course Id");
         int idCourse = sc.nextInt();
+        System.out.println("----------------------------------------");
+
+        System.out.println("List of Assignments");
+        assignmentUI.listAllAssignment();
+
         System.out.println("Insert Assignment Id");
         int idAssignment = sc.nextInt();
 
         courseAssignment.setIdCourse(idCourse);
         courseAssignment.setIdAssignment(idAssignment);
 
-        manager.addCourseAssignment(courseAssignment);
+        boolean ban = manager.addCourseAssignment(courseAssignment);
+        if (ban == true) {
+            System.out.println("Added successfully");
+        } else {
+            System.out.println("Error");
+        }
     }
 
     private void deleteCourseAssignment() {
+        System.out.println("Relationship List");
+        this.listAllCourseAssignments();
+        //System.out.println("------------------------------");
 
         System.out.println("Insert Id");
         int id = sc.nextInt();
@@ -102,17 +113,21 @@ public class CourseAssignmentUI {
     private void updateCourseAssignment() {
         System.out.println("List of all Courses with Assignments");
         this.listAllCourseAssignments();
-        System.out.println("List of Courses");
-        courseUI.listAllCourses();
-        System.out.println("List of Assignments");
-        assignmentUI.listAllAssignment();
 
         System.out.println("Insert Id");
         int id = sc.nextInt();
+        System.out.println("----------------------------------------");
 
-        sc.nextLine();
+        System.out.println("List of Courses");
+        courseUI.listAllCourses();
         System.out.println("Insert new Course Id");
         int idCourse = sc.nextInt();
+        System.out.println("----------------------------------------");
+
+        System.out.println("List of Assignments");
+        assignmentUI.listAllAssignment();
+        System.out.println("----------------------------------------");
+
         System.out.println("Insert new Assignment Id");
         int idAssignment = sc.nextInt();
 
