@@ -90,12 +90,12 @@ public class TeacherManager {
         return false;
     }
 
-    public int deleteById(Teacher teacher){
-        String sql="DELETE FROM public.teacher WHERE id_teacher= ?";
-        int rows= 0;
+    public int deleteById(Teacher teacher) {
+        String sql = "DELETE FROM public.teacher WHERE id_teacher= ?";
+        int rows = 0;
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setInt(1,teacher.getIdTeacher());
-            rows= s1.executeUpdate();
+            s1.setInt(1, teacher.getIdTeacher());
+            rows = s1.executeUpdate();
             return rows;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -103,17 +103,17 @@ public class TeacherManager {
         }
     }
 
-    public int updateById(Teacher teacher){
-        int rows=0;
-        String sql= "UPDATE public.teacher SET name_teacher=?, lastname=?,cellphone=?,address=?,email=? WHERE id_teacher=?";
+    public int updateById(Teacher teacher) {
+        int rows = 0;
+        String sql = "UPDATE public.teacher SET name_teacher=?, lastname=?,cellphone=?,address=?,email=? WHERE id_teacher=?";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setString(1,teacher.getNameTeacher());
+            s1.setString(1, teacher.getNameTeacher());
             s1.setString(2, teacher.getLastName());
-            s1.setString(3,teacher.getCellphone());
-            s1.setString(4,teacher.getAddress());
-            s1.setString(5,teacher.getEmail());
-            s1.setInt(6,teacher.getIdTeacher());
-            rows= s1.executeUpdate();
+            s1.setString(3, teacher.getCellphone());
+            s1.setString(4, teacher.getAddress());
+            s1.setString(5, teacher.getEmail());
+            s1.setInt(6, teacher.getIdTeacher());
+            rows = s1.executeUpdate();
             return rows;
         } catch (SQLException throwables) {
             throwables.printStackTrace();

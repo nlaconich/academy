@@ -64,7 +64,7 @@ public class CourseUI {
     }
 
     private void registerCourse() {
-        TeacherUI teacherUI= new TeacherUI();
+        TeacherUI teacherUI = new TeacherUI();
 
         sc.nextLine();
         System.out.println("Insert Course Name");
@@ -96,7 +96,7 @@ public class CourseUI {
     }
 
     private void updateCourse() {
-        TeacherUI teacherUI= new TeacherUI();
+        TeacherUI teacherUI = new TeacherUI();
         this.listAllCourses();
 
         System.out.println("Insert Id");

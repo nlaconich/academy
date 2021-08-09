@@ -4,7 +4,7 @@ public class Course {
     private int idCourse;
     private String nameCourse;
     private int idTeacher;
-    private  String nameTeacher;
+    private String nameTeacher;
 
     public int getIdCourse() {
         return idCourse;

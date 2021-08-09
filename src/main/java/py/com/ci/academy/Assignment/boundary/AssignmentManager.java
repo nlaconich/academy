@@ -17,7 +17,7 @@ public class AssignmentManager {
 
     private Assignment getFromRsAssignment(ResultSet rs) {
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(getStatement())) {
-            Assignment data= new Assignment();
+            Assignment data = new Assignment();
             data.setIdAssignment(rs.getInt("id_assignment"));
             data.setNameAssignment(rs.getString("name_assignment"));
             return data;
@@ -58,9 +58,9 @@ public class AssignmentManager {
     }
 
     public boolean updateAssignment(Assignment assignment) {
-        String sql= "UPDATE public.assignment SET name_assignment=? WHERE id_assignment=?";
+        String sql = "UPDATE public.assignment SET name_assignment=? WHERE id_assignment=?";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setString(1,assignment.getNameAssignment());
+            s1.setString(1, assignment.getNameAssignment());
             s1.setInt(2, assignment.getIdAssignment());
             s1.executeUpdate();
             return true;
@@ -70,10 +70,10 @@ public class AssignmentManager {
         }
     }
 
-    public boolean deleteAssignment(Assignment assignment){
-        String sql="DELETE FROM public.assignment WHERE id_assignment=?;";
-        try (PreparedStatement s1= ConnectionManager.getConnection().prepareStatement(sql)){
-            s1.setInt(1,assignment.getIdAssignment());
+    public boolean deleteAssignment(Assignment assignment) {
+        String sql = "DELETE FROM public.assignment WHERE id_assignment=?;";
+        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
+            s1.setInt(1, assignment.getIdAssignment());
             s1.executeUpdate();
             return true;
         } catch (SQLException e) {
