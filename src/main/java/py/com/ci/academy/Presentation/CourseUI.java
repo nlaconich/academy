@@ -25,7 +25,7 @@ public class CourseUI {
         System.out.println("3 : Delete a course");
         System.out.println("4 : Update a course");
         System.out.println("5 : Exit");
-        System.out.println("Option: ___");
+        System.out.print("Option: ");
         String option = sc.next();
         try {
             Integer selectedOption = Integer.parseInt(option);
@@ -59,28 +59,29 @@ public class CourseUI {
                 System.out.println(course);
             }
         } else {
-            System.out.println("No course found ");
+            System.out.println("No course found");
         }
     }
 
     private void registerCourse() {
+        TeacherUI teacherUI= new TeacherUI();
+
         sc.nextLine();
         System.out.println("Insert Course Name");
         String nameCourse = sc.nextLine();
+
+        teacherUI.listAllTeachers();
         System.out.println("Insert Teacher Id");
         int teacherId = sc.nextInt();
-        System.out.println("Insert Teacher Name");
-        String nameTeacher = sc.nextLine();
 
         course.setNameCourse(nameCourse);
         course.setIdTeacher(teacherId);
-        course.setNameTeacher(nameTeacher);
 
         manager.addCourse(course);
     }
 
     private void deleteCourse() {
-
+        this.listAllCourses();
         System.out.println("Insert Id");
         int id = sc.nextInt();
         course.setIdCourse(id);
@@ -95,6 +96,8 @@ public class CourseUI {
     }
 
     private void updateCourse() {
+        TeacherUI teacherUI= new TeacherUI();
+        this.listAllCourses();
 
         System.out.println("Insert Id");
         int id = sc.nextInt();
@@ -102,15 +105,13 @@ public class CourseUI {
         sc.nextLine();
         System.out.println("Insert new Course Name");
         String nameCourse = sc.nextLine();
+
+        teacherUI.listAllTeachers();
         System.out.println("Insert new Teacher Id");
         int teacherId = sc.nextInt();
-        System.out.println("Insert new Teacher Name");
-        String nameTeacher = sc.nextLine();
 
         course.setNameCourse(nameCourse);
         course.setIdTeacher(teacherId);
-        course.setNameTeacher(nameTeacher);
-
 
         boolean ban = manager.updateCourse(course);
         if (ban == true) {

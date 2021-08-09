@@ -22,9 +22,8 @@ public class Assignment {
 
     @Override
     public String toString() {
-        return "Assignment{" +
-                "idAssignment=" + idAssignment +
-                ", nameAssignment='" + nameAssignment + '\'' +
-                '}';
+        return "idAssignment=" + idAssignment +
+                ", nameAssignment=" + nameAssignment +
+                "\n----------------------------------------";
     }
 }

@@ -27,14 +27,16 @@ public class AssignmentManager {
         }
     }
 
-    public void addAssignment(Assignment assignment) {
+    public boolean addAssignment(Assignment assignment) {
         String sql = " INSERT INTO public.assignment(name_assignment) VALUES (?);";
 
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setString(1, assignment.getNameAssignment());
             s1.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -42,7 +44,7 @@ public class AssignmentManager {
         List<Assignment> assignments = new ArrayList<>();
 
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(getStatement())) {
-            s1.setMaxRows(100);
+            s1.setMaxRows(10);
             ResultSet rs = s1.executeQuery();
             while (rs.next()) {
                 assignments.add(getFromRsAssignment(rs));

@@ -66,13 +66,12 @@ public class Teacher {
 
     @Override
     public String toString() {
-        return "Teacher{" +
-                "idTeacher=" + idTeacher +
-                ", nameTeacher='" + nameTeacher + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", cellphone='" + cellphone + '\'' +
-                ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        return "idTeacher=" + idTeacher +
+                ", nameTeacher=" + nameTeacher +
+                ", lastName=" + lastName +
+                ", cellphone=" + cellphone +
+                ", address=" + address +
+                ", email=" + email +
+                "\n----------------------------------------";
     }
 }

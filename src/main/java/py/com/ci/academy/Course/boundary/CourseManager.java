@@ -31,11 +31,10 @@ public class CourseManager {
     }
 
     public void addCourse(Course course) {
-        String sql = "INSERT INTO public.course(name_course, id_teacher, name_teacher) VALUES(?,?,?);";
+        String sql = "INSERT INTO public.course(name_course, id_teacher) VALUES(?,?);";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setString(1, course.getNameCourse());
             s1.setInt(2, course.getIdTeacher());
-            s1.setString(3,course.getNameTeacher());
             s1.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,7 +44,7 @@ public class CourseManager {
     public List<Course> getAll() {
         List<Course> courses = new ArrayList<>();
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(getStatement())) {
-            s1.setMaxRows(100);
+            s1.setMaxRows(10);
             try (ResultSet rs = s1.executeQuery()) {
                 while (rs.next()) {
                     courses.add(getFromRsCourse(rs));
@@ -59,11 +58,11 @@ public class CourseManager {
     }
 
     public boolean updateCourse(Course course) {
-        String sql = "UPDATE public.course SET name_course=?, id_teacher=?, name_teacher=? WHERE id_course=?";
+        String sql = "UPDATE public.course SET name_course=?, id_teacher=? WHERE id_course=?";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setString(1, course.getNameCourse());
             s1.setInt(2, course.getIdTeacher());
-            s1.setString(3, course.getNameTeacher());
+            s1.setInt(3, course.getIdCourse());
             s1.executeUpdate();
             return true;
         } catch (SQLException throwables) {
