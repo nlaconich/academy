@@ -6,11 +6,10 @@
 package py.com.ci.academy.Teacher.entities;
 
 /**
- *
  * @author martin
  */
 public class Teacher {
-    
+
     private int idTeacher;
     private String nameTeacher;
     private String lastName;
@@ -42,7 +41,9 @@ public class Teacher {
         this.lastName = lastName;
     }
 
-    public String getCellphone() { return cellphone; }
+    public String getCellphone() {
+        return cellphone;
+    }
 
     public void setCellphone(String cellphone) {
         this.cellphone = cellphone;

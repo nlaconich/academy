@@ -5,9 +5,10 @@ import py.com.ci.academy.CourseAssignment.entities.CourseAssignment;
 import java.util.Scanner;
 
 public class AcademyUI {
-    Scanner sc= new Scanner(System.in);
+    Scanner sc = new Scanner(System.in);
+
     public static void main(String[] args) {
-        AcademyUI main= new AcademyUI();
+        AcademyUI main = new AcademyUI();
         main.mainMenu();
     }
 
@@ -53,33 +54,34 @@ public class AcademyUI {
             mainMenu();
         }
     }
-    private void  assignmentManagement(){
-        AssignmentUI ui= new AssignmentUI();
+
+    private void assignmentManagement() {
+        AssignmentUI ui = new AssignmentUI();
         ui.mainMenu();
     }
 
-    private void  courseManagement(){
-        CourseUI ui= new CourseUI();
+    private void courseManagement() {
+        CourseUI ui = new CourseUI();
         ui.mainMenu();
     }
 
-    private void  inscriptionManagement(){
-        InscriptionUI ui= new InscriptionUI();
+    private void inscriptionManagement() {
+        InscriptionUI ui = new InscriptionUI();
         ui.mainMenu();
     }
 
-    private void  studentManagement(){
-        StudentUI ui= new StudentUI();
+    private void studentManagement() {
+        StudentUI ui = new StudentUI();
         ui.mainMenu();
     }
 
-    private void  teacherManagement(){
-        TeacherUI ui= new TeacherUI();
+    private void teacherManagement() {
+        TeacherUI ui = new TeacherUI();
         ui.mainMenu();
     }
 
-    private void curseAssignmentManagement(){
-        CourseAssignmentUI ui= new CourseAssignmentUI();
+    private void curseAssignmentManagement() {
+        CourseAssignmentUI ui = new CourseAssignmentUI();
         ui.mainMenu();
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class StudentManager {
     //Private static final long serialVersionUID = 1L;
-    Student student= new Student();
+    Student student = new Student();
 
 
     public String getStatement() {
@@ -20,15 +20,15 @@ public class StudentManager {
         return statement;
     }
 
-    public void add(Student student){
-        String sql= "INSERT INTO public.student(name, lastname,cellphone,address,email) VALUES ( ?,?,?,?,?)";
+    public void add(Student student) {
+        String sql = "INSERT INTO public.student(name, lastname,cellphone,address,email) VALUES ( ?,?,?,?,?)";
 
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setString(1, student.getName());
             s1.setString(2, student.getLastName());
             s1.setString(3, student.getCellphone());
-            s1.setString(4,student.getAddress());
-            s1.setString(5,student.getEmail());
+            s1.setString(4, student.getAddress());
+            s1.setString(5, student.getEmail());
             s1.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -49,6 +49,7 @@ public class StudentManager {
         }
         return null;
     }
+
     public List<Student> getAll() {
         List<Student> listStudent = new ArrayList();
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(getStatement())) {
@@ -65,12 +66,12 @@ public class StudentManager {
         }
     }
 
-    public int deleteById(Student student){
-        String sql="DELETE FROM public.student WHERE id_student= ?";
-        int rows= 0;
+    public int deleteById(Student student) {
+        String sql = "DELETE FROM public.student WHERE id_student= ?";
+        int rows = 0;
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setInt(1,student.getIdStudent());
-            rows= s1.executeUpdate();
+            s1.setInt(1, student.getIdStudent());
+            rows = s1.executeUpdate();
             return rows;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -78,17 +79,17 @@ public class StudentManager {
         }
     }
 
-    public int updateById(Student student){
-        int rows=0;
-        String sql= "UPDATE public.student SET name=?, lastname=?,cellphone=?,address=?,email=? WHERE id_student=?";
+    public int updateById(Student student) {
+        int rows = 0;
+        String sql = "UPDATE public.student SET name=?, lastname=?,cellphone=?,address=?,email=? WHERE id_student=?";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setString(1,student.getName());
+            s1.setString(1, student.getName());
             s1.setString(2, student.getLastName());
-            s1.setString(3,student.getCellphone());
-            s1.setString(4,student.getAddress());
-            s1.setString(5,student.getEmail());
-            s1.setInt(6,student.getIdStudent());
-            rows= s1.executeUpdate();
+            s1.setString(3, student.getCellphone());
+            s1.setString(4, student.getAddress());
+            s1.setString(5, student.getEmail());
+            s1.setInt(6, student.getIdStudent());
+            rows = s1.executeUpdate();
             return rows;
         } catch (SQLException throwables) {
             throwables.printStackTrace();

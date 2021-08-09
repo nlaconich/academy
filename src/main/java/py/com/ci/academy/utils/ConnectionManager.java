@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionManager {
-    public static Connection getConnection(){
+    public static Connection getConnection() {
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -33,6 +33,7 @@ public class ConnectionManager {
 */
         return connection;
     }
+
     public static void main(String[] args) throws SQLException {
         if (new ConnectionManager().getConnection() != null)
             System.out.println("CONNECTION OK!!");

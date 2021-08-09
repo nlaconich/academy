@@ -101,8 +101,8 @@ public class InscriptionUI {
     }
 
     private void updateInscription() {
-        CourseAssignmentUI courseAssignmentUI= new CourseAssignmentUI();
-        StudentUI studentUI= new StudentUI();
+        CourseAssignmentUI courseAssignmentUI = new CourseAssignmentUI();
+        StudentUI studentUI = new StudentUI();
 
         this.listAllInscriptions();
         System.out.println("Insert Id");

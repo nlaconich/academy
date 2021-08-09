@@ -53,7 +53,7 @@ public class CourseAssignment {
                 ", idCourse=" + idCourse +
                 ", nameCourse=" + nameCourse +
                 ", idAssignment=" + idAssignment +
-                ", nameAssignment=" + nameAssignment+
+                ", nameAssignment=" + nameAssignment +
                 "\n----------------------------------------";
 
     }

@@ -12,8 +12,8 @@ public class CourseAssignmentUI {
     CourseAssignmentManager manager = new CourseAssignmentManager();
     CourseAssignment courseAssignment = new CourseAssignment();
 
-    CourseUI courseUI= new CourseUI();
-    AssignmentUI assignmentUI= new AssignmentUI();
+    CourseUI courseUI = new CourseUI();
+    AssignmentUI assignmentUI = new AssignmentUI();
 
     public static void main(String[] args) {
         CourseAssignmentUI test = new CourseAssignmentUI();

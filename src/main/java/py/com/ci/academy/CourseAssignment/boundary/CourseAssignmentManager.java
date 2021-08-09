@@ -13,7 +13,7 @@ import java.util.List;
 public class CourseAssignmentManager {
 
     private String getStatement() {
-        String sql ="SELECT ca.id_cxa, ca.id_course, co.name_course, ca.id_assignment, a.name_assignment FROM public.courseassignment ca, public.course co, public.assignment a WHERE (ca.id_course= co.id_course) and (ca.id_assignment = a.id_assignment) ";
+        String sql = "SELECT ca.id_cxa, ca.id_course, co.name_course, ca.id_assignment, a.name_assignment FROM public.courseassignment ca, public.course co, public.assignment a WHERE (ca.id_course= co.id_course) and (ca.id_assignment = a.id_assignment) ";
         return sql;
     }
 
@@ -61,12 +61,12 @@ public class CourseAssignmentManager {
         }
     }
 
-    public boolean updateCourseAssignment(CourseAssignment courseAssignment){
-        String sql="UPDATE public.courseassignment SET id_course=?, id_assignment=? WHERE id_cxa=?";
-        try (PreparedStatement s1= ConnectionManager.getConnection().prepareStatement(sql)){
+    public boolean updateCourseAssignment(CourseAssignment courseAssignment) {
+        String sql = "UPDATE public.courseassignment SET id_course=?, id_assignment=? WHERE id_cxa=?";
+        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setInt(1, courseAssignment.getIdCourse());
-            s1.setInt(2,courseAssignment.getIdAssignment());
-            s1.setInt(3,courseAssignment.getIdCourseAssignment());
+            s1.setInt(2, courseAssignment.getIdAssignment());
+            s1.setInt(3, courseAssignment.getIdCourseAssignment());
             s1.executeUpdate();
             return true;
         } catch (SQLException e) {

@@ -18,7 +18,7 @@ public class InscriptionManager {
 
     private Inscription getFromRsInscription(ResultSet rs) {
         try {
-            Inscription inscription= new Inscription();
+            Inscription inscription = new Inscription();
             inscription.setIdInscription(rs.getInt("id_inscription"));
             inscription.setIdStudent(rs.getInt("id_student"));
             inscription.setNameStudent(rs.getString("name"));
@@ -34,9 +34,9 @@ public class InscriptionManager {
 
     public void addInscription(Inscription report) {
         String sql = "INSERT INTO public.inscription(id_student, id_cxa) VALUES (?,?)";
-        try (PreparedStatement s1= ConnectionManager.getConnection().prepareStatement(sql)){
-            s1.setInt(1,report.getIdStudent());
-            s1.setInt(2,report.getIdCxA());
+        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
+            s1.setInt(1, report.getIdStudent());
+            s1.setInt(2, report.getIdCxA());
             s1.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,7 +64,7 @@ public class InscriptionManager {
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setInt(1, inscription.getIdStudent());
             s1.setInt(2, inscription.getIdCxA());
-            s1.setInt(3,inscription.getIdInscription());
+            s1.setInt(3, inscription.getIdInscription());
             s1.executeUpdate();
             return true;
         } catch (SQLException throwables) {

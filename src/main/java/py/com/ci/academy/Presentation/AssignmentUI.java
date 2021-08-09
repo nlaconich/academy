@@ -56,7 +56,7 @@ public class AssignmentUI {
     private void registerAssignment() {
         sc.nextLine();
         System.out.println("Insert Assignment Name");
-        String name= sc.nextLine();
+        String name = sc.nextLine();
 
         assignment.setNameAssignment(name);
 
