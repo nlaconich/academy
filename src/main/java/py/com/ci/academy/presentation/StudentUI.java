@@ -23,7 +23,7 @@ public class StudentUI {
         System.out.println("3 : Delete a student");
         System.out.println("4 : Update a student");
         System.out.println("5 : Exit");
-        System.out.println("Option: ___");
+        System.out.print("Option: ");
         String option =     sc.next();
         try{
             Integer selectedOption = Integer.parseInt(option);
@@ -84,6 +84,7 @@ public class StudentUI {
     }
 
     private void deleteStudent(){
+        this.listAllStudents();
 
         System.out.println("Insert Id ");
         int id = sc.nextInt();
@@ -97,6 +98,7 @@ public class StudentUI {
         int id=0, rows=0;
         String name = null, lastName = null, cellphone = null, address = null, email = null;
 
+        this.listAllStudents();
         System.out.println("Insert Id ");
         id= sc.nextInt();
 
