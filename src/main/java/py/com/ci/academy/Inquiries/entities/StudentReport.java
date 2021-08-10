@@ -1,15 +1,16 @@
 package py.com.ci.academy.Inquiries.entities;
 
-public class Inquiries {
-    private int idInquiries;
+public class StudentReport {
+    private int idStudentReport;
     private int idStudent;
     private int idAssignment;
     private String nameStudent;
+    private String lastname;
     private String nameAssignment;
 
-    public int getIdInquiries() {return idInquiries;}
+    public int getIdStudentReport() {return idStudentReport;}
 
-    public void setIdInquiries(int idInquiries) {this.idInquiries = idInquiries;}
+    public void setIdStudentReport(int idStudentReport) {this.idStudentReport = idStudentReport;}
 
     public int getIdStudent() {return idStudent;}
 
@@ -23,17 +24,20 @@ public class Inquiries {
 
     public void setNameStudent(String nameStudent) {this.nameStudent = nameStudent;}
 
+    public String getLastname() {return lastname;}
+
+    public void setLastname(String lastname) {this.lastname = lastname;}
+
     public String getNameAssignment() {return nameAssignment;}
 
     public void setNameAssignment(String nameAssignment) {this.nameAssignment = nameAssignment;}
 
     @Override
     public String toString() {
-        return "idInquiries=" + idInquiries +
-                ", idStudent=" + idStudent +
-                ", idAssignment=" + idAssignment +
-                ", nameStudent=" + nameStudent +
-                ", nameAssignment=" + nameAssignment +
+        return "Student id = " + idStudent +
+                "\n Student = " + nameStudent +
+                "\n lastname = " + lastname +
+                "\n Assignment = " + nameAssignment +
                 "\n----------------------------------------";
 
     }
