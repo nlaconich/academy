@@ -75,7 +75,7 @@ public class CourseReportUI {
 
         courseUI.listAllCourses();
         sc.nextLine();
-        System.out.println("Insert Course Name");
+        System.out.println("Insert Course Name ");
         String nameCourse= sc.nextLine();
 
         /*String firstLtr = nameCourse.substring(0, 1);
