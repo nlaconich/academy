@@ -1,4 +1,4 @@
-package py.com.ci.academy.Inquiries.entities;
+package py.com.ci.academy.StudentReport.entities;
 
 public class StudentReport {
     private int idStudentReport;
@@ -7,6 +7,8 @@ public class StudentReport {
     private String nameStudent;
     private String lastname;
     private String nameAssignment;
+
+
 
     public int getIdStudentReport() {return idStudentReport;}
 
@@ -34,12 +36,12 @@ public class StudentReport {
 
     @Override
     public String toString() {
-        return "Student id = " + idStudent +
-                "\n Student = " + nameStudent +
-                "\n lastname = " + lastname +
+        return "Report id = " + idStudentReport + "\n" +
+                "Student id = " + idStudent +
+                "\n Student name = " + nameStudent +
+                "\n Last Name = " + lastname +
                 "\n Assignment = " + nameAssignment +
                 "\n----------------------------------------";
-
     }
 
 }

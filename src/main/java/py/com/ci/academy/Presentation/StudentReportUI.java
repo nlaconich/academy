@@ -1,7 +1,7 @@
 package py.com.ci.academy.Presentation;
 
-import py.com.ci.academy.Inquiries.boundary.StudentReportManager;
-import py.com.ci.academy.Inquiries.entities.StudentReport;
+import py.com.ci.academy.StudentReport.boundary.StudentReportManager;
+import py.com.ci.academy.StudentReport.entities.StudentReport;
 
 import java.util.List;
 import java.util.Scanner;
@@ -25,8 +25,8 @@ public class StudentReportUI {
         System.out.println("Choose an option ");
         System.out.println("1 : List all Students with Assignments");
         System.out.println("2 : Set an Assignment to a Student");
-        System.out.println("4 : Update a Student's Assignment");
-        System.out.println("3 : Delete a Student's Assignment");
+        System.out.println("3 : Update a Student's Assignment");
+        System.out.println("4 : Delete a Student's Assignment");
         System.out.println("5 : Exit");
         System.out.print("Option: ");
         String option = sc.next();
@@ -125,10 +125,8 @@ public class StudentReportUI {
     }
 
     private void deleteStudentReport() {
-        System.out.println("Student with assignment List");
-        this.listAllStudentReport();
-
-        System.out.println("Insert Id");
+        manager.getAll();
+        System.out.println("Insert Report Id");
         int id = sc.nextInt();
         studentReport.setIdStudentReport(id);
 

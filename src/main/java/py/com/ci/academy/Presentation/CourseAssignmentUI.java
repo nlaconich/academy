@@ -25,8 +25,8 @@ public class CourseAssignmentUI {
         System.out.println("Choose an option ");
         System.out.println("1 : List all courses");
         System.out.println("2 : Add a course");
-        System.out.println("3 : Delete a course");
-        System.out.println("4 : Update a course");
+        System.out.println("3 : Update a course");
+        System.out.println("4 : Delete a course");
         System.out.println("5 : Exit");
         System.out.println("Option: ___");
         String option = sc.next();
@@ -40,10 +40,10 @@ public class CourseAssignmentUI {
                     registerCourseAssignment();
                     break;
                 case 3:
-                    deleteCourseAssignment();
+                    updateCourseAssignment();
                     break;
                 case 4:
-                    updateCourseAssignment();
+                    deleteCourseAssignment();
                     break;
                 case 5:
                     return;
@@ -85,21 +85,6 @@ public class CourseAssignmentUI {
         manager.addCourseAssignment(courseAssignment);
     }
 
-    private void deleteCourseAssignment() {
-        manager.getAll();
-        System.out.println("Insert Id");
-        int id = sc.nextInt();
-        courseAssignment.setIdCourse(id);
-
-        boolean ban = manager.deleteCourseAssignment(courseAssignment);
-        if (ban == true) {
-            System.out.println("Delete successful");
-        } else {
-            System.out.println("Error");
-        }
-
-    }
-
     private void updateCourseAssignment() {
         this.listAllCoursesAssignments();
         System.out.println("Insert Id");
@@ -121,5 +106,20 @@ public class CourseAssignmentUI {
         } else {
             System.out.println("Error");
         }
+    }
+
+    private void deleteCourseAssignment() {
+        manager.getAll();
+        System.out.println("Insert Id");
+        int id = sc.nextInt();
+        courseAssignment.setIdCourse(id);
+
+        boolean ban = manager.deleteCourseAssignment(courseAssignment);
+        if (ban == true) {
+            System.out.println("Delete successful");
+        } else {
+            System.out.println("Error");
+        }
+
     }
 }

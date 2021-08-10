@@ -1,7 +1,6 @@
-package py.com.ci.academy.Inquiries.boundary;
+package py.com.ci.academy.StudentReport.boundary;
 
-
-import py.com.ci.academy.Inquiries.entities.StudentReport;
+import py.com.ci.academy.StudentReport.entities.StudentReport;
 import py.com.ci.academy.utils.ConnectionManager;
 
 import java.sql.PreparedStatement;
@@ -12,7 +11,7 @@ import java.util.List;
 
 public class StudentReportManager {
     private String getStatement() {
-        String sql = "SELECT sr.id_studentreport, sr.lastname, sr.id_sxa, sr.id_student, sr.id_assignment, a.name_assignment, s.name FROM  public.studentreport sr, public.student s, public.assignment a WHERE (sr.id_student= s.id_student) and (sr.id_assignment = a.id_assignment)";
+        String sql = "SELECT sr.id_studentreport, s.lastname, sr.id_sxa, sr.id_student, sr.id_assignment, a.name_assignment, s.name FROM  public.studentreport sr, public.student s, public.assignment a WHERE (sr.id_student= s.id_student) and (sr.id_assignment = a.id_assignment)";
         return sql;
     }
     private StudentReport getFromRsStudentReport(ResultSet rs) {
@@ -74,10 +73,10 @@ public class StudentReportManager {
         }
     }
 
-    public boolean deleteStudentReport(StudentReport assignment) {
+    public boolean deleteStudentReport(StudentReport studentReport) {
         String sql = "DELETE FROM public.studentreport WHERE id_sxa= ?";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setInt(1, assignment.getIdAssignment());
+            s1.setInt(1, studentReport.getIdStudentReport());
             s1.executeUpdate();
             return true;
         } catch (SQLException throwables) {
