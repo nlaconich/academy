@@ -73,6 +73,6 @@ public class TeacherReport {
                 ", idAssignment=" + idAssignment +
                 ", nameAssignment =" + nameAssignment +
                 ", idCourse=" + idCourse +
-                ", nameCourse= " + nameCourse ;
+                ", nameCourse= " + nameCourse;
     }
 }

@@ -19,7 +19,7 @@ public class AssignmentReportUI {
     }
 
     public void mainMenu() {
-        System.out.println("Welcome to CourseAssignmentUI beta 0.0");
+        System.out.println("Welcome to AssignmentReportUI beta 0.0");
         System.out.println("----------------------------------------");
         System.out.println("Choose an option ");
         System.out.println("1 : Get all Assignments");
