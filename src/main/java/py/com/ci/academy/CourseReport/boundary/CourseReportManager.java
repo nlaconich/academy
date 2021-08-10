@@ -25,7 +25,7 @@ public class CourseReportManager {
             courseReport.setIdStudent(rs.getInt("id_student"));
             courseReport.setNameStudent(rs.getString("name"));
             courseReport.setLastnameStudent(rs.getString("lastname"));
-            courseReport.setIdTeacher(rs.getInt("id_student"));
+            courseReport.setIdTeacher(rs.getInt("id_teacher"));
             courseReport.setNameTeacher(rs.getString("name"));
             courseReport.setLastnameTeacher(rs.getString("lastname"));
             return courseReport;

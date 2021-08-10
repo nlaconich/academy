@@ -53,7 +53,7 @@ public class InscriptionUI {
         }
     }
 
-    private void listAllInscriptions() {
+    public void listAllInscriptions() {
         List<Inscription> inscriptions = manager.getAll();
         if (!inscriptions.isEmpty()) {
             for (Inscription inscription : inscriptions) {
