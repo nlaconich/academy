@@ -100,7 +100,7 @@ public class TeacherReportUI {
 
         teacherUI.listAllTeachers();
         sc.nextLine();
-        System.out.println("Insert Teacher's Lastname");
+        System.out.println("Insert Teacher's Lastname ");
         String lastNameTeacher= sc.nextLine();
 
         String firstLtr = lastNameTeacher.substring(0, 1);
