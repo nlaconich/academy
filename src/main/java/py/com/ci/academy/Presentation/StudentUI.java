@@ -49,7 +49,7 @@ public class StudentUI {
             mainMenu();
         }
     }
-    private  void listAllStudents() {
+    public void listAllStudents() {
         List<Student> listStudents = studentManager.getAll();
         if (!listStudents.isEmpty()){
             for(Student student : listStudents){
