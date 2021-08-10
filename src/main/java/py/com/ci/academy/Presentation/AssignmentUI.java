@@ -17,7 +17,7 @@ public class AssignmentUI {
         test.mainMenu();
     }
 
-    public void mainMenu() {
+    private void mainMenu() {
         System.out.println("Welcome to AssignmentUI beta 0.0");
         System.out.println("----------------------------------------");
         System.out.println("Choose an option ");
@@ -26,7 +26,7 @@ public class AssignmentUI {
         System.out.println("3 : Delete a assignment");
         System.out.println("4 : Update a assignment");
         System.out.println("5 : Exit");
-        System.out.print("Option: ");
+        System.out.println("Option: ___");
         String option = sc.next();
         try {
             Integer selectedOption = Integer.parseInt(option);
@@ -53,21 +53,6 @@ public class AssignmentUI {
         }
     }
 
-    private void registerAssignment() {
-        sc.nextLine();
-        System.out.println("Insert Assignment Name");
-        String name = sc.nextLine();
-
-        assignment.setNameAssignment(name);
-
-        boolean ban = manager.addAssignment(assignment);
-        if (ban == true) {
-            System.out.println("Added successfully");
-        } else {
-            System.out.println("Error");
-        }
-    }
-
     public void listAllAssignment() {
         List<Assignment> assignments = manager.getAll();
         if (!assignments.isEmpty()) {
@@ -79,9 +64,30 @@ public class AssignmentUI {
         }
     }
 
+    private void registerAssignment() {
+        String name = JOptionPane.showInputDialog("Insert Name");
+
+        assignment.setNameAssignment(name);
+
+        manager.addAssignment(assignment);
+    }
+
+    private void deleteAssignment() {
+
+        System.out.println("Insert Id ");
+        int id = sc.nextInt();
+        assignment.setIdAssignment(id);
+
+        boolean ban = manager.deleteAssignment(assignment);
+        if (ban == true) {
+            System.out.println("Delete successful");
+        } else {
+            System.out.println("Error");
+        }
+
+    }
+
     private void updateAssignment() {
-        System.out.println("Assignments List");
-        this.listAllAssignment();
 
         System.out.println("Insert Id");
         int id = sc.nextInt();
@@ -101,22 +107,4 @@ public class AssignmentUI {
             System.out.println("Error");
         }
     }
-
-    private void deleteAssignment() {
-        System.out.println("Assignments List");
-        this.listAllAssignment();
-
-        System.out.println("Insert Assignment Id");
-        int id = sc.nextInt();
-        assignment.setIdAssignment(id);
-
-        boolean ban = manager.deleteAssignment(assignment);
-        if (ban == true) {
-            System.out.println("Delete successful");
-        } else {
-            System.out.println("Error");
-        }
-
-    }
-
 }

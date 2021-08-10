@@ -1,5 +1,5 @@
 -- Table: public.teacher
-
+-- prueba de gitignore
 -- DROP TABLE public.teacher;
 
 CREATE TABLE IF NOT EXISTS public.teacher

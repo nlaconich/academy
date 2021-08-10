@@ -9,15 +9,15 @@ import java.util.Scanner;
 
 public class InscriptionUI {
     Scanner sc = new Scanner(System.in);
-    InscriptionManager manager = new InscriptionManager();
-    Inscription inscription = new Inscription();
+    InscriptionManager manager= new InscriptionManager();
+    Inscription inscription= new Inscription();
 
     public static void main(String[] args) {
         InscriptionUI test = new InscriptionUI();
         test.mainMenu();
     }
 
-    public void mainMenu() {
+    private void mainMenu() {
         System.out.println("Welcome to InscriptionUI beta 0.0");
         System.out.println("----------------------------------------");
         System.out.println("Choose an option ");
@@ -26,7 +26,7 @@ public class InscriptionUI {
         System.out.println("3 : Delete a inscription");
         System.out.println("4 : Update a inscription");
         System.out.println("5 : Exit");
-        System.out.print("Option: ");
+        System.out.println("Option: ___");
         String option = sc.next();
         try {
             Integer selectedOption = Integer.parseInt(option);
@@ -53,7 +53,7 @@ public class InscriptionUI {
         }
     }
 
-    public void listAllInscriptions() {
+    private void listAllInscriptions() {
         List<Inscription> inscriptions = manager.getAll();
         if (!inscriptions.isEmpty()) {
             for (Inscription inscription : inscriptions) {
@@ -65,20 +65,11 @@ public class InscriptionUI {
     }
 
     private void registerInscription() {
-        CourseAssignmentUI courseAssignmentUI = new CourseAssignmentUI();
-        StudentUI studentUI = new StudentUI();
+        sc.nextLine();
 
-        System.out.println("Course/Assignment List");
-        courseAssignmentUI.listAllCourseAssignments();
-        System.out.println("Insert Id Course/Assignment");
-        int idCourse = sc.nextInt();
-
-        System.out.println("Student List");
-        studentUI.listAllStudents();
         System.out.println("Insert Id Student");
         int idStudent = sc.nextInt();
 
-        inscription.setIdCxA(idCourse);
         inscription.setIdStudent(idStudent);
 
         manager.addInscription(inscription);
@@ -86,7 +77,6 @@ public class InscriptionUI {
 
     private void deleteInscription() {
 
-        this.listAllInscriptions();
         System.out.println("Insert Id");
         int id = sc.nextInt();
         inscription.setIdInscription(id);
@@ -101,23 +91,17 @@ public class InscriptionUI {
     }
 
     private void updateInscription() {
-        CourseAssignmentUI courseAssignmentUI = new CourseAssignmentUI();
-        StudentUI studentUI = new StudentUI();
 
-        this.listAllInscriptions();
         System.out.println("Insert Id");
         int idInscription = sc.nextInt();
 
         sc.nextLine();
-        courseAssignmentUI.listAllCourseAssignments();
-        System.out.println("Insert new Id Course/Assignment");
-        int idCourse = sc.nextInt();
-        studentUI.listAllStudents();
+
         System.out.println("Insert new Id Student");
         int idStudent = sc.nextInt();
 
         inscription.setIdInscription(idInscription);
-        inscription.setIdCxA(idCourse);
+
         inscription.setIdStudent(idStudent);
 
         boolean ban = manager.updateInscription(inscription);
