@@ -103,21 +103,4 @@ public class InscriptionReportManager {
             return Collections.EMPTY_LIST;
         }
     }
-
-    public List<InscriptionReport> getByNameTeacher(String nameTeacher) {
-        List<InscriptionReport> inscriptionReports = new ArrayList();
-        String sql = getStatement() + " AND t.name ILIKE " +"'"+ nameTeacher+"'";
-        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setMaxRows(100);
-            try (ResultSet rs = s1.executeQuery()) {
-                while (rs.next()) {
-                    inscriptionReports.add(getFromRsInscription(rs));
-                }
-            }
-            return inscriptionReports;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return Collections.EMPTY_LIST;
-    }
 }

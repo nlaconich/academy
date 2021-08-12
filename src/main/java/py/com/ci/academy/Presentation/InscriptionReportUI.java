@@ -26,7 +26,7 @@ public class InscriptionReportUI {
         System.out.println("2 : Filter Inscription by Id");
         System.out.println("3 : Filter Student by Name");
         System.out.println("4 : Filter Student by Lastname");
-        System.out.println("5 : Exit");
+        System.out.println("6 : Exit");
         System.out.print("Option: ");
         String option = sc.next();
         try {
@@ -100,16 +100,4 @@ public class InscriptionReportUI {
         }
     }
 
-    private void GetByTeacherName() {
-        TeacherUI teacherUI= new TeacherUI();
-        teacherUI.listAllTeachers();
-        sc.nextLine();
-        System.out.println("Insert Teacher's Name");
-        String name= sc.nextLine();
-
-        List<InscriptionReport> inscriptionReports= manager.getByNameTeacher(name);
-        for (InscriptionReport inscriptionReport: inscriptionReports) {
-            System.out.println(inscriptionReport);
-        }
-    }
 }
