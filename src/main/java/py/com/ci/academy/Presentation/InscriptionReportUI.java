@@ -99,4 +99,17 @@ public class InscriptionReportUI {
             System.out.println(inscriptionReport);
         }
     }
+
+    private void GetByTeacherName() {
+        TeacherUI teacherUI= new TeacherUI();
+        teacherUI.listAllTeachers();
+        sc.nextLine();
+        System.out.println("Insert Teacher's Name");
+        String name= sc.nextLine();
+
+        List<InscriptionReport> inscriptionReports= manager.getByNameTeacher(name);
+        for (InscriptionReport inscriptionReport: inscriptionReports) {
+            System.out.println(inscriptionReport);
+        }
+    }
 }
