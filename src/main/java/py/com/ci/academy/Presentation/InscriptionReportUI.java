@@ -10,13 +10,14 @@ import java.util.Scanner;
 
 public class InscriptionReportUI {
 
-    Scanner sc= new Scanner(System.in);
-    InscriptionReportManager manager= new InscriptionReportManager();
+    Scanner sc = new Scanner(System.in);
+    InscriptionReportManager manager = new InscriptionReportManager();
 
     public static void main(String[] args) {
-        InscriptionReportUI ui= new InscriptionReportUI();
+        InscriptionReportUI ui = new InscriptionReportUI();
         ui.mainMenu();
     }
+
     public void mainMenu() {
         System.out.println("Welcome to CourseAssignmentUI beta 0.0 ");
         System.out.println("----------------------------------------");
@@ -24,7 +25,8 @@ public class InscriptionReportUI {
         System.out.println("1 : Get all Inscription");
         System.out.println("2 : Filter Inscription by Id");
         System.out.println("3 : Filter Student by Name");
-        System.out.println("4 : Exit");
+        System.out.println("4 : Filter Student by Lastname");
+        System.out.println("5 : Exit");
         System.out.print("Option: ");
         String option = sc.next();
         try {
@@ -41,6 +43,9 @@ public class InscriptionReportUI {
                     GetByStudentName();
                     break;
                 case 4:
+                    GetByStudentLastName();
+                    break;
+                case 5:
                     return;
             }
             mainMenu();
@@ -50,43 +55,48 @@ public class InscriptionReportUI {
         }
     }
 
-    public void ListAllInscription(){
-        List<InscriptionReport> inscriptionReports= new ArrayList<>();
-        inscriptionReports= manager.getAll();
-        for (InscriptionReport inscriptionReport: inscriptionReports) {
+    public void ListAllInscription() {
+        List<InscriptionReport> inscriptionReports = manager.getAll();
+        for (InscriptionReport inscriptionReport : inscriptionReports) {
             System.out.println(inscriptionReport);
         }
     }
 
-    private void GetById(){
-        InscriptionUI inscriptionUI= new InscriptionUI();
+    private void GetById() {
+        InscriptionUI inscriptionUI = new InscriptionUI();
         inscriptionUI.listAllInscriptions();
         System.out.println("Insert Inscription Id");
-        int idInscription= sc.nextInt();
+        int idInscription = sc.nextInt();
 
         List<InscriptionReport> inscriptionReports = manager.getById(idInscription);
-        for (InscriptionReport inscriptionReport: inscriptionReports) {
+        for (InscriptionReport inscriptionReport : inscriptionReports) {
             System.out.println(inscriptionReport);
         }
     }
 
-    private void GetByStudentName(){
-
-        StudentUI studentUI= new StudentUI();
+    private void GetByStudentName() {
+        StudentUI studentUI = new StudentUI();
         studentUI.listAllStudents();
         sc.nextLine();
         System.out.println("Insert Student Name ");
-        String nameStudent= sc.nextLine();
-
-        String firstLtr = nameStudent.substring(0, 1);
-        String restLtrs = nameStudent.substring(1, nameStudent.length());
-        firstLtr = firstLtr.toUpperCase();
-        restLtrs= restLtrs.toLowerCase();
-        nameStudent = firstLtr + restLtrs;
+        String nameStudent = sc.nextLine();
 
         List<InscriptionReport> inscriptionReports = manager.getByNameStudent(nameStudent);
-        for (InscriptionReport courseReport: inscriptionReports) {
-            System.out.println(courseReport);
+        for (InscriptionReport inscriptionReport : inscriptionReports) {
+            System.out.println(inscriptionReport);
+        }
+    }
+
+    private void GetByStudentLastName() {
+        StudentUI studentUI = new StudentUI();
+        studentUI.listAllStudents();
+        sc.nextLine();
+        System.out.println("Insert Student Lastname");
+        String lastname = sc.nextLine();
+
+        List<InscriptionReport> inscriptionReports = manager.getByStudentLastname(lastname);
+        for (InscriptionReport inscriptionReport : inscriptionReports) {
+            System.out.println(inscriptionReport);
         }
     }
 }

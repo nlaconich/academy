@@ -26,7 +26,7 @@ public class CourseReportManager {
             courseReport.setNameStudent(rs.getString("name"));
             courseReport.setLastnameStudent(rs.getString("lastname"));
             courseReport.setIdTeacher(rs.getInt("id_teacher"));
-            courseReport.setNameTeacher(rs.getString("name"));
+            courseReport.setNameTeacher(rs.getString("name_teacher"));
             courseReport.setLastnameTeacher(rs.getString("lastname"));
             return courseReport;
         } catch (Exception e) {
@@ -70,7 +70,7 @@ public class CourseReportManager {
 
     public List<CourseReport> getByName(String nameCourse) {
         List<CourseReport> courseReports = new ArrayList();
-        String sql = getStatement() + " AND co.name_course=" +"'"+ nameCourse+"'";
+        String sql = getStatement() + " AND co.name_course ILIKE" +"'"+ nameCourse+"'";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setMaxRows(100);
             try (ResultSet rs = s1.executeQuery()) {

@@ -68,7 +68,7 @@ public class AssignmentReportManager {
 
     public List<AssignmentReport> getByName(String nameAssignment) {
         List<AssignmentReport> assignmentReports = new ArrayList();
-        String sql = getStatement() + " AND a.name_assignment=" +"'"+ nameAssignment+"'";
+        String sql = getStatement() + " AND a.name_assignment ILIKE " +"'"+ nameAssignment+"'";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setMaxRows(100);
             try (ResultSet rs = s1.executeQuery()) {

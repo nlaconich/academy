@@ -5,6 +5,7 @@ import py.com.ci.academy.utils.ConnectionManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,7 +16,7 @@ public class InscriptionReportManager {
         return sql;
     }
 
-    private InscriptionReport getFromRsTeacherManager(ResultSet rs){
+    private InscriptionReport getFromRsInscription(ResultSet rs){
         try {
             InscriptionReport inscriptionReport= new InscriptionReport();
             inscriptionReport.setIdInscription(rs.getInt("id_inscription"));
@@ -27,8 +28,8 @@ public class InscriptionReportManager {
             inscriptionReport.setNameStudent(rs.getString("name"));
             inscriptionReport.setLastnameStudent(rs.getString("lastname"));
             inscriptionReport.setIdTeacher(rs.getInt("id_teacher"));
-            inscriptionReport.setNameTeacher(rs.getString("name"));
-            inscriptionReport.setLastnameTeacher(rs.getString("lastname"));
+            inscriptionReport.setNameTeacher(rs.getString("name_teacher"));
+            inscriptionReport.setLastnameTeacher(rs.getString(11));
             return inscriptionReport;
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,7 +43,7 @@ public class InscriptionReportManager {
             s1.setMaxRows(100);
             try (ResultSet rs = s1.executeQuery()) {
                 while (rs.next()) {
-                    inscriptionReports.add(getFromRsTeacherManager(rs));
+                    inscriptionReports.add(getFromRsInscription(rs));
                 }
             }
             return inscriptionReports;
@@ -59,7 +60,7 @@ public class InscriptionReportManager {
             s1.setMaxRows(100);
             try (ResultSet rs = s1.executeQuery()) {
                 while (rs.next()) {
-                    inscriptionReports.add(getFromRsTeacherManager(rs));
+                    inscriptionReports.add(getFromRsInscription(rs));
                 }
             }
             return inscriptionReports;
@@ -71,12 +72,12 @@ public class InscriptionReportManager {
 
     public List<InscriptionReport> getByNameStudent(String nameStudent) {
         List<InscriptionReport> inscriptionReports = new ArrayList();
-        String sql = getStatement() + " AND s.name=" +"'"+ nameStudent+"'";
+        String sql = getStatement() + " AND s.name ILIKE " +"'"+ nameStudent+"'";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setMaxRows(100);
             try (ResultSet rs = s1.executeQuery()) {
                 while (rs.next()) {
-                    inscriptionReports.add(getFromRsTeacherManager(rs));
+                    inscriptionReports.add(getFromRsInscription(rs));
                 }
             }
             return inscriptionReports;
@@ -84,5 +85,22 @@ public class InscriptionReportManager {
             ex.printStackTrace();
         }
         return Collections.EMPTY_LIST;
+    }
+
+    public List<InscriptionReport> getByStudentLastname(String lastname) {
+        List<InscriptionReport> inscriptionReports = new ArrayList();
+        String sql = getStatement() + " AND s.lastname ILIKE " + "'" + lastname + "'";
+        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
+            s1.setMaxRows(100);
+            try (ResultSet rs = s1.executeQuery()) {
+                while (rs.next()) {
+                    inscriptionReports.add(getFromRsInscription(rs));
+                }
+            }
+            return inscriptionReports;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Collections.EMPTY_LIST;
+        }
     }
 }

@@ -104,18 +104,16 @@ public class InscriptionReport {
 
     @Override
     public String toString() {
-        return "InscriptionReport{" +
-                "idInscription=" + idInscription +
+        return "idInscription=" + idInscription +
                 ", idAssignment=" + idAssignment +
-                ", nameAssignment='" + nameAssignment + '\'' +
+                ", nameAssignment=" + nameAssignment +
                 ", idCourse=" + idCourse +
-                ", nameCourse='" + nameCourse + '\'' +
+                ", nameCourse=" + nameCourse +
                 ", idStudent=" + idStudent +
-                ", nameStudent='" + nameStudent + '\'' +
-                ", lastnameStudent='" + lastnameStudent + '\'' +
+                ", nameStudent=" + nameStudent +
+                ", lastnameStudent=" + lastnameStudent +
                 ", idTeacher=" + idTeacher +
-                ", nameTeacher='" + nameTeacher + '\'' +
-                ", lastnameTeacher='" + lastnameTeacher + '\'' +
-                '}';
+                ", nameTeacher=" + nameTeacher +
+                ", lastnameTeacher=" + lastnameTeacher;
     }
 }
