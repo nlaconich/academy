@@ -1,18 +1,14 @@
 package py.com.ci.academy.studentReport.entities;
 
 public class StudentReport {
-    private int idStudentReport;
     private int idStudent;
     private int idAssignment;
-    private String nameStudent;
-    private String lastname;
+    private int idCourse;
+    private String name;
+    private String lastName;
     private String nameAssignment;
+    private String nameCourse;
 
-
-
-    public int getIdStudentReport() {return idStudentReport;}
-
-    public void setIdStudentReport(int idStudentReport) {this.idStudentReport = idStudentReport;}
 
     public int getIdStudent() {return idStudent;}
 
@@ -22,26 +18,35 @@ public class StudentReport {
 
     public void setIdAssignment(int idAssignment) {this.idAssignment = idAssignment;}
 
-    public String getNameStudent() {return nameStudent;}
+    public int getIdCourse() {return idCourse;}
 
-    public void setNameStudent(String nameStudent) {this.nameStudent = nameStudent;}
+    public void setIdCourse(int idCourse) {this.idCourse = idCourse;}
 
-    public String getLastname() {return lastname;}
+    public String getName() {return name;}
 
-    public void setLastname(String lastname) {this.lastname = lastname;}
+    public void setName(String name) {this.name = name;}
+
+    public String getLastName() {return lastName;}
+
+    public void setLastName(String lastName) {this.lastName = lastName;}
 
     public String getNameAssignment() {return nameAssignment;}
 
     public void setNameAssignment(String nameAssignment) {this.nameAssignment = nameAssignment;}
 
+    public String getNameCourse() {return nameCourse;}
+
+    public void setNameCourse(String nameCourse) {this.nameCourse = nameCourse;}
+
     @Override
     public String toString() {
-        return "Report id = " + idStudentReport + "\n" +
-                "Student id = " + idStudent +
-                "\n Student name = " + nameStudent +
-                "\n Last Name = " + lastname +
-                "\n Assignment = " + nameAssignment +
-                "\n----------------------------------------";
+        return "idStudent=" + idStudent +
+                ", nameStudent= " + name +
+                ", lastNameStudent= " + lastName +
+                ", idAssignment=" + idAssignment +
+                ", nameAssignment =" + nameAssignment +
+                ", idCourse=" + idCourse +
+                ", nameCourse= " + nameCourse;
     }
-
 }
+
