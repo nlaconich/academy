@@ -117,7 +117,7 @@ ALTER TABLE public.student
 
 CREATE TABLE IF NOT EXISTS public.teacher
 (
-    id_teacher integer NOT NULL DEFAULT nextval('teacher_id_teacher_seq'::regclass),
+    id_teacher integer NOT NULL DEFAULT nextval('teacher_id_teacher_seq '::regclass),
     name_teacher character varying COLLATE pg_catalog."default",
     lastname character varying COLLATE pg_catalog."default",
     cellphone character varying COLLATE pg_catalog."default",
