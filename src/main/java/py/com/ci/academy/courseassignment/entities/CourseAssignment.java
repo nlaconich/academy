@@ -49,12 +49,12 @@ public class CourseAssignment {
 
     @Override
     public String toString() {
-        return "idCourseAssignment=" + idCourseAssignment +
+        return "CourseAssignment{" +
+                "idCourseAssignment=" + idCourseAssignment +
                 ", idCourse=" + idCourse +
-                ", nameCourse=" + nameCourse +
+                ", nameCourse='" + nameCourse + '\'' +
                 ", idAssignment=" + idAssignment +
-                ", nameAssignment=" + nameAssignment +
-                "\n----------------------------------------";
-
+                ", nameAssignment='" + nameAssignment + '\'' +
+                '}';
     }
 }

@@ -69,7 +69,7 @@ public class AcademyUI {
     }
 
     private void studentManagement() {
-        StudentUI ui = new StudentUI();
+        StudentUI ui= new StudentUI();
         ui.mainMenu();
     }
 
