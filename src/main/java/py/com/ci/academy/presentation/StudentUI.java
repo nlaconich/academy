@@ -19,7 +19,7 @@ public class StudentUI {
     public void mainMenu() {
         System.out.println("Welcome to Student Academy beta 0.0");
         System.out.println("----------------------------------------");
-        System.out.println("Choose an option ");
+        System.out.println("Choose an option");
         System.out.println("1 : List all students");
         System.out.println("2 : Add a student");
         System.out.println("3 : Delete a student");
