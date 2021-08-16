@@ -1,7 +1,7 @@
 package py.com.ci.academy.presentation;
 
-import py.com.ci.academy.studentReport.boundary.StudentReportManager;
-import py.com.ci.academy.studentReport.entities.StudentReport;
+import py.com.ci.academy.students.boundary.StudentReportManager;
+import py.com.ci.academy.students.entities.StudentReport;
 
 import java.util.List;
 import java.util.Scanner;
