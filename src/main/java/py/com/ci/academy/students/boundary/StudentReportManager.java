@@ -1,6 +1,6 @@
-package py.com.ci.academy.studentReport.boundary;
+package py.com.ci.academy.students.boundary;
 
-import py.com.ci.academy.studentReport.entities.StudentReport;
+import py.com.ci.academy.students.entities.StudentReport;
 import py.com.ci.academy.utils.ConnectionManager;
 
 import java.sql.PreparedStatement;

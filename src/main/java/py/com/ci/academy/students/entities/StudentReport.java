@@ -1,4 +1,4 @@
-package py.com.ci.academy.studentReport.entities;
+package py.com.ci.academy.students.entities;
 
 public class StudentReport {
     private int idStudentReport;
