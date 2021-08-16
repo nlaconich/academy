@@ -91,8 +91,8 @@ public class StudentManager {
             s1.setInt(6, student.getIdStudent());
             rows = s1.executeUpdate();
             return rows;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
             return 0;
         }
     }

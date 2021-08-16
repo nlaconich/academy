@@ -71,8 +71,8 @@ public class AccountManager {
             s1.setInt(4, account.getDateAccount());
             rows = s1.executeUpdate();
             return rows;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
             return 0;
         }
     }
