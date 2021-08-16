@@ -12,7 +12,7 @@ import java.util.List;
 public class AssignmentReportManager {
 
     private String getStatement(){
-        String sql="SELECT a.id_assignment, a.name_assignment, co.id_course, co.name_course, s.id_student, s.name, s.lastname FROM public.assignment a, public.course co, public.student s, public.courseassignment ca WHERE a.id_assignment = ca.id_assignment AND co.id_course = ca.id_course";
+        String sql="SELECT a.id_assignment, a.name_assignment, co.id_course, co.name_course, s.id_student, s.name, s.lastname_student FROM public.assignment a, public.course co, public.student s, public.courseassignment ca WHERE a.id_assignment = ca.id_assignment AND co.id_course = ca.id_course";
         return sql;
     }
 
@@ -25,7 +25,7 @@ public class AssignmentReportManager {
             assignmentReport.setNameCourse(rs.getString("name_course"));
             assignmentReport.setIdStudent(rs.getInt("id_student"));
             assignmentReport.setNameStudent(rs.getString("name"));
-            assignmentReport.setLastnameStudent(rs.getString("lastname"));
+            assignmentReport.setLastnameStudent(rs.getString("lastname_student"));
             return assignmentReport;
         } catch (Exception e) {
             e.printStackTrace();

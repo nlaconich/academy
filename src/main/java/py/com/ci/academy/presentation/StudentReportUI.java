@@ -1,49 +1,48 @@
 package py.com.ci.academy.presentation;
 
 import py.com.ci.academy.students.boundary.StudentReportManager;
+import py.com.ci.academy.students.entities.Student;
 import py.com.ci.academy.students.entities.StudentReport;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class StudentReportUI {
-    Scanner sc = new Scanner(System.in);
-    StudentReportManager manager = new StudentReportManager();
-    StudentReport studentReport = new StudentReport();
-    py.com.ci.academy.presentation.StudentUI studentUI = new StudentUI();
-    AssignmentUI assignmentui = new AssignmentUI();
 
+    Scanner sc= new Scanner(System.in);
+    StudentReportManager manager= new StudentReportManager();
+    StudentUI studentUI = new StudentUI();
 
-    public static void main(String[] args){
-        StudentReportUI test = new StudentReportUI();
-        test.mainMenu();
+    public static void main(String[] args) {
+        StudentReportUI ui= new StudentReportUI();
+        ui.mainMenu();
     }
-
     public void mainMenu() {
-        System.out.println("Welcome to CourseAssignmentUI beta 0.0");
+        System.out.println("Welcome to StudentReportUI beta 0.0");
         System.out.println("----------------------------------------");
         System.out.println("Choose an option ");
-        System.out.println("1 : List all Students with Assignments");
-        System.out.println("2 : Set an Assignment to a Student");
-        System.out.println("3 : Update a Student's Assignment");
-        System.out.println("4 : Delete a Student's Assignment");
+        System.out.println("1 : List All Students");
+        System.out.println("2 : Filter Student by Id");
+        System.out.println("3 : Filter Student by Name");
+        System.out.println("4 : Filter Student by Lastname");
         System.out.println("5 : Exit");
-        System.out.print("Option: ");
+        System.out.println("Option: ");
         String option = sc.next();
         try {
             Integer selectedOption = Integer.parseInt(option);
             switch (selectedOption) {
                 case 1:
-                    listAllStudentReport();
+                    ListAllStudents();
                     break;
                 case 2:
-                    registerStudentReport();
+                    GetById();
                     break;
                 case 3:
-                    updateStudentReport();
+                    GetByName();
                     break;
                 case 4:
-                    deleteStudentReport();
+                    GetByLastName();
                     break;
                 case 5:
                     return;
@@ -55,88 +54,61 @@ public class StudentReportUI {
         }
     }
 
-    public void listAllStudentReport() {
-        List<StudentReport> listStudent = manager.getAll();
-        if (!listStudent.isEmpty()) {
-            for (StudentReport student : listStudent) {
-                System.out.println(student);
-            }
-        } else {
-            System.out.println("No Relationship Found ");
+    public void ListAllStudents(){
+        List<StudentReport> studentReports = new ArrayList<>();
+        studentReports= manager.getAll();
+        for (StudentReport studentReport: studentReports) {
+            System.out.println(studentReport);
         }
     }
 
-    private void registerStudentReport() {
-        System.out.println("List of Student");
-        studentUI.listAllStudents();
+    private void GetById(){
 
+        studentUI.listAllStudents();
         System.out.println("Insert Student Id");
-        int idStudent = sc.nextInt();
-        System.out.println("----------------------------------------");
+        int idStudent= sc.nextInt();
 
-        System.out.println("List of Assignments");
-        assignmentui.listAllAssignment();
-
-        System.out.println("Insert Assignment Id");
-        int idAssignment = sc.nextInt();
-
-        studentReport.setIdStudent(idStudent);
-        studentReport.setIdAssignment(idAssignment);
-
-        boolean ban = manager.addStudentReport(studentReport);
-        if (ban == true) {
-            System.out.println("Added successfully");
-        } else {
-            System.out.println("Error");
+        List<StudentReport> studentReports = manager.getById(idStudent);
+        for (StudentReport studentReport: studentReports) {
+            System.out.println(studentReport);
         }
     }
 
-    private void updateStudentReport() {
-        System.out.println("List of all Students with Assignments");
-        this.listAllStudentReport();
+    private void GetByName(){
 
-        System.out.println("Insert Id");
-        int id = sc.nextInt();
-        System.out.println("----------------------------------------");
-
-        System.out.println("List of Students");
         studentUI.listAllStudents();
-        System.out.println("Insert new Student Id");
-        int idStudent = sc.nextInt();
-        System.out.println("----------------------------------------");
+        sc.nextLine();
+        System.out.println("Insert Student's Name");
+        String name= sc.nextLine();
 
-        System.out.println("List of Assignments");
-        assignmentui.listAllAssignment();
-        System.out.println("----------------------------------------");
+        String firstLtr = name.substring(0, 1);
+        String restLtrs = name.substring(1, name.length());
+        firstLtr = firstLtr.toUpperCase();
+        restLtrs= restLtrs.toLowerCase();
+        name = firstLtr + restLtrs;
 
-        System.out.println("Insert new Assignment Id");
-        int idAssignment = sc.nextInt();
-
-        studentReport.setIdStudentReport(id);
-        studentReport.setIdStudent(idStudent);
-        studentReport.setIdAssignment(idAssignment);
-
-        boolean ban = manager.updateStudentReport(studentReport);
-        if (ban == true) {
-            System.out.println("Update successful");
-        } else {
-            System.out.println("Error");
+        List<StudentReport> studentReports = manager.getByName(name);
+        for (StudentReport studentReport: studentReports) {
+            System.out.println(studentReport);
         }
     }
 
-    private void deleteStudentReport() {
-        manager.getAll();
-        System.out.println("Insert Report Id");
-        int id = sc.nextInt();
-        studentReport.setIdStudentReport(id);
+    private void GetByLastName(){
 
-        boolean ban = manager.deleteStudentReport(studentReport);
-        if (ban == true) {
-            System.out.println("Delete successful");
-        } else {
-            System.out.println("Error");
+        studentUI.listAllStudents();
+        sc.nextLine();
+        System.out.println("Insert Student's Lastname ");
+        String lastName = sc.nextLine();
+
+        String firstLtr = lastName.substring(0, 1);
+        String restLtrs = lastName.substring(1, lastName.length());
+        firstLtr = firstLtr.toUpperCase();
+        restLtrs= restLtrs.toLowerCase();
+        lastName = firstLtr + restLtrs;
+
+        List<StudentReport> studentReports = manager.getByLastName(lastName);
+        for (StudentReport studentReport: studentReports) {
+            System.out.println(studentReport);
         }
-
     }
-
 }

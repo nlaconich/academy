@@ -1,4 +1,6 @@
 package py.com.ci.academy.presentation;
+import py.com.ci.academy.academyreports.AcademyReports;
+
 import java.util.Scanner;
 
 public class AcademyUI {
@@ -19,11 +21,12 @@ public class AcademyUI {
         System.out.println("4 : Student Management");
         System.out.println("5 : Teacher Management");
         System.out.println("6 : Course with Assignment Management");
-        System.out.println("7 : Exit");
+        System.out.println("7 : Generate Reports");
+        System.out.println("8 : Exit");
         System.out.print("Option: ");
         String option = sc.next();
         try {
-            Integer selectedOption = Integer.parseInt(option);
+            int selectedOption = Integer.parseInt(option);
             switch (selectedOption) {
                 case 1:
                     assignmentManagement();
@@ -41,9 +44,12 @@ public class AcademyUI {
                     teacherManagement();
                     break;
                 case 6:
-                    curseAssignmentManagement();
+                    courseAssignmentManagement();
                     break;
                 case 7:
+                    academyReports();
+                    break;
+                case 8:
                     return;
             }
             mainMenu();
@@ -77,8 +83,15 @@ public class AcademyUI {
         ui.mainMenu();
     }
 
-    private void curseAssignmentManagement() {
+    private void courseAssignmentManagement() {
         CourseAssignmentUI ui = new CourseAssignmentUI();
         ui.mainMenu();
     }
+
+    private void academyReports() {
+        AcademyReports ui = new AcademyReports();
+        ui.mainMenu();
+    }
+
+
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class InscriptionReportManager {
     private String getStatement(){
-        String sql="SELECT i.id_inscription,a.id_assignment,a.name_assignment,co.id_course,co.name_course, s.id_student,s.name,s.lastname,t.id_teacher,t.name_teacher,t.lastname FROM public.inscription i, public.assignment a, public.course co, public.courseassignment ca, public.student s, public.teacher t WHERE i.id_student= s.id_student AND i.id_cxa=ca.id_cxa AND a.id_assignment= ca.id_assignment AND t.id_teacher= co.id_teacher AND ca.id_course= co.id_course";
+        String sql="SELECT i.id_inscription,a.id_assignment,a.name_assignment,co.id_course,co.name_course, s.id_student,s.name,s.lastname_student,t.id_teacher,t.name_teacher,t.lastname FROM public.inscription i, public.assignment a, public.course co, public.courseassignment ca, public.student s, public.teacher t WHERE i.id_student= s.id_student AND i.id_cxa=ca.id_cxa AND a.id_assignment= ca.id_assignment AND t.id_teacher= co.id_teacher AND ca.id_course= co.id_course";
         return sql;
     }
 
@@ -25,7 +25,7 @@ public class InscriptionReportManager {
             inscriptionReport.setNameCourse(rs.getString("name_course"));
             inscriptionReport.setIdStudent(rs.getInt("id_student"));
             inscriptionReport.setNameStudent(rs.getString("name"));
-            inscriptionReport.setLastnameStudent(rs.getString("lastname"));
+            inscriptionReport.setLastnameStudent(rs.getString("lastname_student"));
             inscriptionReport.setIdTeacher(rs.getInt("id_teacher"));
             inscriptionReport.setNameTeacher(rs.getString("name_teacher"));
             inscriptionReport.setLastnameTeacher(rs.getString(11));
@@ -88,7 +88,7 @@ public class InscriptionReportManager {
 
     public List<InscriptionReport> getByStudentLastname(String lastname) {
         List<InscriptionReport> inscriptionReports = new ArrayList();
-        String sql = getStatement() + " AND s.lastname ILIKE " + "'" + lastname + "'";
+        String sql = getStatement() + " AND s.lastname_student ILIKE " + "'" + lastname + "'";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setMaxRows(100);
             try (ResultSet rs = s1.executeQuery()) {
