@@ -1,7 +1,4 @@
-package py.com.ci.academy.Presentation;
-
-import py.com.ci.academy.CourseAssignment.entities.CourseAssignment;
-
+package py.com.ci.academy.presentation;
 import java.util.Scanner;
 
 public class AcademyUI {
