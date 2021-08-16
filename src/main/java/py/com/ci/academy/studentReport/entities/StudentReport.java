@@ -38,9 +38,9 @@ public class StudentReport {
     public String toString() {
         return "Report id = " + idStudentReport + "\n" +
                 "Student id = " + idStudent +
-                "\n Student name = " + nameStudent +
-                "\n Last Name = " + lastname +
-                "\n Assignment = " + nameAssignment +
+                "\nStudent name = " + nameStudent +
+                "\nLast Name = " + lastname +
+                "\nAssignment = " + nameAssignment +
                 "\n----------------------------------------";
     }
 

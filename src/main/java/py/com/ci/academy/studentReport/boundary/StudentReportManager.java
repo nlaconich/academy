@@ -11,7 +11,7 @@ import java.util.List;
 
 public class StudentReportManager {
     private String getStatement() {
-        String sql = "SELECT sr.id_studentreport, s.lastname, sr.id_sxa, sr.id_student, sr.id_assignment, a.name_assignment, s.name FROM  public.studentreport sr, public.student s, public.assignment a WHERE (sr.id_student= s.id_student) and (sr.id_assignment = a.id_assignment)";
+        String sql = "SELECT sr.id_studentreport, s.lastname_student, sr.id_sxa, sr.id_student, sr.id_assignment, a.name_assignment, s.name FROM  public.studentreport sr, public.student s, public.assignment a WHERE (sr.id_student= s.id_student) and (sr.id_assignment = a.id_assignment)";
         return sql;
     }
     private StudentReport getFromRsStudentReport(ResultSet rs) {
@@ -21,7 +21,7 @@ public class StudentReportManager {
             studentReport.setIdStudent(rs.getInt("id_assignment"));
             studentReport.setIdStudent(rs.getInt("id_student"));
             studentReport.setNameStudent(rs.getString("name"));
-            studentReport.setLastname(rs.getString("lastname"));
+            studentReport.setLastname(rs.getString("lastname_student"));
             studentReport.setNameAssignment(rs.getString("name_assignment"));
             return studentReport;
         } catch (Exception e) {
