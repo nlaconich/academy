@@ -40,10 +40,10 @@ public class Course {
 
     @Override
     public String toString() {
-        return "courseId=" + courseId +
-                ", courseName=" + courseName +
-                ", teacherId=" + teacherId +
-                ", teacherName=" + teacherName +
-                "-----------------------------------";
+        return "courseId = " + courseId +
+                "\n courseName = " + courseName +
+                "\n teacherId = " + teacherId +
+                "\n teacherName = " + teacherName +
+                "\n-----------------------------------";
     }
 }

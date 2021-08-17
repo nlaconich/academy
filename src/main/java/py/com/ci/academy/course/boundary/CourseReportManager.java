@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CourseReportManager {
     private String getStatement(){
-        String sql= "SELECT co.id_course, co.name_course, a.id_assignment, a.name_assignment, s.id_student, s.name, s.lastname, t.id_teacher, t.name_teacher, t.lastname FROM public.course co, public.assignment a, public.student s, public.courseassignment ca, public.teacher t WHERE co.id_course= ca.id_course AND a.id_assignment= ca.id_assignment and t.id_teacher= co.id_teacher";
+        String sql= "SELECT co.id_course, co.name_course, a.id_assignment, a.name_assignment, s.id_student, s.name, s.lastname_student, t.id_teacher, t.name_teacher, t.lastname FROM public.course co, public.assignment a, public.student s, public.courseassignment ca, public.teacher t WHERE co.id_course= ca.id_course AND a.id_assignment= ca.id_assignment and t.id_teacher= co.id_teacher";
         return sql;
     }
 
@@ -24,7 +24,7 @@ public class CourseReportManager {
             courseReport.setNameAssignment(rs.getString("name_assignment"));
             courseReport.setIdStudent(rs.getInt("id_student"));
             courseReport.setNameStudent(rs.getString("name"));
-            courseReport.setLastnameStudent(rs.getString("lastname"));
+            courseReport.setLastnameStudent(rs.getString("lastname_student"));
             courseReport.setIdTeacher(rs.getInt("id_teacher"));
             courseReport.setNameTeacher(rs.getString("name_teacher"));
             courseReport.setLastnameTeacher(rs.getString("lastname"));

@@ -104,16 +104,17 @@ public class InscriptionReport {
 
     @Override
     public String toString() {
-        return "idInscription=" + idInscription +
-                ", idAssignment=" + idAssignment +
-                ", nameAssignment=" + nameAssignment +
-                ", idCourse=" + idCourse +
-                ", nameCourse=" + nameCourse +
-                ", idStudent=" + idStudent +
-                ", nameStudent=" + nameStudent +
-                ", lastnameStudent=" + lastnameStudent +
-                ", idTeacher=" + idTeacher +
-                ", nameTeacher=" + nameTeacher +
-                ", lastnameTeacher=" + lastnameTeacher;
+        return "idInscription = " + idInscription +
+                "\nidAssignment = " + idAssignment +
+                "\nnameAssignment = " + nameAssignment +
+                "\nidCourse = " + idCourse +
+                "\nnameCourse = " + nameCourse +
+                "\nidStudent = " + idStudent +
+                "\nnameStudent = " + nameStudent +
+                "\nlastnameStudent = " + lastnameStudent +
+                "\nidTeacher = " + idTeacher +
+                "\nnameTeacher = " + nameTeacher +
+                "\nlastnameTeacher = " + lastnameTeacher +
+                "\n----------------------------------------";
     }
 }

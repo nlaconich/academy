@@ -11,17 +11,17 @@ import java.util.List;
 
 public class StudentReportManager {
 
-    private String getStatement(){
-        String sql="SELECT s.id_student, s.name,s.lastname,a.id_assignment, a.name_assignment, co.id_course, co.name_course FROM public.student s, public.assignment a, public.course co, public.courseassignment ca  WHERE s.id_student=co.id_student AND co.id_course = ca.id_course";
+    private String getStatement() {
+        String sql = "SELECT s.id_student, s.name, s.lastname_student, a.id_assignment, a.name_assignment, co.id_course, co.name_course FROM public.student s, public.assignment a, public.course co, public.courseassignment ca  WHERE s.id_student = co.id_student AND co.id_course = ca.id_course AND co.id_course = ca.id_course AND a.id_assignment= ca.id_assignment";
         return sql;
     }
 
-    private StudentReport getFromRsStudentManager(ResultSet rs){
+    private StudentReport getFromRsStudentManager(ResultSet rs) {
         try {
-            StudentReport studentReport= new StudentReport();
+            StudentReport studentReport = new StudentReport();
             studentReport.setIdStudent(rs.getInt("id_student"));
-            studentReport.setName(rs.getString("name"));
-            studentReport.setLastName(rs.getString("lastname"));
+            studentReport.setNameStudent(rs.getString("name"));
+            studentReport.setLastname(rs.getString("lastname_student"));
             studentReport.setIdAssignment(rs.getInt("id_assignment"));
             studentReport.setNameAssignment(rs.getString("name_assignment"));
             studentReport.setIdCourse(rs.getInt("id_course"));
@@ -51,7 +51,7 @@ public class StudentReportManager {
 
     public List<StudentReport> getById(int idStudent) {
         List<StudentReport> listStudent = new ArrayList();
-        String sql = getStatement() + " AND s.id_Student =" + idStudent;
+        String sql = getStatement() + " AND s.id_student =" + idStudent;
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setMaxRows(100);
             try (ResultSet rs = s1.executeQuery()) {
@@ -68,7 +68,7 @@ public class StudentReportManager {
 
     public List<StudentReport> getByName(String nameStudent) {
         List<StudentReport> listStudent = new ArrayList();
-        String sql = getStatement() + " AND s.name=" +"'"+ nameStudent+"'";
+        String sql = getStatement() + " AND s.name ILIKE " + "'" + nameStudent + "'";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setMaxRows(100);
             try (ResultSet rs = s1.executeQuery()) {
@@ -85,7 +85,7 @@ public class StudentReportManager {
 
     public List<StudentReport> getByLastName(String lastName) {
         List<StudentReport> listStudent = new ArrayList();
-        String sql = getStatement() + " AND s.lastname=" +"'"+ lastName+"'";
+        String sql = getStatement() + " AND s.lastname_student ILIKE " + "'" + lastName + "'";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setMaxRows(100);
             try (ResultSet rs = s1.executeQuery()) {
