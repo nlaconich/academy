@@ -2,7 +2,7 @@ package py.com.ci.academy.academyreports;
 
 import py.com.ci.academy.assignment.boundary.AssignmentReportManager;
 import py.com.ci.academy.assignment.entities.AssignmentReport;
-import py.com.ci.academy.presentation.AssignmentUI;
+import py.com.ci.academy.presentation.console.AssignmentUI;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,8 +3,8 @@ package py.com.ci.academy.academyreports;
 
 import py.com.ci.academy.inscription.boundary.InscriptionReportManager;
 import py.com.ci.academy.inscription.entities.InscriptionReport;
-import py.com.ci.academy.presentation.InscriptionUI;
-import py.com.ci.academy.presentation.StudentUI;
+import py.com.ci.academy.presentation.console.InscriptionUI;
+import py.com.ci.academy.presentation.console.StudentUI;
 
 import java.util.List;
 import java.util.Scanner;

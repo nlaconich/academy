@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FacturasdeCreditosPorClientes" pageWidth="421" pageHeight="595" columnWidth="381" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2c99d3ce-ce91-471f-b35e-d90828566a82">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<subDataset name="Table Dataset 1" uuid="4fcbb92e-9d10-4ee4-b8e0-2b294ab2c681"/>
+	<subDataset name="dataset1" uuid="0aad8da3-afd1-4d1e-9fd0-fc7d834547d1"/>
+	<parameter name="clientes" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+
+   Factura.nro_factura AS FacturaNro,
+   Factura.fecha_emision AS Fecha_Emision,
+   Factura.fecha_vencimiento AS Fecha_Vencimiento,
+   Factura.tipo_factura AS TipoFactura,
+   Cliente.nombre AS Cliente_Nombre,
+   date_part('day', now () - Factura.fecha_emision) as dias_transcurridos,
+   SUM (Facturas_Detalle.sub_total) As Factura_total
+
+FROM
+"facturas" Factura
+Inner Join "cliente" Cliente on  (Factura.cliente_id = Cliente.cliente_id)
+Inner Join "facturas_detalle" Facturas_Detalle on (Factura.factura_id = Facturas_Detalle.factura_id)
+WHERE
+ Factura.tipo_factura='CREDITO'  and Factura.estado_financiero in (4,1,3)
+GROUP BY Factura.nro_factura ,
+   Factura.fecha_emision ,
+   Factura.fecha_vencimiento ,
+   Factura.tipo_factura ,
+   Cliente.nombre,
+   Factura.fecha_emision
+
+ORDER BY
+   Cliente.nombre]]>
+	</queryString>
+	<field name="facturanro" class="java.lang.String"/>
+	<field name="fecha_emision" class="java.sql.Timestamp"/>
+	<field name="fecha_vencimiento" class="java.sql.Date"/>
+	<field name="tipofactura" class="java.lang.String"/>
+	<field name="cliente_nombre" class="java.lang.String"/>
+	<field name="dias_transcurridos" class="java.lang.Double"/>
+	<field name="factura_total" class="java.lang.Double"/>
+	<variable name="sumaTotal" class="java.lang.Double" resetType="Group" resetGroup="grupoCliente" calculation="Sum">
+		<variableExpression><![CDATA[$F{factura_total}]]></variableExpression>
+	</variable>
+	<group name="grupoCliente">
+		<groupExpression><![CDATA[$F{cliente_nombre}]]></groupExpression>
+		<groupFooter>
+			<band height="17">
+				<staticText>
+					<reportElement x="148" y="2" width="84" height="10" uuid="8a40f883-fc5e-4e0f-a43f-5e6c0a0acdb1"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[          Total]]></text>
+				</staticText>
+				<textField pattern="#,##0">
+					<reportElement x="220" y="2" width="88" height="10" uuid="2aad55e9-717f-43bb-ba2c-cafd2fdf45d2"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sumaTotal}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="0" width="381" height="1" uuid="4bab5348-0b0d-4fec-8b5f-f121eb939449"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="104">
+			<staticText>
+				<reportElement x="0" y="77" width="106" height="20" uuid="f9b722ad-0c03-45fc-bedf-a2c4d3cc161d"/>
+				<text><![CDATA[Fecha de Impresion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="342" height="20" uuid="e0db92a8-b7dc-49e7-bd29-ef36bc4ab4e7"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Facturas de Créditos de Clientes Pendientes de Cancelación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="127" height="20" uuid="eebdaad4-da94-4a63-bdbc-175bccc6939f"/>
+				<textElement>
+					<font size="17" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hidrosa ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="106" y="77" width="100" height="20" uuid="6c0411b4-da66-46ad-89b6-5a6a77b11286"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="315" y="0" width="44" height="20" uuid="ba796514-297c-44af-bdf7-6ffe9f6da530"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="43" width="167" height="20" uuid="a2808eb6-e174-43df-bec7-2b06df197103"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado General de Cuentas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="0" width="81" height="20" uuid="7c16534e-6175-4f76-adf1-611e5a229613"/>
+				<text><![CDATA[Pagina   :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="-354" y="13" width="47" height="10" uuid="bf7bbefe-194b-45a1-aee4-1cda325b7aed"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{facturanro}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="15">
+			<staticText>
+				<reportElement x="233" y="2" width="44" height="10" uuid="c7eace2e-cd9d-4663-addf-bdf0d3e31312"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="325" y="2" width="39" height="10" uuid="d58b1c6b-9a4c-43f8-abb5-4553970a37c4"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Dias]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="77" y="3" width="41" height="10" uuid="a5714d0e-e914-432e-a879-75795b976739"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Nro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="3" width="47" height="10" uuid="ad4c70be-632a-471d-8530-bfc8cf667173"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="14" width="381" height="1" uuid="cb59cf52-351f-4525-8f4f-a101519c5ad3"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13">
+			<staticText>
+				<reportElement x="4" y="3" width="47" height="10" uuid="481d9d3e-614f-46c3-8eee-a4da37ba0f38"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="76" y="3" width="42" height="10" uuid="f3c1359f-5e4d-47cb-a51a-5123089a84de"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{facturanro}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="50">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="40" width="67" height="10" uuid="d1ff5e28-9c73-44db-ab7a-e420786eef58"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_emision}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-354" y="13" width="47" height="10" uuid="24ceb9b6-1296-4b43-9c87-179e22683c61"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{facturanro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-354" y="13" width="47" height="10" uuid="4a8c0f0f-c81f-431e-9b7c-234cccd2e114"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{facturanro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-354" y="13" width="47" height="10" uuid="db91472f-de37-49ed-9467-2866e562a2df"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{facturanro}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="77" y="40" width="22" height="10" uuid="d50de77b-4020-4821-abe4-b560d53bbecd"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{facturanro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="136" y="40" width="173" height="10" uuid="e7c24cc4-5e6e-419e-a7eb-16da1edf69e5"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente_nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="50">
+			<textField pattern="#,##0">
+				<reportElement x="218" y="27" width="90" height="10" uuid="c8c0ba6f-7bcd-49a8-b5ac-c02f2c174d1e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factura_total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="326" y="27" width="39" height="10" uuid="42d71e46-863b-4bae-a7cb-3049add506f2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dias_transcurridos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+              version="2.2">
+     <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/secure/home.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.DataTableRenderer</renderer-type>
+            <renderer-class>presentation.util.LazyDataTableRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>reportes</from-outcome>
+            <to-view-id>/secure/reportes.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>ciudad</from-outcome>
+            <to-view-id>/secure/ciudad.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>pantallas</from-outcome>
+            <to-view-id>/secure/pantallas.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>encuesta</from-outcome>
+            <to-view-id>/secure/encuesta.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>usuarios</from-outcome>
+            <to-view-id>/secure/usuarios.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>prioridades</from-outcome>
+            <to-view-id>/secure/prioridades.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>historialProduccion</from-outcome>
+            <to-view-id>/secure/historialProduccion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>presupuesto</from-outcome>
+            <to-view-id>/secure/presupuesto.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>cliente</from-outcome>
+            <to-view-id>/secure/clientes.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>    
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>deposito</from-outcome>
+            <to-view-id>/secure/depositos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>  
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>preguntas</from-outcome>
+            <to-view-id>/secure/preguntas.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>finEncuesta</from-outcome>
+            <to-view-id>/secure/finEncuesta.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>formMapa</from-outcome>
+            <to-view-id>/secure/formMapa.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>resultados</from-outcome>
+            <to-view-id>/secure/resultados.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>reportecsv</from-outcome>
+            <to-view-id>/secure/reportecsv.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>empresas</from-outcome>
+            <to-view-id>/secure/empresas.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>versiones</from-outcome>
+            <to-view-id>/secure/versiones.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>rubro</from-outcome>
+            <to-view-id>/secure/rubro.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>vendedor</from-outcome>
+            <to-view-id>/secure/vendedores.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>personal</from-outcome>
+            <to-view-id>/secure/personal.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>ordenesTrabajo</from-outcome>
+            <to-view-id>/secure/ordenesTrabajo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>ordenesCompra</from-outcome>
+            <to-view-id>/secure/ordenesCompra.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>facturas</from-outcome>
+            <to-view-id>/secure/facturas.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>ResumenTotales</from-outcome>
+            <to-view-id>/secure/ResumenTotales.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>facturasCredito</from-outcome>
+            <to-view-id>/secure/facturasCredito.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>facturasDetalle</from-outcome>
+            <to-view-id>/secure/facturasDetalle.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>categoria</from-outcome>
+            <to-view-id>/secure/categorias.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>tipoProducto</from-outcome>
+            <to-view-id>/secure/tipoProductos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>detalleRecepcion</from-outcome>
+            <to-view-id>/secure/detalleRecepcion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>detalleVenta</from-outcome>
+            <to-view-id>/secure/detalleVentas.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>tipoControlStock</from-outcome>
+            <to-view-id>/secure/tipoControlStock.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>stock</from-outcome>
+            <to-view-id>/secure/stock.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>historicoStock</from-outcome>
+            <to-view-id>/secure/historicoStock.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>iva</from-outcome>
+            <to-view-id>/secure/iva.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>asignarDeposito</from-outcome>
+            <to-view-id>/secure/asignarDeposito.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>stockPesableHistorico</from-outcome>
+            <to-view-id>/secure/stockPesableHistorico.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>stockPesable</from-outcome>
+            <to-view-id>/secure/stockPesable.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>producto</from-outcome>
+            <to-view-id>/secure/productos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>ReporteStockDetallado</from-outcome>
+            <to-view-id>/secure/ReporteStockDetallado.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>ReporteStockPintura</from-outcome>
+            <to-view-id>/secure/ReporteStockPintura.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>ReporteStockResumido</from-outcome>
+            <to-view-id>/secure/ReporteStockResumido.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>proveedor</from-outcome>
+            <to-view-id>/secure/proveedor.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>paleta</from-outcome>
+            <to-view-id>/secure/paleta.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>servicios</from-outcome>
+            <to-view-id>/secure/servicios.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>tipoProductos</from-outcome>
+            <to-view-id>/secure/tipoProductos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>pantallas</from-outcome>
+            <to-view-id>/secure/pantallas.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>roles</from-outcome>
+            <to-view-id>/secure/roles.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>rolesPantallas</from-outcome>
+            <to-view-id>/secure/rolesPantallas.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>reporteGranallado</from-outcome>
+            <to-view-id>/secure/reporteGranallado.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>reporteOT</from-outcome>
+            <to-view-id>/secure/reporteOT.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>tiposServicio</from-outcome>
+            <to-view-id>/secure/tiposServicio.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>presupuestoSinIva</from-outcome>
+            <to-view-id>/secure/presupuestoSinIva.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>planificacion</from-outcome>
+            <to-view-id>/secure/planificacion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>decapado</from-outcome>
+            <to-view-id>/secure/decapado.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>pretratado</from-outcome>
+            <to-view-id>/secure/pretratado.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>cabinas</from-outcome>
+            <to-view-id>/secure/cabinas.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>ordenesTrabajoProduccionScheduleManual</from-outcome>
+            <to-view-id>/secure/ordenesTrabajoProduccionScheduleManual.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>ordenesTrabajoProduccionSchedule</from-outcome>
+            <to-view-id>/secure/ordenesTrabajoProduccionSchedule.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>facturacionPreliminar</from-outcome>
+            <to-view-id>/secure/facturacionPreliminar.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>ordenesTrabajoProduccion</from-outcome>
+            <to-view-id>/secure/ordenesTrabajoProduccion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>presupuesto</from-outcome>
+            <to-view-id>/secure/presupuesto.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>cajas</from-outcome>
+            <to-view-id>/secure/cajas.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>reporteFacturadeCreditoporCliente</from-outcome>
+            <to-view-id>/secure/reporteFacturadeCreditoporCliente.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>serviciosGranalladoFacturados</from-outcome>
+            <to-view-id>/secure/serviciosGranalladoFacturados.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>servicioDetalles</from-outcome>
+            <to-view-id>/secure/servicioDetalles.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>articulos</from-outcome>
+            <to-view-id>/secure/articulos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>now</managed-bean-name>
+        <managed-bean-class>java.util.Date</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean> 
+</faces-config>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteFacturasCreditosPendientes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6f4cb8a6-d25d-47ee-a282-7da156d66e20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select now()]]>
+	</queryString>
+	<field name="now" class="java.sql.Timestamp"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="101">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="122" y="68" width="100" height="13" uuid="39f9610f-cd4e-4780-b413-002ee8a312fd"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="68" width="122" height="20" uuid="a8e68959-2767-4512-8204-09f0e41a6067"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<text><![CDATA[Fecha de Impresion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="21" width="430" height="20" uuid="b5888c05-76c6-4c7d-ace7-f6b4ec10b25e"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Facturas de Créditos de Clientes Pendientes de Cancelación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="0" width="120" height="20" uuid="7a70eceb-70ab-4137-8aa3-57c20a45b024"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="17" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HIDROSA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="48" width="167" height="20" uuid="e43f70a7-09e4-443e-a78d-0b865787e667"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado General de Cuentasss]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="435" y="0" width="80" height="20" uuid="4a8b0042-884b-488e-a4e5-097d31b7283f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="20" uuid="cf3d960f-c618-4b3a-ac39-3528c4ad0296"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="74">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="69" uuid="c8fda020-1c9a-4794-b2fa-0aa2c5fc2c4d"/>
+				<subreportParameter name="clientes"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/home/nbaez/Documentos/REPOSITORIO/SGOTFS/src/main/webapp/resources/rpt/FacturasCreditosPorClientes.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

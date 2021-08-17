@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+    <h:body>
+        <ui:composition template="/template/base.xhtml">
+            <ui:define name="content">
+                <h:form id="vendedor-form">
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                    <p:growl id="growl" showDetail="true" sticky="true" />
+                    <p:outputLabel value="Listado de los Vendedores" />
+                    <p:dataTable id="dtVendedor" var="vendedor" value="#{vendedorBean.vendedorList}"
+                                 rows="10" paginator="true" paginatorPosition="bottom"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 selection="#{vendedorBean.vendedor}" rowKey="#{vendedor}"
+                                 selectionMode="single">
+
+                        <p:ajax event="rowSelect" listener="#{vendedorBean.onRowSelect}"/>
+
+                        <p:column headerText="Username" sortBy="#{vendedor.vendedor}">
+                            <h:outputText value="#{vendedor.vendedor}" />
+                        </p:column>
+                                            
+                        <f:facet name="footer">
+                            <p:commandButton process="dtVendedor" icon="fa fa-plus-square" update=":form-add:vendedorGr" 
+                                             value="Agregar" oncomplete="PF('dlgVenAdd').show()" actionListener="#{vendedorBean.actionClean}"/>
+                            <p:commandButton process="dtVendedor" icon="ui-icon-pencil" id="botonEditar"
+                                             value="Editar" oncomplete="PF('dlgVenAdd').show()"
+                                             update=":form-add:vendedorGr" 
+                                             disabled="#{vendedorBean.bloquearBotones}"/>                                                       
+
+                            <p:confirmDialog global="true" showEffect="fade"
+                                             hideEffect="explode">
+                                <p:commandButton value="Si" type="button"
+                                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check" ajax="false" />
+                                <p:commandButton value="No" type="button"
+                                                 styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                <p:commandButton 
+                                value="Actualizar" 
+                                action="#{vendedorBean}"
+                                id='btn-actualizar-vendedor'
+                                />
+                            </p:confirmDialog>
+
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+
+                <p:dialog header="Vendedor" widgetVar="dlgVenAdd"
+                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <h:form id="form-add">
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                        <p:panelGrid columns="2" columnClasses="column" id="vendedorGr">                            
+                            <p:outputLabel value="Vendedor" for="vendedor" />
+                            <h:panelGroup>
+                                <p:inputText id="vendedor" required="true" value="#{vendedorBean.vendedor.vendedor}" />
+                                <h:inputHidden value="#{vendedorBean.vendedor.vendedorId}"/>
+                            </h:panelGroup>
+                            <p:spacer/>
+                            <p:commandButton 
+                                value="Guardar" icon="fa fa-save"
+                                update="vendedorGr,:vendedor-form:dtVendedor" 
+                                action="#{vendedorBean.agregarVendedor}"
+                                id='btn-guardar-vendedor'
+                            />
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

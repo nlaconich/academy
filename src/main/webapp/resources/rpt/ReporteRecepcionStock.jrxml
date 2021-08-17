@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteRecepcionStock" columnCount="2" printOrder="Horizontal" pageWidth="595" pageHeight="842" columnWidth="277" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2c99d3ce-ce91-471f-b35e-d90828566a82">
+	<property name="ireport.zoom" value="5.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="170"/>
+	<style name="table"/>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF"/>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF"/>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<style name="Barcode" hAlign="Center" vAlign="Middle" fontName="Helvetica" fontSize="10"/>
+	<subDataset name="Table Dataset 1" uuid="4fcbb92e-9d10-4ee4-b8e0-2b294ab2c681"/>
+	<subDataset name="dataset1" uuid="0aad8da3-afd1-4d1e-9fd0-fc7d834547d1"/>
+	<parameter name="ordenCompraID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[59]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+lpad((productos_detalle.producto_detalle_id::int)::text ,12, '0') AS id,
+productos_detalle.producto_detalle_id as id2,
+   producto.descripcion AS Nombre_Producto,
+   productos_detalle.fechavencimiento AS Fecha_Vencimiento,
+   productos_detalle.codigoproveedor AS Cod_Proveedor,
+   productos_detalle.codigounitario AS Cod_Hidrosa
+FROM
+"productos_detalle" Productos_Detalle
+Inner Join "producto" Producto on  (Productos_Detalle.producto_id = Producto.producto_id)
+WHERE productos_detalle.orden_compra_id= $P{ordenCompraID}
+GROUP BY
+   productos_detalle.producto_detalle_id,
+   Producto.descripcion,
+   productos_detalle.fechavencimiento ,
+   productos_detalle.codigoproveedor ,
+   productos_detalle.codigounitario
+
+ORDER BY
+   productos_detalle.producto_detalle_id,
+   producto.descripcion]]>
+	</queryString>
+	<field name="id" class="java.lang.String"/>
+	<field name="id2" class="java.lang.Integer"/>
+	<field name="nombre_producto" class="java.lang.String"/>
+	<field name="fecha_vencimiento" class="java.sql.Timestamp"/>
+	<field name="cod_proveedor" class="java.lang.String"/>
+	<field name="cod_hidrosa" class="java.lang.String"/>
+	<variable name="sumaTotal" class="java.lang.Double" resetType="Group" resetGroup="grupoCliente" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<group name="grupoCliente">
+		<groupExpression><![CDATA[]]></groupExpression>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<columnHeader>
+		<band height="6"/>
+	</columnHeader>
+	<detail>
+		<band height="79" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="60" width="81" height="12" uuid="6a4a2992-fa55-41cb-9ae1-c7ccbce76967"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_vencimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="32" width="274" height="16" uuid="23364730-c830-4533-8cbe-298511007c67"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_producto}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="81" y="60" width="105" height="12" uuid="c2c9ce0e-e353-401c-bcc3-df2d75191409"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cod_proveedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="186" y="60" width="88" height="12" uuid="e6f8d73c-8e0a-4d90-a83f-07c804b55879"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="48" width="81" height="12" uuid="7c4d0895-a561-4187-a2c0-bda6e7144499"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vencimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="48" width="105" height="12" uuid="67a413ea-35f8-480c-8107-53032c2feb4e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cod. Proveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="48" width="88" height="12" uuid="643726c9-45e5-468c-a454-77e1217b0c4f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cod. Hidrosa]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement style="Barcode" x="0" y="0" width="274" height="32" uuid="bb786f25-4992-454f-8392-5e15dd2ffa25"/>
+				<jr:EAN13 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
+					<jr:codeExpression><![CDATA[$F{id}]]></jr:codeExpression>
+				</jr:EAN13>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="52f4249f-a9c0-4a46-9bb6-268a6bf57cdc">
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PFECHA" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Fecha_DESDE" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Fecha_HASTA" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[Select now() limit 1]]>
+	</queryString>
+	<field name="now" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="22" y="0" width="110" height="20" uuid="d69e2527-690a-475d-932f-c44d214c774c"/>
+				<textElement>
+					<font size="17" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HIDROSA	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="21" width="271" height="20" uuid="af72a3c5-e7e3-44f2-a85a-251d9986f80b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Facturas Cobradas y no Cobradas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="41" width="135" height="20" uuid="73c237cd-01fa-430c-99ca-b1b5a29b10b6"/>
+				<text><![CDATA[Fecha de Impresion:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="435" y="3" width="80" height="18" uuid="ddd21be9-70e1-4527-a33c-b111d91ce8d7"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="3" width="40" height="18" uuid="e633dabf-68af-4742-bdac-dba46e3a19d6"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="157" y="41" width="100" height="20" uuid="ff372119-2706-499e-b63b-c92730f5ac68"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="64" splitType="Stretch">
+			<staticText>
+				<reportElement x="22" y="4" width="135" height="20" uuid="a83cc6e7-ab40-44ee-8d59-99e509c6a2e0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Resumen Facturacion]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="24" width="555" height="40" uuid="e17c99a8-e003-467b-86ea-ed39cdc6d1c0"/>
+				<subreportParameter name="Fecha_Hasta">
+					<subreportParameterExpression><![CDATA[$P{PFECHA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Fecha_Desde"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["ReporteFacturacion_Resumen.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="61">
+			<staticText>
+				<reportElement x="22" y="0" width="135" height="20" uuid="af6c004b-b8dd-442a-9d69-6a17835daa04"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Facturas Cobradas]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="20" width="555" height="41" uuid="77728f9a-719f-4ba4-89a5-5a3906075a20"/>
+				<subreportParameter name="Fecha_Hasta">
+					<subreportParameterExpression><![CDATA[$P{PFECHA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Fecha_Desde">
+					<subreportParameterExpression><![CDATA[$P{PFECHA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["ReporteFacturacion_Contado.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="65">
+			<staticText>
+				<reportElement x="22" y="4" width="167" height="20" uuid="5176c688-85b6-4e6a-9cbe-5f77c3e1f013"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Facturacion no Cobradas]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="24" width="555" height="41" uuid="cd13b2a9-f065-46c4-bf4b-8f495f8874a6"/>
+				<subreportParameter name="Fecha_Hasta">
+					<subreportParameterExpression><![CDATA[$P{PFECHA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Fecha_Desde">
+					<subreportParameterExpression><![CDATA[$P{PFECHA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["ReporteFacturacion_Credito.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

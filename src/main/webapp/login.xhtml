@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <style type="text/css">
+            .ui-panel{
+                margin:0 auto 0 auto; 
+                width:390px;
+            }
+            body {
+                font-size: 90% !important;
+
+            }
+        </style>
+        <title>Academy | Educational System</title>
+        <link rel="shortcut icon" href="../resources/img/favicon.ico" type="image/x-icon" />
+    </h:head>
+    <h:body style="background-color:#282832">
+        <div style="position:relative;margin-left:40%;margin-top:120px;height:40px;width:269px;background: URL() ; "><img src="resources/img/logo-academy.png" style="width:239px;"/></div>
+        <div style="left:0px; height:90px;">&nbsp;</div>
+        <p:growl id="mensajes" showDetail="true" life="2000" />
+        <h:form id="loginPage">
+            <!--<form method="POST" action="j_security_check">-->
+            <p:panel header="Academy - Sistema de Gestión" style="width:400px;margin-top:100px;">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="username" value="Usuario:" />
+                    <p:inputText  value="#{loginBean.username}" styleClass="username" id="username"
+                                  required="true" label="username" />
+                    <h:outputLabel for="password" value="Password:" />
+                    <p:password value="#{loginBean.password}" id="password" required="true"
+                                label="password" />
+                    <f:facet name="footer">
+                        <p:commandButton id="loginButton" value="Login"
+                                         actionListener="#{loginBean.login}" update=":mensajes"
+                                         />
+                    </f:facet>
+                </h:panelGrid>
+            </p:panel>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $(".username").focus();
+                });
+            </script>
+        </h:form>
+        <!--</form>-->
+    </h:body>
+</html>

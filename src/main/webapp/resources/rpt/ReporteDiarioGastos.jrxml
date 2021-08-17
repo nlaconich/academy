@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2458e2e8-c32a-4983-ae95-0f2579e03348">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha_Hasta" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT f.tipo_factura,
+sum(sub_total) as total_venta 
+FROM facturas as f
+inner join facturas_detalle as fd ON (f.factura_id = fd.factura_id)
+WHERE f.fecha_emision::date = $P{fecha_Hasta}
+group by f.tipo_factura
+
+SELECT p.tipo_presupuesto,
+sum(pd.sub_total) as total_venta 
+FROM presupuesto as p
+inner join presupuesto_detalle as pd ON (p.presupuesto_id = pd.presupuesto_id)
+WHERE p.fecha_emision::date = $P{fecha_Hasta}
+group by p.tipo_presupuesto
+
+SELECT 
+case (f.tipo_factura)
+WHEN 'CONTADO' 
+THEN sum(sub_total) END as CONTADO,
+case (f.tipo_factura)
+WHEN 'CREDITO'
+THEN
+sum(sub_total) 
+END as CREDITO 
+FROM facturas as f
+inner join facturas_detalle as fd ON (f.factura_id = fd.factura_id)
+WHERE f.fecha_emision::date = $P{fecha_Hasta}
+group by f.tipo_factura]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="92" splitType="Stretch">
+			<staticText>
+				<reportElement x="207" y="0" width="100" height="20" uuid="97117f1e-8320-4613-b898-1309f4fe0078"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HIDROSA]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="17" width="555" height="67" uuid="257c36a3-96d8-4c09-954c-a26ffc919efe"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="28" width="188" height="20" uuid="bfd0f6f0-31e7-4b6e-a052-c4424b95b538"/>
+				<textElement>
+					<font isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Reporte de presupuesto del dia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="64" width="122" height="20" uuid="85649e59-7cbc-4079-bdfd-05842f54aa39"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Impresion:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="7882e03a-8be8-42f7-9057-eaa0bde8d394"/>
+			</line>
+			<staticText>
+				<reportElement x="444" y="2" width="53" height="20" uuid="48885907-8f8f-4160-9832-90f8a4ada3d7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[GASTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="0" width="57" height="20" uuid="bc918c44-7ca8-443a-878b-7865425c20e2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[EFECTIVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="299" y="1" width="52" height="20" uuid="6d35ebd3-d402-40b6-84e5-6edec845b860"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CHEQUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="1" width="52" height="20" uuid="83bf3078-1c1d-4538-bf67-34a8a8b6fee9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="94" y="0" width="100" height="1" uuid="86370036-451d-4b17-95dd-c089becf628f"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="196" splitType="Stretch">
+			<staticText>
+				<reportElement x="4" y="31" width="75" height="20" uuid="bcad4cd4-f509-4334-8285-94b2c646c014"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[COBRANZAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="4" width="52" height="20" uuid="fdb58f0d-0e4e-408a-ba26-410b3d39c8cd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VENTAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="59" width="46" height="20" uuid="2ffef7f7-cefc-4f76-8536-c4876f2ef8fb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[GASTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="86" width="68" height="20" uuid="4d4cc37b-0b3e-4189-b3cd-803ba6a590ce"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUB-TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="112" width="83" height="20" uuid="e6efc128-9025-4108-9bc0-35113550e8d5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Ingresos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="138" width="75" height="20" uuid="b940e8c0-b053-4932-b551-0dd0d98fdc22"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL CAJA]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="-3" width="555" height="1" uuid="e3b6641f-d73a-4f4a-bf7e-8803101e7bb8"/>
+			</line>
+			<line>
+				<reportElement x="103" y="-31" width="1" height="189" uuid="43e2fc9b-c642-40d0-9acb-af452ac5858e"/>
+			</line>
+			<line>
+				<reportElement x="253" y="-31" width="1" height="189" uuid="f88a41e1-04c7-4401-bd6d-f9af8a11abeb"/>
+			</line>
+			<line>
+				<reportElement x="402" y="-31" width="1" height="189" uuid="3acaf445-9a98-477c-9402-14e090f7f34e"/>
+			</line>
+			<line>
+				<reportElement x="555" y="-31" width="1" height="189" uuid="ee8bdac3-fa21-4bf5-b88b-cbea30bff7be"/>
+			</line>
+			<line>
+				<reportElement x="0" y="-31" width="1" height="189" uuid="eeb28bbb-6761-43af-a1dd-ce480ffa7898"/>
+			</line>
+			<line>
+				<reportElement x="0" y="158" width="555" height="1" uuid="f50a834c-b843-4b46-abdb-3f2770045884"/>
+			</line>
+			<line>
+				<reportElement x="1" y="22" width="554" height="1" uuid="01667661-7ae3-44fb-8297-949a8a6bfdc9"/>
+			</line>
+			<line>
+				<reportElement x="0" y="51" width="555" height="1" uuid="960423a3-3e04-4055-bb44-f82ef944dfee"/>
+			</line>
+			<line>
+				<reportElement x="0" y="78" width="555" height="1" uuid="b4ca969d-2024-48de-a7a4-8a9387ba0a0b"/>
+			</line>
+			<line>
+				<reportElement x="1" y="106" width="554" height="1" uuid="f1ea345a-5522-4e75-8410-63d935bbea73"/>
+			</line>
+			<line>
+				<reportElement x="0" y="131" width="555" height="1" uuid="5608411d-6924-48c9-9f19-89333484947f"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

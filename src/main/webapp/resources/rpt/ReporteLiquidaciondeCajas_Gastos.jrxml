@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="REPORTEDIARIO_liquidacion" pageWidth="752" pageHeight="572" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="752" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="be78cb57-3cd2-4e6f-aafc-5b1f909dfaef">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FECHA_HASTA" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+    cajasGastos.monto_ingreso AS MontoIngreso,
+    cajasGastos.monto_egreso AS MontoEgreso,
+    cajasGastos.monto_ingreso_chq AS MontoIngresoCheque,
+    cajasGastos.fecha AS Fecha,
+    cliente.nombre AS ClienteNombre,
+    facturas.nro_factura AS Nro
+
+
+
+ FROM
+     "cajas_gastos" cajasGastos
+
+
+inner join "facturas"Facturas on cajasGastos.gastos_id= Facturas.factura_id
+inner join "cliente"Cliente on cajasGastos.gastos_id = Cliente.cliente_id
+WHERE
+     cajasGastos.fecha::date = $P{FECHA_HASTA}
+
+GROUP BY Facturas.nro_factura ,
+      cajasGastos.monto_ingreso,
+      cajasGastos.monto_egreso,
+      cajasGastos.monto_ingreso_chq,
+      cajasGastos.fecha,
+      Cliente.nombre
+
+ORDER BY
+   Cliente.nombre]]>
+	</queryString>
+	<field name="montoingreso" class="java.lang.Double"/>
+	<field name="montoegreso" class="java.lang.Double"/>
+	<field name="montoingresocheque" class="java.lang.Double"/>
+	<field name="fecha" class="java.sql.Timestamp"/>
+	<field name="clientenombre" class="java.lang.String"/>
+	<field name="nro" class="java.lang.String"/>
+	<variable name="gastosefectivototal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoingreso}]]></variableExpression>
+	</variable>
+	<variable name="gastoschequetotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoingresocheque}]]></variableExpression>
+	</variable>
+	<variable name="gastostotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoegreso}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="376" y="0" width="75" height="20" uuid="24b201cb-9cd4-469e-8c84-37d697afe307"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cheque]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="0" width="74" height="20" uuid="f519243f-2e6c-4d4b-87b2-670dc4ed6cce"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detalle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="0" width="54" height="20" uuid="911219c0-44f5-49b3-8afe-959fd76ff7b9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="142" y="0" width="80" height="20" uuid="60a4027c-6804-407c-819a-69b61bb0abaf"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="0" width="80" height="20" uuid="8fca9f81-f825-49e4-8c86-156cfad49e2f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Efectivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="451" y="0" width="75" height="20" uuid="1e17849e-5cfe-4ec8-81ae-0e4d90789884"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gastos]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="376" y="0" width="75" height="20" forecolor="#333333" uuid="05083e17-771d-45ac-924d-1f32fa07142d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoingresocheque}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="222" y="0" width="74" height="20" forecolor="#333333" uuid="1a18ed18-7554-4163-b88c-5ec4683accf0"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{clientenombre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="88" y="0" width="54" height="20" forecolor="#333333" uuid="9a84ccd0-9e40-48fb-9bf4-aac44dfbfe3a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="142" y="0" width="80" height="20" forecolor="#333333" uuid="13a979e5-cb3f-4893-97f3-d5a447d6b41d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nro}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="296" y="0" width="80" height="20" forecolor="#333333" uuid="3a695e89-c773-40bc-99fa-50a0feba0802"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{montoingreso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="451" y="0" width="75" height="20" forecolor="#333333" uuid="eba9eff9-530c-4c21-a59e-4413eeef7254"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoegreso}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="253" y="2" width="40" height="20" uuid="8ce2481d-884f-4596-a005-e690564ffe73"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="296" y="2" width="80" height="20" uuid="ae3531db-dbeb-4fc7-b410-f7a0ea238e67"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{gastosefectivototal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="376" y="2" width="75" height="20" uuid="659d03e1-064a-4057-a9a2-441460c32d4f"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{gastoschequetotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="451" y="2" width="75" height="20" uuid="e5629c48-d5dc-4880-8a8d-f1e182a73bf6"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{gastostotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

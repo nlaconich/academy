@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportePresupuestosinIva_subreport" pageWidth="572" pageHeight="752" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5e60ebdf-102c-43d2-87af-2ad2f0c532e0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_presupuestosiniva" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[Select
+presupuesto."nro_presupuesto" AS presupuesto_nro_presupuesto,
+presupuesto."fecha_emision" AS presupuesto_fecha_emision,
+presupuesto."orden" AS presupuesto_orden,
+cliente."nombre" AS cliente_nombre,
+servicios."servicio" As servicios_descripcion,
+SUM (presupuesto_detalle.precio_unitario) As Preciounitario_total,
+SUM (presupuesto_detalle.sub_total) As Presupuesto_total
+
+FROM
+"public"."presupuesto" presupuesto
+Inner Join "cliente" Cliente on  (presupuesto.cliente_id = Cliente.cliente_id)
+Inner Join "servicios" servicios on (presupuesto.presupuesto_id = servicios.servicio_id)
+Inner Join "presupuesto_detalle" presupuesto_detalle on  (presupuesto.presupuesto_id = presupuesto_detalle.presupuesto_detalle_id)
+GROUP BY presupuesto.nro_presupuesto ,
+   presupuesto.fecha_emision ,
+   presupuesto.orden ,
+   servicios.servicio ,
+   cliente.nombre
+
+ORDER BY
+   cliente.nombre]]>
+	</queryString>
+	<field name="presupuesto_nro_presupuesto" class="java.lang.String"/>
+	<field name="presupuesto_fecha_emision" class="java.sql.Date"/>
+	<field name="presupuesto_orden" class="java.lang.Integer"/>
+	<field name="cliente_nombre" class="java.lang.String"/>
+	<field name="servicios_descripcion" class="java.lang.String"/>
+	<field name="preciounitario_total" class="java.lang.Double"/>
+	<field name="presupuesto_total" class="java.lang.Double"/>
+	<variable name="total_presupuesto" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{presupuesto_total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<textField>
+				<reportElement x="236" y="0" width="100" height="20" uuid="aff7e5d1-d636-4cc3-a58f-34e5a5260d53"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{presupuesto_nro_presupuesto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="42" y="0" width="100" height="20" uuid="d4d77d96-601b-45d8-9ad1-5c1fd038ba7c"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Presupuesto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="181" y="35" width="44" height="20" uuid="8fe374f1-1f25-41a3-b38b-ec25741b55a1"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="225" y="35" width="100" height="20" uuid="640df834-decb-4497-84c9-99b22cea787d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{presupuesto_fecha_emision}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement x="42" y="20" width="56" height="20" uuid="f708af41-ba0f-4441-9c7c-60ad5393f940"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLIENTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="151" y="17" width="214" height="20" uuid="5a72203b-d3e5-44dc-9265-20f840f5e138"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cliente_nombre}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="98" y="30" width="474" height="1" uuid="c6cf3a6a-3c7d-4081-bd61-47e3883c95a6"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="125" y="0" width="100" height="20" uuid="1c2446f3-c67d-45e1-9f14-8047e9261b14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DETALLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="225" y="0" width="100" height="20" uuid="00c37f1f-7741-4e50-881a-5ee500bd9ad6"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio U.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="325" y="0" width="100" height="20" uuid="008b6710-25ab-4561-b23c-ccee8646e09d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="125" y="20" width="100" height="20" uuid="b37505b2-2e17-49fe-95d5-45fe8bd9b722"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{servicios_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="225" y="20" width="100" height="20" uuid="9fdbaa61-3eed-464d-bc70-5b9e91d73e1d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{preciounitario_total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="325" y="20" width="100" height="20" uuid="bfb43518-cce8-4d73-855b-d3bc2f0d1e1d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{presupuesto_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement x="225" y="0" width="100" height="20" uuid="87da8575-d0f5-4fa1-a7d0-a3a9e6c2ca15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL A PAGAR]]></text>
+			</staticText>
+			<textField pattern="###0">
+				<reportElement x="325" y="-1" width="100" height="20" uuid="b0f6f44a-6ff4-4ea7-91f1-350f4b2b8946"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{total_presupuesto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

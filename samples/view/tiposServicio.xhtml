@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <ui:composition template="/template/base.xhtml">
+            <ui:define name="content">
+                <style>
+                    .nuevo.fc-event {
+                        background-color: orange !important;
+                    }
+                    .enCurso.fc-event {
+                        background-color:  darkgreen !important;
+                    }
+                    .retrazado.fc-event {
+                        background-color: red !important;
+                    }
+                    .finalizado.fc-event {
+                        background-color:  darkslateblue !important;
+                    }
+                    .anulado.fc-event {
+                        background-color: darkslategrey !important;
+                    }
+                    .ordenProduccion_AliceBlue.fc-event{ background-color:	#F0F8FF	; }
+                    .ordenProduccion_AntiqueWhite.fc-event{ background-color:	#FAEBD7	; }
+                    .ordenProduccion_Aqua.fc-event{ background-color:	#00FFFF	; }
+                    .ordenProduccion_Aquamarine.fc-event{ background-color:	#7FFFD4	; }
+                    .ordenProduccion_Azure.fc-event{ background-color:	#F0FFFF	; }
+                    .ordenProduccion_Beige.fc-event{ background-color:	#F5F5DC	; }
+                    .ordenProduccion_Bisque.fc-event{ background-color:	#FFE4C4	; }
+                    .ordenProduccion_Black.fc-event{ background-color:	#000000	; }
+                    .ordenProduccion_BlanchedAlmond.fc-event{ background-color:	#FFEBCD	; }
+                    .ordenProduccion_Blue.fc-event{ background-color:	#0000FF	; }
+                    .ordenProduccion_BlueViolet.fc-event{ background-color:	#8A2BE2	; }
+                    .ordenProduccion_Brown.fc-event{ background-color:	#A52A2A	; }
+                    .ordenProduccion_BurlyWood.fc-event{ background-color:	#DEB887	; }
+                    .ordenProduccion_CadetBlue.fc-event{ background-color:	#5F9EA0	; }
+                    .ordenProduccion_Chartreuse.fc-event{ background-color:	#7FFF00	; }
+                    .ordenProduccion_Chocolate.fc-event{ background-color:	#D2691E	; }
+                    .ordenProduccion_Coral.fc-event{ background-color:	#FF7F50	; }
+                    .ordenProduccion_CornflowerBlue.fc-event{ background-color:	#6495ED	; }
+                    .ordenProduccion_Cornsilk.fc-event{ background-color:	#FFF8DC	; }
+                    .ordenProduccion_Crimson.fc-event{ background-color:	#DC143C	; }
+                    .ordenProduccion_Cyan.fc-event{ background-color:	#00FFFF	; }
+                    .ordenProduccion_DarkBlue.fc-event{ background-color:	#00008B	; }
+                    .ordenProduccion_DarkCyan.fc-event{ background-color:	#008B8B	; }
+                    .ordenProduccion_DarkGoldenRod.fc-event{ background-color:	#B8860B	; }
+                    .ordenProduccion_DarkGray.fc-event{ background-color:	#A9A9A9	; }
+                    .ordenProduccion_DarkGrey.fc-event{ background-color:	#A9A9A9	; }
+                    .ordenProduccion_DarkGreen.fc-event{ background-color:	#006400	; }
+                    .ordenProduccion_DarkKhaki.fc-event{ background-color:	#BDB76B	; }
+                    .ordenProduccion_DarkMagenta.fc-event{ background-color:	#8B008B	; }
+                    .ordenProduccion_DarkOliveGreen.fc-event{ background-color:	#556B2F	; }
+                    .ordenProduccion_DarkOrange.fc-event{ background-color:	#FF8C00	; }
+                    .ordenProduccion_DarkOrchid.fc-event{ background-color:	#9932CC	; }
+                    .ordenProduccion_DarkRed.fc-event{ background-color:	#8B0000	; }
+                    .ordenProduccion_DarkSalmon.fc-event{ background-color:	#E9967A	; }
+                    .ordenProduccion_DarkSeaGreen.fc-event{ background-color:	#8FBC8F	; }
+                    .ordenProduccion_DarkSlateBlue.fc-event{ background-color:	#483D8B	; }
+                    .ordenProduccion_DarkSlateGray.fc-event{ background-color:	#2F4F4F	; }
+                    .ordenProduccion_DarkSlateGrey.fc-event{ background-color:	#2F4F4F	; }
+                    .ordenProduccion_DarkTurquoise.fc-event{ background-color:	#00CED1	; }
+                    .ordenProduccion_DarkViolet.fc-event{ background-color:	#9400D3	; }
+                    .ordenProduccion_DeepPink.fc-event{ background-color:	#FF1493	; }
+                    .ordenProduccion_DeepSkyBlue.fc-event{ background-color:	#00BFFF	; }
+                    .ordenProduccion_DimGray.fc-event{ background-color:	#696969	; }
+                    .ordenProduccion_DimGrey.fc-event{ background-color:	#696969	; }
+                    .ordenProduccion_DodgerBlue.fc-event{ background-color:	#1E90FF	; }
+                    .ordenProduccion_FireBrick.fc-event{ background-color:	#B22222	; }
+                    .ordenProduccion_FloralWhite.fc-event{ background-color:	#FFFAF0	; }
+                    .ordenProduccion_ForestGreen.fc-event{ background-color:	#228B22	; }
+                    .ordenProduccion_Fuchsia.fc-event{ background-color:	#FF00FF	; }
+                    .ordenProduccion_Gainsboro.fc-event{ background-color:	#DCDCDC	; }
+                    .ordenProduccion_GhostWhite.fc-event{ background-color:	#F8F8FF	; }
+                    .ordenProduccion_Gold.fc-event{ background-color:	#FFD700	; }
+                    .ordenProduccion_GoldenRod.fc-event{ background-color:	#DAA520	; }
+                    .ordenProduccion_Gray.fc-event{ background-color:	#808080	; }
+                    .ordenProduccion_Grey.fc-event{ background-color:	#808080	; }
+                    .ordenProduccion_Green.fc-event{ background-color:	#008000	; }
+                    .ordenProduccion_GreenYellow.fc-event{ background-color:	#ADFF2F	; }
+                    .ordenProduccion_HoneyDew{ background-color:	#F0FFF0	!important; }
+                    .ordenProduccion_HotPink.fc-event{ background-color:	#FF69B4	; }
+                    .ordenProduccion_IndianRed .fc-event{ background-color:	#CD5C5C	; }
+                    .ordenProduccion_Indigo .fc-event{ background-color:	#4B0082	; }
+                    .ordenProduccion_Ivory.fc-event{ background-color:	#FFFFF0	; }
+                    .ordenProduccion_Khaki.fc-event{ background-color:	#F0E68C	; }
+                    .ordenProduccion_Lavender.fc-event{ background-color:	#E6E6FA	; }
+                    .ordenProduccion_LavenderBlush.fc-event{ background-color:	#FFF0F5	; }
+                    .ordenProduccion_LawnGreen.fc-event{ background-color:	#7CFC00	; }
+                    .ordenProduccion_LemonChiffon.fc-event{ background-color:	#FFFACD	; }
+                    .ordenProduccion_LightBlue.fc-event{ background-color:	#ADD8E6	; }
+                    .ordenProduccion_LightCoral.fc-event{ background-color:	#F08080	; }
+                    .ordenProduccion_LightCyan.fc-event{ background-color:	#E0FFFF	; }
+                    .ordenProduccion_LightGoldenRodYellow.fc-event{ background-color:	#FAFAD2	; }
+                    .ordenProduccion_LightGray.fc-event{ background-color:	#D3D3D3	; }
+                    .ordenProduccion_LightGrey.fc-event{ background-color:	#D3D3D3	; }
+                    .ordenProduccion_LightGreen.fc-event{ background-color:	#90EE90	; }
+                    .ordenProduccion_LightPink.fc-event{ background-color:	#FFB6C1	; }
+                    .ordenProduccion_LightSalmon.fc-event{ background-color:	#FFA07A	; }
+                    .ordenProduccion_LightSeaGreen.fc-event{ background-color:	#20B2AA	; }
+                    .ordenProduccion_LightSkyBlue.fc-event{ background-color:	#87CEFA	; }
+                    .ordenProduccion_LightSlateGray.fc-event{ background-color:	#778899	; }
+                    .ordenProduccion_LightSlateGrey.fc-event{ background-color:	#778899	; }
+                    .ordenProduccion_LightSteelBlue.fc-event{ background-color:	#B0C4DE	; }
+                    .ordenProduccion_LightYellow.fc-event{ background-color:	#FFFFE0	; }
+                    .ordenProduccion_Lime.fc-event{ background-color:	#00FF00	; }
+                    .ordenProduccion_LimeGreen.fc-event{ background-color:	#32CD32	; }
+                    .ordenProduccion_Linen.fc-event{ background-color:	#FAF0E6	; }
+                    .ordenProduccion_Magenta.fc-event{ background-color:	#FF00FF	; }
+                    .ordenProduccion_Maroon.fc-event{ background-color:	#800000	; }
+                    .ordenProduccion_MediumAquaMarine.fc-event{ background-color:	#66CDAA	; }
+                    .ordenProduccion_MediumBlue.fc-event{ background-color:	#0000CD	; }
+                    .ordenProduccion_MediumOrchid.fc-event{ background-color:	#BA55D3	; }
+                    .ordenProduccion_MediumPurple.fc-event{ background-color:	#9370DB	; }
+                    .ordenProduccion_MediumSeaGreen.fc-event{ background-color:	#3CB371	; }
+                    .ordenProduccion_MediumSlateBlue.fc-event{ background-color:	#7B68EE	; }
+                    .ordenProduccion_MediumSpringGreen.fc-event{ background-color:	#00FA9A	; }
+                    .ordenProduccion_MediumTurquoise.fc-event{ background-color:	#48D1CC	; }
+                    .ordenProduccion_MediumVioletRed.fc-event{ background-color:	#C71585	; }
+                    .ordenProduccion_MidnightBlue.fc-event{ background-color:	#191970	; }
+                    .ordenProduccion_MintCream.fc-event{ background-color:	#F5FFFA	; }
+                    .ordenProduccion_MistyRose.fc-event{ background-color:	#FFE4E1	; }
+                    .ordenProduccion_Moccasin.fc-event{ background-color:	#FFE4B5	; }
+                    .ordenProduccion_NavajoWhite.fc-event{ background-color:	#FFDEAD	; }
+                    .ordenProduccion_Navy.fc-event{ background-color:	#000080	; }
+                    .ordenProduccion_OldLace.fc-event{ background-color:	#FDF5E6	; }
+                    .ordenProduccion_Olive.fc-event{ background-color:	#808000	; }
+                    .ordenProduccion_OliveDrab.fc-event{ background-color:	#6B8E23	; }
+                    .ordenProduccion_Orange.fc-event{ background-color:	#FFA500	; }
+                    .ordenProduccion_OrangeRed.fc-event{ background-color:	#FF4500	; }
+                    .ordenProduccion_Orchid.fc-event{ background-color:	#DA70D6	; }
+                    .ordenProduccion_PaleGoldenRod.fc-event{ background-color:	#EEE8AA	; }
+                    .ordenProduccion_PaleGreen.fc-event{ background-color:	#98FB98	; }
+                    .ordenProduccion_PaleTurquoise.fc-event{ background-color:	#AFEEEE	; }
+                    .ordenProduccion_PaleVioletRed.fc-event{ background-color:	#DB7093	; }
+                    .ordenProduccion_PapayaWhip.fc-event{ background-color:	#FFEFD5	; }
+                    .ordenProduccion_PeachPuff.fc-event{ background-color:	#FFDAB9	; }
+                    .ordenProduccion_Peru.fc-event{ background-color:	#CD853F	; }
+                    .ordenProduccion_Pink.fc-event{ background-color:	#FFC0CB	; }
+                    .ordenProduccion_Plum.fc-event{ background-color:	#DDA0DD	; }
+                    .ordenProduccion_PowderBlue.fc-event{ background-color:	#B0E0E6	; }
+                    .ordenProduccion_Purple.fc-event{ background-color:	#800080	; }
+                    .ordenProduccion_RebeccaPurple.fc-event{ background-color:	#663399	; }
+                    .ordenProduccion_Red.fc-event{ background-color:	#FF0000	; }
+                    .ordenProduccion_RosyBrown.fc-event{ background-color:	#BC8F8F	; }
+                    .ordenProduccion_RoyalBlue.fc-event{ background-color:	#4169E1	; }
+                    .ordenProduccion_SaddleBrown.fc-event{ background-color:	#8B4513	; }
+                    .ordenProduccion_Salmon.fc-event{ background-color:	#FA8072	; }
+                    .ordenProduccion_SandyBrown.fc-event{ background-color:	#F4A460	; }
+                    .ordenProduccion_SeaGreen.fc-event{ background-color:	#2E8B57	; }
+                    .ordenProduccion_SeaShell.fc-event{ background-color:	#FFF5EE	; }
+                    .ordenProduccion_Sienna.fc-event{ background-color:	#A0522D	; }
+                    .ordenProduccion_Silver.fc-event{ background-color:	#C0C0C0	; }
+                    .ordenProduccion_SkyBlue.fc-event{ background-color:	#87CEEB	; }
+                    .ordenProduccion_SlateBlue.fc-event{ background-color:	#6A5ACD	; }
+                    .ordenProduccion_SlateGray.fc-event{ background-color:	#708090	; }
+                    .ordenProduccion_SlateGrey.fc-event{ background-color:	#708090	; }
+                    .ordenProduccion_Snow.fc-event{ background-color:	#FFFAFA	; }
+                    .ordenProduccion_SpringGreen.fc-event{ background-color:	#00FF7F	; }
+                    .ordenProduccion_SteelBlue.fc-event{ background-color:	#4682B4	; }
+                    .ordenProduccion_Tan.fc-event{ background-color:	#D2B48C	; }
+                    .ordenProduccion_Teal.fc-event{ background-color:	#008080	; }
+                    .ordenProduccion_Thistle.fc-event{ background-color:	#D8BFD8	; }
+                    .ordenProduccion_Tomato.fc-event{ background-color:	#FF6347	; }
+                    .ordenProduccion_Turquoise.fc-event{ background-color:	#40E0D0	; }
+                    .ordenProduccion_Violet.fc-event{ background-color:	#EE82EE	; }
+                    .ordenProduccion_Wheat.fc-event{ background-color:	#F5DEB3	; }
+                    .ordenProduccion_White.fc-event{ background-color:	#FFFFFF	; }
+                    .ordenProduccion_WhiteSmoke.fc-event{ background-color:	#F5F5F5	; }
+                    .ordenProduccion_Yellow.fc-event{ background-color:	#FFFF00	; }
+                    .ordenProduccion_YellowGreen.fc-event{ background-color:	#9ACD32	; }
+
+
+                </style>  
+                <h:form id="tiposServicio-form">
+                    <p:growl id="growl" showDetail="true" sticky="true" />
+                    <p:outputLabel value="Lista de los Tipos de Servicio" />
+                    <p:dataTable id="dtTiposServicio" var="tiposServicio" value="#{tiposServicioBean.tiposServicioList}"
+                                 rows="10" paginator="true" paginatorPosition="bottom"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 selection="#{tiposServicioBean.tiposServicio}" rowKey="#{tiposServicio}"
+                                 selectionMode="single">
+
+                        <p:ajax event="rowSelect" listener="#{tiposServicioBean.onRowSelect}" />
+
+                        <p:column headerText="Tipo Servicio" sortBy="#{tiposServicio.descripcion}">
+                            <h:outputText value="#{tiposServicio.descripcion}" />
+                        </p:column>           
+                        <p:column headerText="CodigoColor" sortBy="#{tiposServicio.color}">
+                            <h:panelGroup>                                    
+                                <div style="width:10px;height:10px;background:#{tiposServicio.color};float:left;padding:5px; margin-right:5px;"></div>
+                                <h:outputText value="#{tiposServicio.color}" />
+                            </h:panelGroup>
+                        </p:column>
+
+
+
+                        <f:facet name="footer">
+                            <p:commandButton process="dtTiposServicio" icon="ui-icon-document" update=":form-add:tiposServicioGr" 
+                                             value="Agregar" oncomplete="PF('dlgTiposServicioAdd').show()" actionListener="#{tiposServicioBean.actionClean}"/>
+                            <p:commandButton process="dtTiposServicio" icon="ui-icon-pencil" id="botonEditar"
+                                             value="Editar" oncomplete="PF('dlgTiposServicioAdd').show()"
+                                             update=":form-add:tiposServicioGr" 
+                                             disabled="#{tiposServicioBean.bloquearBotones}"/>                                                       
+
+                            <p:confirmDialog global="true" showEffect="fade"
+                                             hideEffect="explode">
+                                <p:commandButton value="Si" type="button"
+                                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check" ajax="false" />
+                                <p:commandButton value="No" type="button"
+                                                 styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                <p:commandButton 
+                                    value="Actualizar" 
+                                    action="#{tiposServicioBean}"
+                                    id='btn-actualizar-tiposServicio'
+                                    />
+                            </p:confirmDialog>
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+
+                <p:dialog header="TiposServicio" widgetVar="dlgTiposServicioAdd"
+                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <h:form id="form-add">
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                        <p:panelGrid columns="2" columnClasses="column" id="tiposServicioGr">   
+
+                            <p:outputLabel value="TiposServicio" for="tiposServicio" />
+                            <h:panelGroup>
+                                <p:inputText id="tiposServicio" required="true" value="#{tiposServicioBean.tiposServicio.descripcion}" />
+                                <h:inputHidden value="#{tiposServicioBean.tiposServicio.tiposServicioId}"/>
+                            </h:panelGroup>  
+                            <h:outputText value="Color: " />
+                            <h:panelGroup>
+                                <p:selectOneMenu id="advanced" value="#{tiposServicioBean.colorSeleccionado}"  panelStyle="width:180px" converter="colorConverter"
+                                                 effect="fade" var="t" style="width:160px" >
+                                    <f:selectItems value="#{tiposServicioBean.listaColores}" var="lstColor"  />
+
+                                    <p:column style="width:10%; background-color:#{t.codigo}">
+                                        <h:outputText styleClass="background-color:#{t.codigo}" />
+                                    </p:column> 
+
+                                    <p:column>
+                                        <h:outputText value="#{t.nombre} " />
+                                    </p:column>
+                                </p:selectOneMenu>
+                            </h:panelGroup>
+
+                            <p:commandButton 
+                                value="Guardar" 
+                                update="tiposServicioGr,:tiposServicio-form:dtTiposServicio" 
+                                action="#{tiposServicioBean.agregarTiposServicio}"
+                                id='btn-guardar-tiposServicio'
+                                />
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

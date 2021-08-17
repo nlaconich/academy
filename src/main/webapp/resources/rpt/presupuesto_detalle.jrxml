@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="presupuesto_detalle" pageWidth="595" pageHeight="555" orientation="Landscape" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ca518f65-6e30-4490-84e2-b7d6ed9e287a">
+	<property name="ireport.zoom" value="1.3310000000000044"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_presupuesto" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+	dt.presupuesto_detalle_id as detalle_id,
+	dt.presupuesto_id as presupuesto_id,
+	p.descripcion,
+	p.codigo as codigo,
+	dt.cantidad as cantidad,
+	dt.sub_total as sub_total,
+	s.servicio as servicio,
+	dt.total_a_pagar_en_letras as total_literal,
+	dt.precio_unitario as precio_unitario
+
+from
+	presupuesto_detalle dt
+	left join producto p on p.producto_id = dt.producto_id
+	left join servicios s on s.servicio_id = dt.servicio_id
+
+
+where
+	dt.presupuesto_id =$P{id_presupuesto}]]>
+	</queryString>
+	<field name="detalle_id" class="java.lang.Integer"/>
+	<field name="presupuesto_id" class="java.lang.Integer"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Double"/>
+	<field name="sub_total" class="java.lang.Double"/>
+	<field name="servicio" class="java.lang.String"/>
+	<field name="total_literal" class="java.lang.String"/>
+	<field name="precio_unitario" class="java.lang.Double"/>
+	<variable name="iva_5" class="java.lang.Double">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="iva_10" class="java.lang.Double">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="iva_0" class="java.lang.Double">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="sumatotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{iva_10}]]></variableExpression>
+	</variable>
+	<group name="factura_id">
+		<groupExpression><![CDATA[]]></groupExpression>
+	</group>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="14" y="1" width="29" height="19" uuid="9e8ff7e2-00ea-47c1-8476-c6b553c0c45f"/>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="48" y="1" width="35" height="19" uuid="3abe193c-c4b7-4d86-a9ab-0fb9ac7b62cb"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="176" y="1" width="113" height="19" uuid="e2d19adf-44b9-4abc-9a8e-bab5eb3e8b07"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="83" y="1" width="88" height="19" uuid="4d2ccff1-de69-4c5f-abd6-20cca20d2292"/>
+				<textFieldExpression><![CDATA[$F{servicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="351" y="1" width="83" height="19" uuid="0ec4a687-0268-40e3-ad5e-581047520457"/>
+				<textFieldExpression><![CDATA[$F{precio_unitario}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="451" y="1" width="100" height="19" uuid="d37ecbd2-0fb6-4f43-91e4-10dbed62c631"/>
+				<textFieldExpression><![CDATA[$F{sub_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="79e370ab-9616-4456-8678-984b7f686569">
+	<property name="ireport.zoom" value="1.0000000000000027"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#FFFFFF" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[420]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="total_Letras" class="java.lang.String"/>
+	<parameter name="mes_presupuesto" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[Select
+presupuesto."presupuesto_id" AS presupuesto_id,
+presupuesto."nro_presupuesto" AS presupuesto_nro_presupuesto,
+presupuesto."cliente_id" AS presupuesto_cliente_id,
+presupuesto."orden" AS presupuesto_orden,
+presupuesto."fecha_emision" AS presupuesto_fecha_emision,
+extract(year from presupuesto."fecha_emision") as anho,
+extract(day from presupuesto."fecha_emision") as dia,
+extract(month from presupuesto."fecha_emision") as mes,
+presupuesto."fecha_vencimiento" AS presupuesto_fecha_vencimiento,
+presupuesto."tipo_presupuesto" AS presupuesto_tipo_factura,
+presupuesto."forma_pago" AS presupuesto_forma_pago,
+presupuesto."total_letras" AS presupuesto_totalLetras,
+sum(presupuesto_detalle."sub_total") AS presupuesto_detalle_sub_total,
+presupuesto_detalle."total_a_pagar_en_letras",
+cliente."nombre" AS cliente_nombre,
+Concat (cliente.ciudad, ' ',cliente.barrio, ' ',cliente.calle, '  ',cliente.referencia, ' ') AS direccion_cliente ,
+cliente."ruc" AS ciente_ruc,
+cliente."dv" as ciente_dv
+
+FROM
+"public"."presupuesto" presupuesto
+INNER JOIN "public"."presupuesto_detalle" presupuesto_detalle ON presupuesto."presupuesto_id" = presupuesto_detalle."presupuesto_id"
+INNER JOIN "public"."cliente" cliente ON presupuesto."cliente_id" = cliente."cliente_id"
+LEFT JOIN "public"."producto" producto ON presupuesto_detalle."producto_id" = producto."producto_id"
+LEFT JOIN"public"."servicios" servicios ON presupuesto_detalle."servicio_id" = servicios."servicio_id"
+WHERE
+presupuesto."presupuesto_id" =$P{id}
+group by
+
+presupuesto."presupuesto_id" ,
+presupuesto."nro_presupuesto" ,
+presupuesto."cliente_id" ,
+presupuesto."orden" ,
+presupuesto."fecha_emision" ,
+extract(year from presupuesto."fecha_emision") ,
+extract(day from presupuesto."fecha_emision") ,
+extract(month from presupuesto."fecha_emision") ,
+presupuesto."fecha_vencimiento" ,
+presupuesto."tipo_presupuesto" ,
+presupuesto."forma_pago" ,
+presupuesto."total_letras" ,
+presupuesto_detalle."total_a_pagar_en_letras",
+cliente."nombre" ,
+Concat (cliente.ciudad, ' ',cliente.barrio, ' ',cliente.calle, '  ',cliente.referencia, ' ')  ,
+cliente."ruc" ,
+cliente."dv" ]]>
+	</queryString>
+	<field name="presupuesto_id" class="java.lang.Integer"/>
+	<field name="presupuesto_nro_presupuesto" class="java.lang.String"/>
+	<field name="presupuesto_cliente_id" class="java.lang.Integer"/>
+	<field name="presupuesto_orden" class="java.lang.Integer"/>
+	<field name="presupuesto_fecha_emision" class="java.sql.Date"/>
+	<field name="anho" class="java.lang.Double"/>
+	<field name="dia" class="java.lang.Double"/>
+	<field name="mes" class="java.lang.Double"/>
+	<field name="presupuesto_fecha_vencimiento" class="java.sql.Date"/>
+	<field name="presupuesto_tipo_factura" class="java.lang.String"/>
+	<field name="presupuesto_forma_pago" class="java.lang.String"/>
+	<field name="presupuesto_totalletras" class="java.lang.String"/>
+	<field name="presupuesto_detalle_sub_total" class="java.lang.Double"/>
+	<field name="total_a_pagar_en_letras" class="java.lang.String"/>
+	<field name="cliente_nombre" class="java.lang.String"/>
+	<field name="direccion_cliente" class="java.lang.String"/>
+	<field name="ciente_ruc" class="java.lang.String"/>
+	<field name="ciente_dv" class="java.math.BigDecimal"/>
+	<variable name="total_pagar" class="java.math.BigDecimal" calculation="Sum"/>
+	<variable name="total" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{total}]]></variableExpression>
+	</variable>
+	<variable name="presupuesto_detalle_sub_total_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{presupuesto_detalle_sub_total}]]></variableExpression>
+	</variable>
+	<title>
+		<band height="67" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="452" y="45" width="100" height="20" uuid="802af500-e91d-4540-9c9e-496a01afe584"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="439" y="27" width="115" height="20" uuid="b56e7292-5391-4ac2-9cb6-a58783ea527f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Impresión:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="26" width="155" height="20" uuid="c799c4eb-b84b-431b-b6f0-87c64195bfc7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Presupuesto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="6" width="155" height="20" uuid="f9d23fec-38ad-4799-81c4-c716dec52a46"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="17" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[HIDROSA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="46" width="155" height="20" uuid="a5f93660-de48-421c-92c2-6bc9bc591e8c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro#:]]></text>
+			</staticText>
+			<textField pattern="###0">
+				<reportElement x="168" y="48" width="122" height="17" uuid="cea95a84-697a-47b5-99ad-4c7be45944fe"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{presupuesto_nro_presupuesto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="194" splitType="Stretch">
+			<textField pattern="###0">
+				<reportElement x="71" y="6" width="35" height="17" uuid="992f489a-11db-4913-b577-323126dbb099"/>
+				<textFieldExpression><![CDATA[$F{dia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="127" y="6" width="58" height="17" uuid="d2601776-ad36-4332-b24b-60d3e30b15ad"/>
+				<textFieldExpression><![CDATA[$P{mes_presupuesto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="213" y="6" width="59" height="17" uuid="ac276a87-a912-4e2d-a08e-e39e589cfe00"/>
+				<textFieldExpression><![CDATA[$F{anho}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="431" y="9" width="124" height="14" uuid="94454680-d22b-405d-bf6b-2da35a839a5b"/>
+				<textFieldExpression><![CDATA[(null != $F{presupuesto_forma_pago} && !$F{presupuesto_forma_pago}.equals("EF"))?"CONTADO":"CREDITO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="122" y="32" width="394" height="16" uuid="3390574a-5c15-4b4e-8a36-a25e0136f0b7"/>
+				<textFieldExpression><![CDATA[$F{cliente_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="122" y="58" width="100" height="20" uuid="6c9b1172-4c53-4db5-b40f-acc7cb7ba41c"/>
+				<textFieldExpression><![CDATA[$F{ciente_ruc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="243" y="58" width="29" height="20" uuid="960e61ce-91f1-4ea4-9866-a9a031a135d5"/>
+				<textFieldExpression><![CDATA[$F{ciente_dv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="123" y="87" width="393" height="13" uuid="79a486f9-2f2a-4426-bb31-25052e839473"/>
+				<textFieldExpression><![CDATA[$F{direccion_cliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="55" height="20" uuid="1ef58129-14b2-40a6-84c6-59bfe18e6645"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="2" width="14" height="20" uuid="0fb3ef00-983a-4384-9dd3-f20176dfc80a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="188" y="3" width="14" height="20" uuid="e3822a47-a3bc-4f73-9bb6-ca1cbf145cac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="323" y="3" width="108" height="20" uuid="8d2e0b2a-40b7-4372-baa3-decd4a8ae18d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Forma de Pago:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="28" width="108" height="20" uuid="59575ff8-ef85-46ee-8592-4682a04e23e9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-2" y="58" width="108" height="20" uuid="a0c3d614-4563-44d5-8b17-f778b37bf586"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RUC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="105" width="55" height="20" uuid="8be9a0f9-0559-41df-9115-18c8bf4cecf9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="431" y="105" width="100" height="20" uuid="da8a3daf-3cc4-477c-830e-d8eda422776c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sub Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="338" y="105" width="50" height="20" uuid="395dc421-6c35-4796-810e-7a001dbffdec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="7" y="128" width="530" height="1" uuid="7a71d2e9-9477-49b3-a81e-a7f9bded473b"/>
+			</line>
+			<staticText>
+				<reportElement x="155" y="105" width="88" height="20" uuid="94e41b76-592c-4d26-ba67-19f8f682b46e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="105" width="24" height="20" uuid="5b9b55ab-b43a-4831-be52-5311a313b235"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cod.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="105" width="35" height="20" uuid="5e5b1b11-e943-4784-a376-abd30d72e9a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cant.]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="1" y="129" width="542" height="53" uuid="ba6caa20-dbfe-45a4-bc57-1152e463274d"/>
+				<subreportParameter name="id_presupuesto">
+					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "presupuesto_detalle.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="76">
+			<textField pattern="#,##0">
+				<reportElement x="462" y="0" width="93" height="20" uuid="6a93575a-da61-4604-b6ea-2f48f372d1c9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{presupuesto_detalle_sub_total_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="127" y="25" width="335" height="16" uuid="e1987618-46bb-4ef2-af55-10a199307928"/>
+				<textFieldExpression><![CDATA[$P{total_Letras}==null?"":$P{total_Letras}.toString().toUpperCase()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="16" y="21" width="108" height="20" uuid="d7509e8d-e028-42ab-bb20-165b866ae84f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total en letras]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="1" width="108" height="20" uuid="cce9cbb5-ccfd-4f8c-be23-e4b09d3c353f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

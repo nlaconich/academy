@@ -1,6 +1,6 @@
 package py.com.ci.academy.academyreports;
 
-import py.com.ci.academy.presentation.StudentUI;
+import py.com.ci.academy.presentation.console.StudentUI;
 import py.com.ci.academy.students.boundary.StudentReportManager;
 import py.com.ci.academy.students.entities.StudentReport;
 
