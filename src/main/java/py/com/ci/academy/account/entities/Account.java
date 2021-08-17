@@ -1,14 +1,12 @@
 package py.com.ci.academy.account.entities;
 
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Account {
 
-    public LocalDate LocalDate;
+    public LocalDate expireDate;
     private int idAccount;
-    private Date dateAccount;
-    private Date expiration;
     private String status;
     private int idInscription;
     private String remark;
@@ -25,12 +23,18 @@ public class Account {
 
     public int getIdAccount(){return idAccount;}
 
-    public Date getDateAccount() {
-        return dateAccount;
+    public Date getExpireDate() {
+        try {
+            Date date = Date.valueOf(expireDate);
+            return date;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public void setDateAccount(Date dateAccount) {
-        this.dateAccount = dateAccount;
+    public void setExpireDate(LocalDate expireDate) {
+        this.expireDate = expireDate;
     }
 
     public String getStatus(){return status;}
@@ -45,7 +49,7 @@ public class Account {
     @Override
     public String toString() {
         return "idAccount= " + idAccount +
-                ", dateAccount= " + dateAccount +
+                //", dateAccount= " + dateAccount +
                 ", status= " + status +
                 ", idInscription= " + idInscription +
                 ", remark= " + remark +

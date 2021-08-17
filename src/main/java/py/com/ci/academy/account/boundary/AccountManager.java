@@ -20,22 +20,28 @@ public class AccountManager {
         return statement;
     }
 
-    public void addAccount(Account account) {
-        account.setStatus("Pending ");
-        account.setAmount(50000);
-        DayOfWeek expire;
 
+    public void addAccount(Account account) {
+
+        LocalDate expireDate[]= getDate();
+        account.setStatus("Pending");
+        account.setAmount(50000);
         String sql = "INSERT INTO public.accounts(date_account,remark,status,id_inscription,amount) VALUES (?,?,?,?,?)";
-        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            expire = LocalDate.now().with(TemporalAdjusters.firstDayOfNextMonth()).getDayOfWeek();
-            s1.setString(2, account.getRemark());
-            s1.setString(3, account.getStatus());
-            s1.setInt(4,account.getIdInscription());
-            s1.setInt(5,account.getAmount());
-            s1.executeUpdate();
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
+
+        for (int i = 1; i < 7; i++) {
+            account.setExpireDate(expireDate[i]);
+            try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
+                s1.setDate(1, account.getExpireDate());
+                s1.setString(2, account.getRemark());
+                s1.setString(3, account.getStatus());
+                s1.setInt(4,account.getIdInscription());
+                s1.setInt(5,account.getAmount());
+                s1.executeUpdate();
+            } catch (SQLException throwable) {
+                throwable.printStackTrace();
+            }
         }
+
     }
 
     public Account getById(Integer IdAccount) {
@@ -75,7 +81,7 @@ public class AccountManager {
             s1.setString(1, account.getStatus());
             s1.setString(2, account.getRemark());
             s1.setInt(3, account.getIdAccount());
-            s1.setDate(4, account.getDateAccount());
+            //s1.setDate(4, account.getDateAccount());
             rows = s1.executeUpdate();
             return rows;
         } catch (SQLException throwable) {
@@ -106,11 +112,25 @@ public class AccountManager {
             data.setIdAccount(rs.getInt("id_account"));
             data.setRemark(rs.getString("remark"));
             data.setStatus(rs.getString("status"));
-            data.setDateAccount(rs.getInt("date_account"));
+           // data.setDateAccount(rs.getInt("date_account"));
             return data;
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
         }
+    }
+
+    private LocalDate[] getDate(){
+        LocalDate expireDate[] = new LocalDate[7];
+        expireDate[0] = LocalDate.now();
+        expireDate[1] = expireDate[0].with(TemporalAdjusters.lastDayOfMonth());
+        for (int i = 2; i < expireDate.length; i++) {
+            int j = i - 1;
+            expireDate[i] = expireDate[j].with(TemporalAdjusters.lastDayOfMonth()).plusMonths(1);
+        }
+        for (int i = 0; i < expireDate.length; i++) {
+            System.out.println(expireDate[i]);
+        }
+        return expireDate;
     }
 }
