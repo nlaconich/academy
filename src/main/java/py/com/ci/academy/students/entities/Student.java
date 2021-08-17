@@ -62,12 +62,12 @@ public class Student {
 
     @Override
     public String toString() {
-        return "idStudent=" + idStudent +
-                ", name='" + name +
-                ", lastName='" + lastName +
-                ", cellphone='" + cellphone +
-                ", address='" + address +
-                ", email='" + email +
+        return "idStudent = " + idStudent +
+                "\nname = " + name +
+                "\nlastName = " + lastName +
+                "\ncellphone = " + cellphone +
+                "\naddress = " + address +
+                "\nemail = " + email +
                 "\n----------------------------------------";
     }
 

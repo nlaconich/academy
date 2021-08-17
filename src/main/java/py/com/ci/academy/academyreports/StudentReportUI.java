@@ -1,7 +1,7 @@
-package py.com.ci.academy.presentation;
+package py.com.ci.academy.academyreports;
 
+import py.com.ci.academy.presentation.StudentUI;
 import py.com.ci.academy.students.boundary.StudentReportManager;
-import py.com.ci.academy.students.entities.Student;
 import py.com.ci.academy.students.entities.StudentReport;
 
 import java.util.ArrayList;

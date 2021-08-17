@@ -40,10 +40,10 @@ public class Inscription {
 
     @Override
     public String toString() {
-        return "Inscription{" +
-                "idInscription=" + idInscription +
-                ", idStudent=" + idStudent +
-                ", nameStudent='" + nameStudent + '\'' +
-                '}';
+        return "Inscription " +
+                "\nidInscription = " + idInscription +
+                "\nidStudent = " + idStudent +
+                "\nnameStudent = '" + nameStudent + '\'' +
+                "\n----------------------------------------";
     }
 }

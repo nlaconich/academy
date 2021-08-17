@@ -94,16 +94,16 @@ public class CourseReport {
 
     @Override
     public String toString() {
-        return "idCourse=" + idCourse +
-                ", nameCourse= " + nameCourse +
-                ", idAssignment=" + idAssignment +
-                ", nameAssignment= " + nameAssignment +
-                ", idTeacher=" + idTeacher +
-                ", nameTeacher= " + nameTeacher +
-                ", lastnameTeacher=" + lastnameTeacher +
-                ", idStudent=" + idStudent +
-                ", nameStudent=" + nameStudent +
-                ", lastnameStudent=" + lastnameStudent +
-                '}';
+        return "idCourse = " + idCourse +
+                "\nnameCourse = " + nameCourse +
+                "\nidAssignment = " + idAssignment +
+                "\nnameAssignment = " + nameAssignment +
+                "\nidTeacher = " + idTeacher +
+                "\nnameTeacher = " + nameTeacher +
+                "\nlastnameTeacher = " + lastnameTeacher +
+                "\nidStudent = " + idStudent +
+                "\nnameStudent = " + nameStudent +
+                "\nlastnameStudent = " + lastnameStudent +
+                "\n----------------------------------------";
     }
 }

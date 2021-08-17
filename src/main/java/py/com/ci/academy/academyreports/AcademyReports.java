@@ -1,7 +1,5 @@
 package py.com.ci.academy.academyreports;
 
-import py.com.ci.academy.presentation.*;
-
 import java.util.Scanner;
 
 public class AcademyReports {

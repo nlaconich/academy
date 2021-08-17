@@ -67,12 +67,13 @@ public class AssignmentReport {
 
     @Override
     public String toString() {
-        return "idAssignment=" + idAssignment +
-                ", idCourse=" + idCourse +
-                ", idStudent=" + idStudent +
-                ", nameAssignment=" + nameAssignment +
-                ", nameCourse=" + nameCourse +
-                ", nameStudent=" + nameStudent;
+        return "idAssignment = " + idAssignment +
+                "\nidCourse = " + idCourse +
+                "\nidStudent = " + idStudent +
+                "\nnameAssignment = " + nameAssignment +
+                "\nnameCourse = " + nameCourse +
+                "\nnameStudent = " + nameStudent +
+                "\n----------------------------------------";
     }
 }
 
