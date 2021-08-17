@@ -63,11 +63,11 @@ public class Student {
     @Override
     public String toString() {
         return "idStudent = " + idStudent +
-                "\nname = " + name +
-                "\nlastName = " + lastName +
-                "\ncellphone = " + cellphone +
-                "\naddress = " + address +
-                "\nemail = " + email +
+                " name = " + name +
+                " lastName = " + lastName +
+                " cellphone = " + cellphone +
+                " address = " + address +
+                " email = " + email +
                 "\n----------------------------------------";
     }
 

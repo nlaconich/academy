@@ -11,7 +11,7 @@ import java.util.List;
 
 public class InscriptionManager {
     private String getStatement() {
-        String sql = "SELECT i.id_inscription, i.id_student, s.name FROM public.inscription i, public.student s WHERE (i.id_student=s.id_student)";
+        String sql="SELECT i.id_inscription, i.id_student, s.name, co.id_course, co.name_course, a.id_assignment, a.name_assignment FROM public.inscription i, public.student s, public.courseassignment ca, public.course co, public.assignment  a WHERE i.id_student=s.id_student and ca.id_course = co.id_course and ca.id_assignment= a.id_assignment and i.id_cxa = ca.id_cxa";
         return sql;
     }
 
@@ -21,6 +21,10 @@ public class InscriptionManager {
             inscription.setIdInscription(rs.getInt("id_inscription"));
             inscription.setIdStudent(rs.getInt("id_student"));
             inscription.setNameStudent(rs.getString("name"));
+            inscription.setIdCourse(rs.getInt("id_course"));
+            inscription.setNameCourse(rs.getString("name_course"));
+            inscription.setIdAssignment(rs.getInt("id_assignment"));
+            inscription.setNameAssignment(rs.getString("name_assignment"));
             return inscription;
         } catch (Exception e) {
             e.printStackTrace();
@@ -29,9 +33,10 @@ public class InscriptionManager {
     }
 
     public void addInscription(Inscription report) {
-        String sql = "INSERT INTO public.inscription(id_student) VALUES (?)";
+        String sql = "INSERT INTO public.inscription(id_student, id_cxa) VALUES (?,?)";
         try (PreparedStatement s1= ConnectionManager.getConnection().prepareStatement(sql)){
             s1.setInt(1,report.getIdStudent());
+            s1.setInt(2,report.getIdCxA());
             s1.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -55,10 +60,11 @@ public class InscriptionManager {
     }
 
     public boolean updateInscription(Inscription inscription) {
-        String sql = "UPDATE public.inscription SET id_student= ? WHERE id_inscription=?";
+        String sql = "UPDATE public.inscription SET id_student= ?, id_cxa= ? WHERE id_inscription=?";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setInt(1, inscription.getIdStudent());
-            s1.setInt(2, inscription.getIdInscription());
+            s1.setInt(2,inscription.getIdCxA());
+            s1.setInt(3, inscription.getIdInscription());
             s1.executeUpdate();
             return true;
         } catch (SQLException throwables) {

@@ -50,10 +50,10 @@ public class CourseAssignment {
     @Override
     public String toString() {
         return "idCourseAssignment = " + idCourseAssignment +
-                "\n idCourse = " + idCourse +
-                "\n nameCourse = " + nameCourse +
-                "\n idAssignment = " + idAssignment +
-                "\n nameAssignment = " + nameAssignment +
+                " idCourse = " + idCourse +
+                " nameCourse = " + nameCourse +
+                " idAssignment = " + idAssignment +
+                " nameAssignment = " + nameAssignment +
                 "\n----------------------------------------";
 
     }

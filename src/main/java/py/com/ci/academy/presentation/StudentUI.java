@@ -98,24 +98,22 @@ public class StudentUI {
     }
 
     private void updateStudent() {
-        int id = 0, rows = 0;
-        String name = null, lastName = null, cellphone = null, address = null, email = null;
 
         this.listAllStudents();
         System.out.println("Insert Id ");
-        id = sc.nextInt();
+        int id = sc.nextInt();
 
         sc.nextLine();
         System.out.println("Insert new Name");
-        name = sc.nextLine();
+        String name = sc.nextLine();
         System.out.println("Insert new Last Name");
-        lastName = sc.nextLine();
+        String lastName = sc.nextLine();
         System.out.println("Insert new Phone");
-        cellphone = sc.nextLine();
+        String cellphone = sc.nextLine();
         System.out.println("Insert new Address");
-        address = sc.nextLine();
+        String address = sc.nextLine();
         System.out.println("Insert new Mail ");
-        email = sc.nextLine();
+        String email = sc.nextLine();
         student.setIdStudent(id);
         student.setName(name);
         student.setLastName(lastName);
@@ -123,7 +121,7 @@ public class StudentUI {
         student.setAddress(address);
         student.setEmail(email);
 
-        rows = studentManager.updateById(student);
+        int rows = studentManager.updateById(student);
         System.out.println("Applied, " + rows + " affected");
     }
 }

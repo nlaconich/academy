@@ -16,12 +16,12 @@ public class StudentManager {
 
 
     public String getStatement() {
-        String statement = "SELECT id_student, name, lastname_student,cellphone,address,email FROM public.student";
+        String statement = "SELECT id_student, name, lastname,cellphone,address,email FROM public.student";
         return statement;
     }
 
     public void add(Student student) {
-        String sql = "INSERT INTO public.student(name, lastname_student,cellphone,address,email) VALUES ( ?,?,?,?,?)";
+        String sql = "INSERT INTO public.student(name, lastname,cellphone,address,email) VALUES ( ?,?,?,?,?)";
 
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setString(1, student.getName());
@@ -81,7 +81,7 @@ public class StudentManager {
 
     public int updateById(Student student) {
         int rows = 0;
-        String sql = "UPDATE public.student SET name=?, lastname_student=?,cellphone=?,address=?,email=? WHERE id_student=?";
+        String sql = "UPDATE public.student SET name=?, lastname=?,cellphone=?,address=?,email=? WHERE id_student=?";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setString(1, student.getName());
             s1.setString(2, student.getLastName());
@@ -103,7 +103,7 @@ public class StudentManager {
             Student data = new Student();
             data.setIdStudent(rs.getInt("id_student"));
             data.setName(rs.getString("name"));
-            data.setLastName(rs.getString("lastname_student"));
+            data.setLastName(rs.getString("lastname"));
             data.setCellphone(rs.getString("cellphone"));
             data.setAddress(rs.getString("address"));
             data.setEmail(rs.getString("email"));
