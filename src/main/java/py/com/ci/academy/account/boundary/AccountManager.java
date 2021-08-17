@@ -3,16 +3,19 @@ package py.com.ci.academy.account.boundary;
 import py.com.ci.academy.account.entities.Account;
 import py.com.ci.academy.inscription.entities.Inscription;
 import py.com.ci.academy.utils.ConnectionManager;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
 public class AccountManager {
 
     public String getStatement() {
@@ -23,7 +26,7 @@ public class AccountManager {
 
     public void addAccount(Account account) {
 
-        LocalDate expireDate[]= getDate();
+        LocalDate expireDate[] = getDate();
         account.setStatus("Pending");
         account.setAmount(50000);
         String sql = "INSERT INTO public.accounts(date_account,remark,status,id_inscription,amount) VALUES (?,?,?,?,?)";
@@ -34,8 +37,8 @@ public class AccountManager {
                 s1.setDate(1, account.getExpireDate());
                 s1.setString(2, account.getRemark());
                 s1.setString(3, account.getStatus());
-                s1.setInt(4,account.getIdInscription());
-                s1.setInt(5,account.getAmount());
+                s1.setInt(4, account.getIdInscription());
+                s1.setInt(5, account.getAmount());
                 s1.executeUpdate();
             } catch (SQLException throwable) {
                 throwable.printStackTrace();
@@ -81,7 +84,7 @@ public class AccountManager {
             s1.setString(1, account.getStatus());
             s1.setString(2, account.getRemark());
             s1.setInt(3, account.getIdAccount());
-            //s1.setDate(4, account.getDateAccount());
+            s1.setDate(4, account.getExpireDate());
             rows = s1.executeUpdate();
             return rows;
         } catch (SQLException throwable) {
@@ -112,7 +115,8 @@ public class AccountManager {
             data.setIdAccount(rs.getInt("id_account"));
             data.setRemark(rs.getString("remark"));
             data.setStatus(rs.getString("status"));
-           // data.setDateAccount(rs.getInt("date_account"));
+            Date temporaryDate = rs.getDate("date_account");
+            data.setExpireDate(temporaryDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             return data;
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -120,7 +124,7 @@ public class AccountManager {
         }
     }
 
-    private LocalDate[] getDate(){
+    private LocalDate[] getDate() {
         LocalDate expireDate[] = new LocalDate[7];
         expireDate[0] = LocalDate.now();
         expireDate[1] = expireDate[0].with(TemporalAdjusters.lastDayOfMonth());
