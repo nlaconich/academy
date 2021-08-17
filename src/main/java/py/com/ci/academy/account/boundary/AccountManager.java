@@ -13,18 +13,20 @@ import java.util.List;
 public class AccountManager {
 
     public String getStatement() {
-        String statement = "SELECT id_account, date_account, status,remark,";
+        String statement = "SELECT id_account, date_account, status,remark";
         return statement;
     }
 
     public void addAccount(Account account) {
+        account.setStatus("Pending");
+        account.setAmount(50000);
 
-        String sql = "INSERT INTO public.account(id_account,date_account,status,remark) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO public.accounts(date_account,remark,status,id_inscription,amount) VALUES (?,?,?,?,?)";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setInt(1, account.getIdAccount());
-            s1.setInt(2, account.getDateAccount());
+            s1.setString(2, account.getRemark());
             s1.setString(3, account.getStatus());
-            s1.setString(4, account.getRemark());
+            s1.setInt(4,account.getIdInscription());
+            s1.setInt(5,account.getAmount());
             s1.executeUpdate();
         } catch (SQLException throwable) {
             throwable.printStackTrace();
@@ -49,7 +51,7 @@ public class AccountManager {
     }
 
     public int deleteById(Account account) {
-        String sql = " DELETE FROM public.account WHERE account_id = ? ";
+        String sql = " DELETE FROM public.accounts WHERE account_id = ? ";
         int rows = 0;
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setInt(1, account.getIdAccount());
@@ -63,12 +65,12 @@ public class AccountManager {
 
     public int updateById(Account account) {
         int rows = 0;
-        String sql = "UPDATE public.account SET status=?, remark=?,date=? WHERE id_account=?";
+        String sql = "UPDATE public.accounts SET status=?, remark=?,date=? WHERE id_account=?";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setString(1, account.getStatus());
             s1.setString(2, account.getRemark());
             s1.setInt(3, account.getIdAccount());
-            s1.setInt(4, account.getDateAccount());
+            s1.setDate(4, account.getDateAccount());
             rows = s1.executeUpdate();
             return rows;
         } catch (SQLException throwable) {

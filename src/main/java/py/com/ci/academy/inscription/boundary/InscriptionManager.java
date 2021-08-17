@@ -8,6 +8,7 @@ import py.com.ci.academy.utils.ConnectionManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,19 +37,19 @@ public class InscriptionManager {
 
     public void addInscription(Inscription report) {
         String sql = "INSERT INTO public.inscription(id_student, id_cxa) VALUES (?,?)";
-        try (PreparedStatement s1= ConnectionManager.getConnection().prepareStatement(sql)){
+        try (PreparedStatement s1= ConnectionManager.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
             s1.setInt(1,report.getIdStudent());
             s1.setInt(2,report.getIdCxA());
             s1.executeUpdate();
-            try {
-                AccountManager accountManager= new AccountManager();
+            ResultSet generatedKeys = s1.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int id = generatedKeys.getInt(1);
                 Account account= new Account();
-                account.setIdInscription(report.getIdInscription());
+                account.setIdInscription(id);
+                AccountManager accountManager= new AccountManager();
+                accountManager.addAccount(account);
                 System.out.println(account.getIdInscription());
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
