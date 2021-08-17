@@ -75,7 +75,7 @@ public class InscriptionUI {
 
         System.out.println("Student List");
         studentUI.listAllStudents();
-        System.out.println("Insert Id Student");
+        System.out.println("Insert Id Student ");
         int idStudent = sc.nextInt();
 
         inscription.setIdCxA(idCourse);
