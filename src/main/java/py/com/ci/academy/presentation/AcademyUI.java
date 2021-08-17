@@ -12,7 +12,7 @@ public class AcademyUI {
     }
 
     private void mainMenu() {
-        System.out.println("Welcome to AcademyUI beta 0.0");
+        System.out.println("Welcome to AcademyUI beta 0.0 ");
         System.out.println("----------------------------------------");
         System.out.println("Choose an option ");
         System.out.println("1 : Assignment Management");
