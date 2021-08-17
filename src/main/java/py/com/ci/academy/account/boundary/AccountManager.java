@@ -18,7 +18,7 @@ public class AccountManager {
     }
 
     public void addAccount(Account account) {
-        account.setStatus("Pending");
+        account.setStatus("Pending ");
         account.setAmount(50000);
 
         String sql = "INSERT INTO public.accounts(date_account,remark,status,id_inscription,amount) VALUES (?,?,?,?,?)";
