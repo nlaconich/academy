@@ -104,7 +104,7 @@ public class StudentUI {
         int id = sc.nextInt();
 
         sc.nextLine();
-        System.out.println("Insert new Name");
+        System.out.println("Insert new Name ");
         String name = sc.nextLine();
         System.out.println("Insert new Last Name");
         String lastName = sc.nextLine();
