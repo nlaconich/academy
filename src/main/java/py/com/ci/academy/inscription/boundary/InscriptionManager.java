@@ -1,5 +1,7 @@
 package py.com.ci.academy.inscription.boundary;
 
+import py.com.ci.academy.account.boundary.AccountManager;
+import py.com.ci.academy.account.entities.Account;
 import py.com.ci.academy.inscription.entities.Inscription;
 import py.com.ci.academy.utils.ConnectionManager;
 
@@ -38,6 +40,15 @@ public class InscriptionManager {
             s1.setInt(1,report.getIdStudent());
             s1.setInt(2,report.getIdCxA());
             s1.executeUpdate();
+            try {
+                AccountManager accountManager= new AccountManager();
+                Account account= new Account();
+                account.setIdInscription(report.getIdInscription());
+                System.out.println(account.getIdInscription());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
