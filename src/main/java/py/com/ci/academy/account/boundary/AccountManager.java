@@ -6,10 +6,13 @@ import py.com.ci.academy.utils.ConnectionManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
-
 public class AccountManager {
 
     public String getStatement() {
@@ -20,9 +23,11 @@ public class AccountManager {
     public void addAccount(Account account) {
         account.setStatus("Pending ");
         account.setAmount(50000);
+        DayOfWeek expire;
 
         String sql = "INSERT INTO public.accounts(date_account,remark,status,id_inscription,amount) VALUES (?,?,?,?,?)";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
+            expire = LocalDate.now().with(TemporalAdjusters.firstDayOfNextMonth()).getDayOfWeek();
             s1.setString(2, account.getRemark());
             s1.setString(3, account.getStatus());
             s1.setInt(4,account.getIdInscription());

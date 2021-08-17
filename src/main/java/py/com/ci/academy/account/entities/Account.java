@@ -1,11 +1,14 @@
 package py.com.ci.academy.account.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Account {
 
+    public LocalDate LocalDate;
     private int idAccount;
     private Date dateAccount;
+    private Date expiration;
     private String status;
     private int idInscription;
     private String remark;
