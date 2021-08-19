@@ -1,4 +1,4 @@
-package py.com.ci.academy.academyreports;
+package py.com.ci.academy.presentation.console;
 
 import java.util.Scanner;
 

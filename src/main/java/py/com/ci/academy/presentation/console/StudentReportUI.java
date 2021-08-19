@@ -1,4 +1,4 @@
-package py.com.ci.academy.academyreports;
+package py.com.ci.academy.presentation.console;
 
 import py.com.ci.academy.presentation.console.StudentUI;
 import py.com.ci.academy.students.boundary.StudentReportManager;
