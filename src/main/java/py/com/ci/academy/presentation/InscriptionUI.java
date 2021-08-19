@@ -64,18 +64,18 @@ public class InscriptionUI {
         }
     }
 
-    private void registerInscription() {
+    public void registerInscription() {
         CourseAssignmentUI courseAssignmentUI = new CourseAssignmentUI();
         StudentUI studentUI = new StudentUI();
 
-        System.out.println("Course/Assignment List");
+        System.out.println("Course/Assignment List ");
         courseAssignmentUI.listAllCourseAssignments();
         System.out.println("Insert Id Course/Assignment");
         int idCourse = sc.nextInt();
 
         System.out.println("Student List");
         studentUI.listAllStudents();
-        System.out.println("Insert Id Student");
+        System.out.println("Insert Id Student ");
         int idStudent = sc.nextInt();
 
         inscription.setIdCxA(idCourse);

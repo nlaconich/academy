@@ -1,5 +1,6 @@
-package py.com.ci.academy.presentation;
+package py.com.ci.academy.academyreports;
 
+import py.com.ci.academy.presentation.TeacherUI;
 import py.com.ci.academy.teacher.boundary.TeacherReportManager;
 import py.com.ci.academy.teacher.entities.TeacherReport;
 

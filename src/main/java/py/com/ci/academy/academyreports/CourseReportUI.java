@@ -1,8 +1,9 @@
-package py.com.ci.academy.presentation;
+package py.com.ci.academy.academyreports;
 
 
 import py.com.ci.academy.course.boundary.CourseReportManager;
 import py.com.ci.academy.course.entities.CourseReport;
+import py.com.ci.academy.presentation.CourseUI;
 
 import java.util.ArrayList;
 import java.util.List;
