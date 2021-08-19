@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <ui:composition template="/template/base.xhtml">
+            <ui:define name="content">
+                <h:form id="assignment-form">
+                    <div class="card">
+                        <p:dataTable var="assignment" value="#{assignmentBean.assignmentList}">
+                            <p:column headerText="Id">
+                                <h:outputText value="#{assignment.idAssignment}" />
+                            </p:column>
+
+                            <p:column headerText="Name">
+                                <h:outputText value="#{assignment.nameAssignment}" />
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </h:form>
+
+                <h:form id="form-add">
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                        <p:panelGrid columns="2" columnClasses="column" id="assignmentGr">                            
+                            <p:outputLabel value="TipoProducto" for="assignment" />
+                            <h:panelGroup>
+                                <p:inputText id="assignment" required="true" value="#{assignmentBean.assignment.nameAssignment}"  style="text-transform: uppercase" />
+                                <h:inputHidden value="#{assignmentBean.assignment.idAssignment}"/>
+                            </h:panelGroup>
+
+                            <p:commandButton 
+                                value="Guardar" 
+                                update="assignmentGr,:assignment-form" 
+                                action="#{assignmentBean.agregarAssigment}"
+                                id='btn-guardar-assignment'
+                                />
+                        </p:panelGrid>
+                    </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

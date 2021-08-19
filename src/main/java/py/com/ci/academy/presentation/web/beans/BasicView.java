@@ -28,12 +28,12 @@ public class BasicView implements Serializable {
     @PostConstruct
     public void init() {
         teacherManager = new TeacherManager();
-        teachers = teacherManager.getAll();
+        this.teachers = teacherManager.getAll();
+        System.out.println("profesores: " + this.teachers.toString());
     }
 
     public List<Teacher> getTeachers() {
-        Teacher teacher  = new Teacher();
-        return teachers;
+        return this.teachers;
     }
     
     
