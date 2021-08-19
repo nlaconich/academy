@@ -1,4 +1,4 @@
-package py.com.ci.academy.academyreports;
+package py.com.ci.academy.presentation.console;
 
 import py.com.ci.academy.assignment.boundary.AssignmentReportManager;
 import py.com.ci.academy.assignment.entities.AssignmentReport;

@@ -10,8 +10,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
-import py.com.ci.academy.course.boundary.CourseManager;
-import py.com.ci.academy.course.boundary.CourseManager.Course;
 import py.com.ci.academy.teacher.boundary.TeacherManager;
 import py.com.ci.academy.teacher.entities.Teacher;
 
@@ -27,27 +25,17 @@ public class BasicView implements Serializable {
 
     private TeacherManager teacherManager;
 
-    private List<Course> courses;
-
-    private CourseManager courseManager;
-
     @PostConstruct
     public void init() {
         teacherManager = new TeacherManager();
-        teachers = teacherManager.getAll();
-
-        courseManager = new CourseManager();
-        courses = courseManager.getAll();
+        this.teachers = teacherManager.getAll();
+        System.out.println("profesores: " + this.teachers.toString());
     }
 
     public List<Teacher> getTeachers() {
-        Teacher teacher = new Teacher();
-        return teachers;
+        return this.teachers;
     }
-
-    public List<Course> getCourses() {
-        Course course = new Course();
-        return courses;
-    }
-
+    
+    
+    
 }
