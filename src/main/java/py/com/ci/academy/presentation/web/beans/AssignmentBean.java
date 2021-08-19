@@ -51,9 +51,9 @@ public class AssignmentBean implements Serializable {
     public void setAssignment(Assignment assignment) {
         this.assignment = assignment;
     }
-   public String agregarAssigment() {
-       System.out.println("Agregar Assigment");
-init();
-        return "";
+   public void agregarAssigment() {
+    assignmentManager.addAssignment(assignment);   
+    init();
+        
     }
 }
