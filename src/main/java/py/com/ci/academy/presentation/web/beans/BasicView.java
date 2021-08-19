@@ -29,7 +29,7 @@ public class BasicView implements Serializable {
     public void init() {
         teacherManager = new TeacherManager();
         this.teachers = teacherManager.getAll();
-        System.out.println("profesores: " + this.teachers.toString());
+        
     }
 
     public List<Teacher> getTeachers() {
