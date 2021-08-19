@@ -17,12 +17,20 @@ and open the template in the editor.
                 <h:form>
                     <div class="card">
                         <p:dataTable var="course" value="#{dtBasicView.courses}">
-                            <p:column headerText="Id">
+                            <p:column headerText="Id Course">
                                 <h:outputText value="#{course.idCourse}" />
                             </p:column>
 
-                            <p:column headerText="Name">
+                            <p:column headerText="Name Course">
                                 <h:outputText value="#{course.nameCourse}" />
+                            </p:column>
+                            
+                            <p:column headerText="Id Teacher">
+                                <h:outputText value="#{course.idTeacher}" />
+                            </p:column>
+
+                            <p:column headerText="Name Teacher">
+                                <h:outputText value="#{course.nameTeacher}" />
                             </p:column>
                         </p:dataTable>
                     </div>
