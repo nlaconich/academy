@@ -1,14 +1,22 @@
-package py.com.ci.academy.studentReport.entities;
+package py.com.ci.academy.students.entities;
 
 public class StudentReport {
     private int idStudentReport;
+    private int idCourse;
     private int idStudent;
     private int idAssignment;
     private String nameStudent;
+    private String nameCourse;
     private String lastname;
     private String nameAssignment;
 
+    public int getIdCourse() {return idCourse;}
 
+    public void setIdCourse(int idCourse) {this.idCourse = idCourse;}
+
+    public String getNameCourse() {return nameCourse;}
+
+    public void setNameCourse(String nameCourse) {this.nameCourse = nameCourse;}
 
     public int getIdStudentReport() {return idStudentReport;}
 
@@ -38,9 +46,9 @@ public class StudentReport {
     public String toString() {
         return "Report id = " + idStudentReport + "\n" +
                 "Student id = " + idStudent +
-                "\n Student name = " + nameStudent +
-                "\n Last Name = " + lastname +
-                "\n Assignment = " + nameAssignment +
+                "\nStudent name = " + nameStudent +
+                "\nLast Name = " + lastname +
+                "\nAssignment = " + nameAssignment +
                 "\n----------------------------------------";
     }
 

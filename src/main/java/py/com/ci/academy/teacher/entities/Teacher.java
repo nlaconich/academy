@@ -67,12 +67,12 @@ public class Teacher {
 
     @Override
     public String toString() {
-        return "idTeacher=" + idTeacher +
-                ", nameTeacher=" + nameTeacher +
-                ", lastName=" + lastName +
-                ", cellphone=" + cellphone +
-                ", address=" + address +
-                ", email=" + email +
+        return "idTeacher = " + idTeacher +
+                "\nnameTeacher = " + nameTeacher +
+                "\nlastName = " + lastName +
+                "\ncellphone = " + cellphone +
+                "\naddress = " + address +
+                "\nemail = " + email +
                 "\n----------------------------------------";
     }
 }
