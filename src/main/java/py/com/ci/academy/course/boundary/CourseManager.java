@@ -123,9 +123,9 @@ public class CourseManager {
         @Override
         public String toString() {
             return "idCourse=" + idCourse +
-                    "\nnameCourse=" + nameCourse +
-                    "\nidTeacher=" + idTeacher +
-                    "\nnameTeacher=" + nameTeacher +
+                    " nameCourse=" + nameCourse +
+                    " idTeacher=" + idTeacher +
+                    " nameTeacher=" + nameTeacher +
                     "\n----------------------------------------";
         }
     }

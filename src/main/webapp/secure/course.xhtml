@@ -16,13 +16,13 @@ and open the template in the editor.
             <ui:define name="content">
                 <h:form>
                     <div class="card">
-                        <p:dataTable var="teacher" value="#{dtBasicView.teachers}">
-                            <p:column headerText="Code">
-                                <h:outputText value="#{teacher.idTeacher}" />
+                        <p:dataTable var="course" value="#{dtBasicView.courses}">
+                            <p:column headerText="Id">
+                                <h:outputText value="#{course.idCourse}" />
                             </p:column>
 
                             <p:column headerText="Name">
-                                <h:outputText value="#{teacher.lastName}" />
+                                <h:outputText value="#{course.nameCourse}" />
                             </p:column>
                         </p:dataTable>
                     </div>
