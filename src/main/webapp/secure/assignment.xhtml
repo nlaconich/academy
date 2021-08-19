@@ -31,16 +31,16 @@ and open the template in the editor.
                 <h:form id="form-add">
                         <p:messages id="messages" showDetail="true" autoUpdate="true" />
                         <p:panelGrid columns="2" columnClasses="column" id="assignmentGr">                            
-                            <p:outputLabel value="TipoProducto" for="assignment" />
+                            <p:outputLabel value="New Assignment" for="assignment" />
                             <h:panelGroup>
-                                <p:inputText id="assignment" required="true" value="#{assignmentBean.assignment.nameAssignment}"  style="text-transform: uppercase" />
+                                <p:inputText id="assignment" required="true" value="#{assignmentBean.assignment.nameAssignment}"  style="text-transform: none" />
                                 <h:inputHidden value="#{assignmentBean.assignment.idAssignment}"/>
                             </h:panelGroup>
 
                             <p:commandButton 
                                 value="Guardar" 
                                 update="assignmentGr,:assignment-form" 
-                                action="#{assignmentBean.agregarAssigment}"
+                                actionListener="#{assignmentBean.agregarAssigment}"
                                 id='btn-guardar-assignment'
                                 />
                         </p:panelGrid>
