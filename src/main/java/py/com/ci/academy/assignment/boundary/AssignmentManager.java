@@ -10,6 +10,8 @@ import java.util.*;
 
 public class AssignmentManager {
 
+
+
     private String getStatement() {
         String statement = "SELECT id_assignment, name_assignment FROM public.assignment";
         return statement;

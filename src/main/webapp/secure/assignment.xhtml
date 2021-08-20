@@ -14,33 +14,34 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="/template/base.xhtml">
             <ui:define name="content">
-                <h:form id="teacher-form">
+                <h:form id="assignment-form">
                     <div class="card">
-                        <p:dataTable var="teacher" value="#{teacherBean.teacherList}">
+                        <p:dataTable var="assignment" value="#{assignmentBean.assignmentList}">
                             <p:column headerText="Id">
-                                <h:outputText value="#{teacher.idTeacher}" />
+                                <h:outputText value="#{assignment.idAssignment}" />
                             </p:column>
 
                             <p:column headerText="Name">
-                                <h:outputText value="#{teacher.lastName}" />
+                                <h:outputText value="#{assignment.nameAssignment}" />
                             </p:column>
                         </p:dataTable>
                     </div>
                 </h:form>
+
                 <h:form id="form-add">
                         <p:messages id="messages" showDetail="true" autoUpdate="true" />
-                        <p:panelGrid columns="2" columnClasses="column" id="teacherGr">                            
-                            <p:outputLabel value="TipoProducto" for="teacher" />
+                        <p:panelGrid columns="2" columnClasses="column" id="assignmentGr">                            
+                            <p:outputLabel value="TipoProducto" for="assignment" />
                             <h:panelGroup>
-                                <p:inputText id="teacher" required="true" value="#{teacherBean.teacher.nameTeacher}"  style="text-transform: uppercase" />
-                                <h:inputHidden value="#{teacherBean.teacher.idTeacher}"/>
+                                <p:inputText id="assignment" required="true" value="#{assignmentBean.assignment.nameAssignment}"  style="text-transform: uppercase" />
+                                <h:inputHidden value="#{assignmentBean.assignment.idAssignment}"/>
                             </h:panelGroup>
 
                             <p:commandButton 
                                 value="Guardar" 
-                                update="teacherGr,:teacher-form" 
-                                action="#{teacherBean.agregarTeacher}"
-                                id='btn-guardar-teacher'
+                                update="assignmentGr,:assignment-form" 
+                                action="#{assignmentBean.agregarAssigment}"
+                                id='btn-guardar-assignment'
                                 />
                         </p:panelGrid>
                     </h:form>
