@@ -4,23 +4,24 @@ import py.com.ci.academy.course.boundary.CourseManager;
 import py.com.ci.academy.course.entities.Course;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
+import javax.enterprise.context.SessionScoped;
 
 @Named("courseBean")
 @SessionScoped
-
 public class CourseBean implements Serializable {
     private List<Course> courseList;
     private Course course;
-    private CourseManager courseManager= new CourseManager();
+    private CourseManager courseManager;
 
     @PostConstruct
     public void init(){
-        course= new Course();
+        courseManager= new CourseManager();
         courseList= courseManager.getAll();
+        course= new Course();
         logCourses();
     }
 
@@ -31,13 +32,10 @@ public class CourseBean implements Serializable {
             System.out.println("CourseBean  - init > no result fount");
         }
     }
-    public  void addCourse(Course course){
-        courseManager.addCourse(course);
-        init();
-    }
-
+   
     public List<Course> getCourseList() {
-        return courseList;
+        init();
+        return this.courseList;
     }
 
     public void setCourseList(List<Course> courseList) {
@@ -50,5 +48,15 @@ public class CourseBean implements Serializable {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+    
+    public  void addCourse(){
+        courseManager.addCourse(course);
+        init();
+    }
+    
+    public void deleteCourse(){
+        courseManager.deleteCourse(course);
+        init();
     }
 }

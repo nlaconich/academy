@@ -14,27 +14,47 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="/template/base.xhtml">
             <ui:define name="content">
-                <h:form>
+                <h:form id="course-form">
                     <div class="card">
                         <p:dataTable var="course" value="#{courseBean.courseList}">
                             <p:column headerText="Id Course">
-                                <h:outputText value="#{course.courseId}" />
+                                <h:outputText value="#{course.courseId}"/>
                             </p:column>
 
                             <p:column headerText="Name Course">
-                                <h:outputText value="#{course.courseName}" />
+                                <h:outputText value="#{course.courseName}"/>
                             </p:column>
-                            
+
                             <p:column headerText="Id Teacher">
-                                <h:outputText value="#{course.teacherId}" />
+                                <h:outputText value="#{course.teacherId}"/>
                             </p:column>
 
                             <p:column headerText="Name Teacher">
-                                <h:outputText value="#{course.teacherName}" />
+                                <h:outputText value="#{course.teacherName}"/>
                             </p:column>
                         </p:dataTable>
                     </div>
                 </h:form>
+
+                <h:form id="form-add">
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                    <p:panelGrid columns="2" columnClasses="column" id="addCourse">                            
+                        <p:outputLabel value="Name Course" for="courseName" />
+                        <p:outputLabel value="Teacher Id" for="teacherId" />
+                        <h:panelGroup>
+                            <p:inputText id="courseName" required="true" value="#{courseBean.course.courseName}"  style="text-transform: none" />
+                            <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none"  />
+                            <h:inputHidden value="#{courseBean.course.courseId}"/>
+                        </h:panelGroup>
+
+                        <p:commandButton 
+                            value="Guardar" 
+                            update="addCourse,:course-form" 
+                            actionListener="#{courseBean.addCourse}"
+                            id='btn-save-course'
+                            />
+                    </p:panelGrid>
+                </h:form>	
 
             </ui:define>
         </ui:composition>
