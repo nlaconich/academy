@@ -51,9 +51,5 @@ public class TeacherBean implements Serializable {
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
-   public String agregarTeacher() {
-       System.out.println("Add Teacher");
-init();
-        return "";
-    }
+    
 }

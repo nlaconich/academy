@@ -14,36 +14,23 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="/template/base.xhtml">
             <ui:define name="content">
-                <h:form id="teacher-form">
+                 <h:form id="teacher-form">   
                     <div class="card">
                         <p:dataTable var="teacher" value="#{teacherBean.teacherList}">
-                            <p:column headerText="Id">
+                            <p:column headerText="Id Teacher">
                                 <h:outputText value="#{teacher.idTeacher}" />
                             </p:column>
 
-                            <p:column headerText="Name">
+                            <p:column headerText="Teacher Name">
+                                <h:outputText value="#{teacher.nameTeacher}" />
+                            </p:column>
+                            
+                            <p:column headerText="Teacher Last Name">
                                 <h:outputText value="#{teacher.lastName}" />
                             </p:column>
                         </p:dataTable>
                     </div>
-                </h:form>
-                <h:form id="form-add">
-                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
-                        <p:panelGrid columns="2" columnClasses="column" id="teacherGr">                            
-                            <p:outputLabel value="TipoProducto" for="teacher" />
-                            <h:panelGroup>
-                                <p:inputText id="teacher" required="true" value="#{teacherBean.teacher.nameTeacher}"  style="text-transform: uppercase" />
-                                <h:inputHidden value="#{teacherBean.teacher.idTeacher}"/>
-                            </h:panelGroup>
-
-                            <p:commandButton 
-                                value="Guardar" 
-                                update="teacherGr,:teacher-form" 
-                                action="#{teacherBean.agregarTeacher}"
-                                id='btn-guardar-teacher'
-                                />
-                        </p:panelGrid>
-                    </h:form>
+                <h:form>  
             </ui:define>
         </ui:composition>
     </h:body>
