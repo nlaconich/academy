@@ -16,21 +16,21 @@ and open the template in the editor.
             <ui:define name="content">
                 <h:form>
                     <div class="card">
-                        <p:dataTable var="course" value="#{dtBasicView.courses}">
+                        <p:dataTable var="course" value="#{courseBean.courseList}">
                             <p:column headerText="Id Course">
-                                <h:outputText value="#{course.idCourse}" />
+                                <h:outputText value="#{course.courseId}" />
                             </p:column>
 
                             <p:column headerText="Name Course">
-                                <h:outputText value="#{course.nameCourse}" />
+                                <h:outputText value="#{course.courseName}" />
                             </p:column>
                             
                             <p:column headerText="Id Teacher">
-                                <h:outputText value="#{course.idTeacher}" />
+                                <h:outputText value="#{course.teacherId}" />
                             </p:column>
 
                             <p:column headerText="Name Teacher">
-                                <h:outputText value="#{course.nameTeacher}" />
+                                <h:outputText value="#{course.teacherName}" />
                             </p:column>
                         </p:dataTable>
                     </div>
