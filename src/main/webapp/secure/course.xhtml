@@ -36,25 +36,69 @@ and open the template in the editor.
                     </div>
                 </h:form>
 
+
+                <h5>Add course</h5>
                 <h:form id="form-add">
                     <p:messages id="messages" showDetail="true" autoUpdate="true" />
                     <p:panelGrid columns="2" columnClasses="column" id="addCourse">                            
                         <p:outputLabel value="Name Course" for="courseName" />
                         <p:outputLabel value="Teacher Id" for="teacherId" />
-                        <h:panelGroup>
-                            <p:inputText id="courseName" required="true" value="#{courseBean.course.courseName}"  style="text-transform: none" />
-                            <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none"  />
-                            <h:inputHidden value="#{courseBean.course.courseId}"/>
-                        </h:panelGroup>
 
-                        <p:commandButton 
-                            value="Guardar" 
-                            update="addCourse,:course-form" 
-                            actionListener="#{courseBean.addCourse}"
-                            id='btn-save-course'
-                            />
+                        <p:inputText id="courseName" required="true" value="#{courseBean.course.courseName}"  style="text-transform: none" />
+                        <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none"  />
+                        <h:inputHidden value="#{courseBean.course.courseId}"/>
+
                     </p:panelGrid>
+
+                    <p:commandButton 
+                        value="Save" 
+                        update="form-add,:course-form" 
+                        actionListener="#{courseBean.addCourse}"
+                        id='btn-save-course'
+                        />
                 </h:form>	
+
+
+                <h5>Update Course</h5>
+                <h:form id="form-update">
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                    <p:panelGrid columns="3" columnClasses="column" id="updateCourse">                            
+                        <p:outputLabel value="Id Course" for="courseId" />
+                        <p:outputLabel value="Name Course" for="courseName" />
+                        <p:outputLabel value="Id Teacher" for="teacherId" />
+
+                        <p:inputText id="courseId" required="true" value="#{courseBean.course.courseId}"  style="text-transform: none" />
+                        <p:inputText id="courseName" required="true" value="#{courseBean.course.courseName}"  style="text-transform: none" />
+                        <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none" />
+
+                    </p:panelGrid>
+
+                    <p:commandButton 
+                        value="Update" 
+                        update="form-update,:course-form" 
+                        actionListener="#{courseBean.updateCourse}"
+                        id='btn-update-course'
+                        />
+                </h:form>	
+
+
+                <h5>Delete Course</h5>
+                <h:form id="form-delete">
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                    <p:panelGrid columns="1" columnClasses="column" id="deleteCourse">                            
+                        <p:outputLabel value="Id Course" for="courseId" />
+                        <p:inputText id="courseId" required="true" value="#{courseBean.course.courseId}"  style="text-transform: none" />
+
+                    </p:panelGrid>
+
+                    <p:commandButton 
+                        value="Delete" 
+                        update="form-delete,:course-form" 
+                        actionListener="#{courseBean.deleteCourse}"
+                        id='btn-delete-course'
+                        />
+                </h:form>	
+
 
             </ui:define>
         </ui:composition>

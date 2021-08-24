@@ -59,4 +59,9 @@ public class CourseBean implements Serializable {
         courseManager.deleteCourse(course);
         init();
     }
+    
+    public void updateCourse(){
+        courseManager.updateCourse(course);
+        init();
+    }
 }
