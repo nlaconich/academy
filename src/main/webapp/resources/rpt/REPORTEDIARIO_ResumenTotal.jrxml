@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteLiquidaciondeCajas_ResumenTotal" language="groovy" pageWidth="572" pageHeight="752" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4035bd81-1af2-4ddc-98d1-fc633abc7c51">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FECHA_HASTA" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+
+    CajasGastos.monto_egreso AS MontoEgreso,
+    CajasGastos.monto_ingreso AS MontoIngreso,
+    CajasGastos.monto_ingreso_chq AS MontoIngresoCheque,
+    SUM (CajasGastos.monto_ingreso) As MontoIngreso_total,
+    SUM (CajasGastos.monto_ingreso_chq) As MontoIngresoCheque_total,
+    SUM (CajasGastos.monto_egreso) As MontoEgreso_total
+
+
+ FROM
+     "cajas_gastos" CajasGastos
+WHERE
+     cajasGastos.fecha::date = $P{FECHA_HASTA}
+ GROUP BY
+      cajasGastos.monto_ingreso,
+      cajasGastos.monto_egreso,
+      cajasGastos.monto_ingreso_chq]]>
+	</queryString>
+	<field name="montoegreso" class="java.lang.Double"/>
+	<field name="montoingreso" class="java.lang.Double"/>
+	<field name="montoingresocheque" class="java.lang.Double"/>
+	<field name="montoingreso_total" class="java.lang.Double"/>
+	<field name="montoingresocheque_total" class="java.lang.Double"/>
+	<field name="montoegreso_total" class="java.lang.Double"/>
+	<variable name="totalingresos" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoingreso_total}]]></variableExpression>
+	</variable>
+	<variable name="totalcaja" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoingreso}]]></variableExpression>
+	</variable>
+	<variable name="subtotalEfectivo" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoingreso_total}]]></variableExpression>
+	</variable>
+	<variable name="subtotalCheque" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoingresocheque_total}]]></variableExpression>
+	</variable>
+	<variable name="gastosResumenTotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoegreso_total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="42">
+			<textField>
+				<reportElement x="83" y="21" width="100" height="20" uuid="248eeb7b-8bc4-4558-ae6b-66dc395ddc96"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[TIPO]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="21" width="100" height="20" uuid="0ae872c8-6251-4dc3-8dd3-58c18331f492"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[EFECTIVO]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="283" y="21" width="100" height="20" uuid="cc991c6b-3a49-4a5e-9080-ce71f2192287"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[CHEQUES]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="383" y="21" width="100" height="20" uuid="a3d281c2-c77b-43ed-8715-25cbde4ddace"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[GASTOS]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="81">
+			<textField pattern="#,##0" isBlankWhenNull="false">
+				<reportElement x="283" y="20" width="102" height="20" uuid="fbc85c83-c6d4-475a-a050-2c5903c8aaf7"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoingreso_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="383" y="0" width="100" height="20" uuid="a64dd2c9-1c9f-4b25-b284-e497dd22a700"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</textField>
+			<textField>
+				<reportElement x="85" y="20" width="98" height="20" uuid="965f80db-cf2d-4da0-830b-a71ef27908d4"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[COBRANZAS]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="183" y="0" width="99" height="20" uuid="918b55d0-9b1a-4c4b-9d77-fbe4b1b61e4b"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoingreso_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="84" y="0" width="100" height="20" uuid="2bcfa099-055a-452f-98f8-d3a11f7307e8"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[VENTAS]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="285" y="40" width="100" height="20" uuid="f4602522-626c-4237-af84-b434eaa96b00"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</textField>
+			<textField>
+				<reportElement x="84" y="60" width="100" height="20" uuid="73c88b3f-b071-4a2d-aa8b-1b5ae569566a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[SUB-TOTAL]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="385" y="41" width="99" height="20" uuid="56efb406-8468-438c-9a53-2c5a4583580c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoingreso_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="84" y="40" width="100" height="20" uuid="f2beccb0-cafc-46c0-96e9-bc14373e5984"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[GASTOS]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="41" width="102" height="20" uuid="5b499089-f4aa-445c-ad19-b12b248d7f10"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</textField>
+			<textField>
+				<reportElement x="384" y="20" width="100" height="20" uuid="4b22370d-a5fd-4012-aeaf-9350174e3707"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="184" y="61" width="101" height="20" uuid="75dd293a-1721-4179-ae91-524478949b1d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoingreso_total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="285" y="61" width="99" height="20" uuid="e21a997c-8900-4764-a023-d18e5d803d71"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoingresocheque_total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="385" y="60" width="99" height="20" uuid="e15c1742-6c53-4e93-aa02-38abec73f979"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoegreso_total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="284" y="0" width="99" height="20" uuid="b64a6577-70ff-4342-8b5d-0f3ccaa65cdc"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoingresocheque_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="20" width="100" height="20" uuid="85b0f9da-84a2-446d-ad09-5e20cd34800a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</textField>
+		</band>
+		<band height="50">
+			<textField>
+				<reportElement x="85" y="20" width="98" height="20" uuid="917bee5e-b316-41d3-a039-452c7401b843"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[TOTAL CAJA]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="false">
+				<reportElement x="183" y="20" width="301" height="20" uuid="9517f03f-d139-4a0c-8eca-62bfe4f66685"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoingreso_total}+$F{montoingresocheque_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="84" y="0" width="100" height="20" uuid="df78eba1-4bea-4ea2-8ce8-15b5c5ae6dc4"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[TOTAL INGRESOS]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="384" y="0" width="100" height="20" uuid="9f7f44c6-b99f-4a12-9ab6-904f57c34c48"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="184" y="0" width="200" height="20" uuid="06dbb0f6-4528-4be0-87b0-796dd7a2bde0"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoingreso_total}-$F{montoegreso_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+</jasperReport>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ArqueoCaja1_VtaContadoFactura" language="groovy" pageWidth="572" pageHeight="752" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="237902c4-3779-4bff-9f95-d7232c2eb574">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select 
+        f.factura_id,
+        f.nro_factura,
+        f.fecha_emision,
+        f.tipo_factura,
+        ep.descripcion,
+        f.forma_pago,
+        c.nombre,
+        fd.sub_total
+      
+from 
+        facturas f inner join facturas_detalle fd on f.factura_id = fd.factura_id
+        inner join cliente c on f.cliente_id = c.cliente_id
+        inner join estado_impresion ep on f.estado_impresion = ep.estado_id]]>
+	</queryString>
+	<field name="factura_id" class="java.lang.Integer"/>
+	<field name="nro_factura" class="java.lang.String"/>
+	<field name="fecha_emision" class="java.sql.Date"/>
+	<field name="tipo_factura" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="forma_pago" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="sub_total" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement x="13" y="5" width="170" height="20" uuid="8449352e-9c0f-4656-8dc8-d7f5ac5aef53"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1-VTA. CONTADO - FACTURA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<line>
+				<reportElement x="13" y="33" width="539" height="1" uuid="898c78e1-7068-4636-9f1e-9ef3b0462dd6"/>
+			</line>
+			<staticText>
+				<reportElement x="156" y="8" width="154" height="20" uuid="9cb8b8c5-9e73-4b15-a60b-f29b065d017d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detalle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="8" width="56" height="20" uuid="2aabc803-6624-45ad-ba00-87852df1dfc3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="8" width="72" height="20" uuid="85acf99c-64f6-4193-b80f-bf1cbe45d95c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Efectivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="8" width="76" height="20" uuid="f6ae7b38-941b-4f72-973a-7a9a1179cf08"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="399" y="8" width="65" height="20" uuid="eb8018d2-13d2-4c08-85a3-9330b9b4513c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cheque]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="472" y="8" width="80" height="20" uuid="f9f9640a-8847-40e2-b62b-b3ba8b63bf5f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gastos]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="14" y="7" width="76" height="20" uuid="dcf3bbc7-1d7c-420a-a81a-3554ef2da39a"/>
+				<textFieldExpression><![CDATA[$F{fecha_emision}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="7" width="56" height="20" uuid="4ae59aa9-f2fd-44bb-8235-26fe3ffc42b8"/>
+				<textFieldExpression><![CDATA[$F{nro_factura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="157" y="7" width="154" height="20" uuid="662817de-7879-4d1a-9c2e-0ad2c123e7f4"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="7" y="34" width="538" height="36" uuid="1c701a38-84ed-4c1e-8db4-a2c479ba1e93"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/home/josmor/NetBeansProjects/SGOTFS/src/main/webapp/resources/rpt/ArqueoCaja1_VtaContadoPresupuesto.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="7" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="34" splitType="Stretch"/>
+	</summary>
+</jasperReport>

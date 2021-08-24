@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ArqueoCaja1_VtaCreditoFactura" language="groovy" pageWidth="572" pageHeight="752" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0387114b-b8cc-43b1-8ad5-462f527edd36">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/josmor/NetBeansProjects/SGOTFS/src/main/webapp/resources/rpt/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 
+        f.factura_id,
+        f.nro_factura,
+        f.fecha_emision,
+        f.tipo_factura,
+        ep.descripcion,
+        f.forma_pago,
+        c.nombre,
+        fd.sub_total,
+        (select sum(fd.sub_total) from facturas_detalle fd where f.forma_pago ='EF') as efectivo,
+        (select sum(fd.sub_total) from facturas_detalle fd where f.forma_pago ='CQ') as cheque
+from 
+        facturas f inner join facturas_detalle fd on f.factura_id = fd.factura_id
+        inner join cliente c on f.cliente_id = c.cliente_id
+        inner join estado_impresion ep on f.estado_impresion = ep.estado_id]]>
+	</queryString>
+	<field name="factura_id" class="java.lang.Integer"/>
+	<field name="nro_factura" class="java.lang.String"/>
+	<field name="fecha_emision" class="java.sql.Date"/>
+	<field name="tipo_factura" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="forma_pago" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="sub_total" class="java.lang.Double"/>
+	<field name="efectivo" class="java.lang.Double"/>
+	<field name="cheque" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="21" y="8" width="192" height="20" uuid="1b9fe72e-4900-4f5d-9ab9-cc5ed984a901"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[3-VTA. CREDITO- FACTURA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="94" y="5" width="56" height="20" uuid="c9255072-b771-4eef-b331-ac77336db68d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="5" width="76" height="20" uuid="38235aed-8579-4df5-9894-e6fdfde5007d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="155" y="5" width="154" height="20" uuid="9b740d31-70ed-471e-b2a4-b25e97eb3e8d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detalle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="315" y="5" width="72" height="20" uuid="2b68122c-00d7-4285-b3a2-ff1113565a43"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Efectivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="5" width="65" height="20" uuid="2c8edd6d-f6f6-4354-9c30-21b753efb5dd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cheque]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="471" y="5" width="80" height="20" uuid="489db36c-9eab-4841-addb-473a27c85ac8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gastos]]></text>
+			</staticText>
+			<line>
+				<reportElement x="12" y="30" width="539" height="1" uuid="e7afd26f-cb4d-486b-b653-c03f82c5a6ed"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="74" splitType="Stretch">
+			<textField>
+				<reportElement x="12" y="4" width="76" height="20" uuid="5e7a6c1b-0863-405b-a3b4-b04935ecd30e"/>
+				<textFieldExpression><![CDATA[$F{fecha_emision}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="94" y="4" width="56" height="20" uuid="966a1d7d-5c85-4139-be3b-8cd39033e9cd"/>
+				<textFieldExpression><![CDATA[$F{nro_factura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="155" y="4" width="154" height="20" uuid="a550f1b6-fa43-44ac-97cd-ebb97eddadda"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="12" y="29" width="539" height="41" uuid="ae84f4bd-3b16-400a-b2ff-a748c1a8b663"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ArqueoCaja1_VtaCreditoPresupuesto.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="8" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="27" splitType="Stretch"/>
+	</summary>
+</jasperReport>

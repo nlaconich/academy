@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <ui:composition template="/template/base.xhtml">
+            <ui:define name="content">
+                <h:form id="course-form">
+                    <div class="card">
+                        <p:dataTable var="course" value="#{courseBean.courseList}">
+                            <p:column headerText="Id Course">
+                                <h:outputText value="#{course.courseId}"/>
+                            </p:column>
+
+                            <p:column headerText="Name Course">
+                                <h:outputText value="#{course.courseName}"/>
+                            </p:column>
+
+                            <p:column headerText="Id Teacher">
+                                <h:outputText value="#{course.teacherId}"/>
+                            </p:column>
+
+                            <p:column headerText="Name Teacher">
+                                <h:outputText value="#{course.teacherName}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </h:form>
+
+
+                <h5>Add course</h5>
+                <h:form id="form-add">
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                    <p:panelGrid columns="2" columnClasses="column" id="addCourse">                            
+                        <p:outputLabel value="Name Course" for="courseName" />
+                        <p:outputLabel value="Teacher Id" for="teacherId" />
+
+                        <p:inputText id="courseName" required="true" value="#{courseBean.course.courseName}"  style="text-transform: none" />
+                        <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none"  />
+                        <h:inputHidden value="#{courseBean.course.courseId}"/>
+
+                    </p:panelGrid>
+
+                    <p:commandButton 
+                        value="Save" 
+                        update="form-add,:course-form" 
+                        actionListener="#{courseBean.addCourse}"
+                        id='btn-save-course'
+                        />
+                </h:form>	
+
+
+                <h5>Update Course</h5>
+                <h:form id="form-update">
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                    <p:panelGrid columns="3" columnClasses="column" id="updateCourse">                            
+                        <p:outputLabel value="Id Course" for="courseId" />
+                        <p:outputLabel value="Name Course" for="courseName" />
+                        <p:outputLabel value="Id Teacher" for="teacherId" />
+
+                        <p:inputText id="courseId" required="true" value="#{courseBean.course.courseId}"  style="text-transform: none" />
+                        <p:inputText id="courseName" required="true" value="#{courseBean.course.courseName}"  style="text-transform: none" />
+                        <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none" />
+
+                    </p:panelGrid>
+
+                    <p:commandButton 
+                        value="Update" 
+                        update="form-update,:course-form" 
+                        actionListener="#{courseBean.updateCourse}"
+                        id='btn-update-course'
+                        />
+                </h:form>	
+
+
+                <h5>Delete Course</h5>
+                <h:form id="form-delete">
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                    <p:panelGrid columns="1" columnClasses="column" id="deleteCourse">                            
+                        <p:outputLabel value="Id Course" for="courseId" />
+                        <p:inputText id="courseId" required="true" value="#{courseBean.course.courseId}"  style="text-transform: none" />
+
+                    </p:panelGrid>
+
+                    <p:commandButton 
+                        value="Delete" 
+                        update="form-delete,:course-form" 
+                        actionListener="#{courseBean.deleteCourse}"
+                        id='btn-delete-course'
+                        />
+                </h:form>	
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Trimestral_CajaGastos" language="groovy" pageWidth="752" pageHeight="572" orientation="Landscape" columnWidth="752" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3d4986e7-1bea-41ff-9e31-e8779a2cad84">
+	<queryString language="SQL">
+		<![CDATA[SELECT
+    
+    cajasGastos.descripcion AS Descripcion,
+    cajasGastos.monto_egreso AS MontoEgreso,
+    cajasGastos.monto_ingreso AS MontoIngreso,
+    cajasGastos.fecha AS Fecha,
+     Usuario.username AS Usuario
+     
+    
+ FROM
+     "cajas_gastos" cajasGastos
+inner join "usuarios"Usuario on cajasGastos.usuario_id = Usuario.usuario_id]]>
+	</queryString>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="montoegreso" class="java.lang.Double"/>
+	<field name="montoingreso" class="java.lang.Double"/>
+	<field name="fecha" class="java.sql.Timestamp"/>
+	<field name="usuario" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

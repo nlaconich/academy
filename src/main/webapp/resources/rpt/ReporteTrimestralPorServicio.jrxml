@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteTrimestralPorServicio" language="groovy" pageWidth="752" pageHeight="572" orientation="Landscape" columnWidth="752" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="027c033b-b4c2-4129-889e-495dba5bc3a9">
+	<queryString language="SQL">
+		<![CDATA[SELECT
+    
+    Servicios.servicio_id AS SercicioId,
+    Servicios.servicio AS Servicos,
+    Servicios.precio_unitario As Precio_Unitario,
+    Servicios.porcentual AS Porcentual,
+    Servicios.medida_id As MedidaID,
+    Servicios.producto_id As ProductoID,
+    Medidas.medida_id AS MedidasID,
+    Medidas.descripcion AS Descripcion,
+    Medidas.representacion AS Unidad_de_Medida
+    
+ FROM
+     "servicios" Servicios  
+INNER JOIN "medidas" Medidas ON  Medidas.medida_id = Servicios.medida_id
+  WHERE 
+Servicios.servicio_id = 1]]>
+	</queryString>
+	<field name="sercicioid" class="java.lang.Integer"/>
+	<field name="servicos" class="java.lang.String"/>
+	<field name="precio_unitario" class="java.math.BigDecimal"/>
+	<field name="porcentual" class="java.math.BigDecimal"/>
+	<field name="medidaid" class="java.lang.Integer"/>
+	<field name="productoid" class="java.lang.Integer"/>
+	<field name="medidasid" class="java.lang.Integer"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="unidad_de_medida" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

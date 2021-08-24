@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1580c1b5-fd37-410e-ad3e-3624411eacd7">
+	<property name="ireport.zoom" value="1.5394743546921201"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PFECHA" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="totalVentasEfectivo" class="java.lang.Double"/>
+	<parameter name="totalVentasCheques" class="java.lang.Double"/>
+	<parameter name="totalCobranzasEfectivo" class="java.lang.Double"/>
+	<parameter name="totalCobranzasCheque" class="java.lang.Double"/>
+	<parameter name="totalGastosEfectivo" class="java.lang.Double"/>
+	<parameter name="totalGastosCheques" class="java.lang.Double"/>
+	<parameter name="subTotalEfectivo" class="java.lang.Double"/>
+	<parameter name="subtotalCheques" class="java.lang.Double"/>
+	<parameter name="totalCobranzasBancos" class="java.lang.Double"/>
+	<parameter name="totalIngreso" class="java.lang.Double"/>
+	<parameter name="totalCaja" class="java.lang.Double"/>
+	<parameter name="parameter1" class="java.lang.String"/>
+	<parameter name="totalVentasContado" class="java.lang.Double"/>
+	<parameter name="totalVentasCredito" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="totalIngresoCheque" class="java.lang.Double"/>
+	<parameter name="totalIngresoEfectivo" class="java.lang.Double"/>
+	<parameter name="totalAnticipo" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[Select now() limit 1]]>
+	</queryString>
+	<field name="now" class="java.sql.Timestamp"/>
+	<variable name="total_caja" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$P{totalCobranzasEfectivo}+$P{totalCobranzasCheque}+$P{totalCobranzasBancos}-$P{totalGastosEfectivo}-$P{totalGastosCheques}]]></variableExpression>
+	</variable>
+	<variable name="total_ingreso" class="java.math.BigDecimal" calculation="Variance">
+		<variableExpression><![CDATA[$P{totalCobranzasCheque}+$P{totalCobranzasEfectivo}+$P{totalCobranzasBancos}]]></variableExpression>
+	</variable>
+	<variable name="subtotal_efectivo" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$P{totalVentasEfectivo}+$P{totalCobranzasEfectivo}]]></variableExpression>
+	</variable>
+	<variable name="subtotal_cheque" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$P{totalVentasCheques}+$P{totalCobranzasCheque}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="137" y="40" width="80" height="20" uuid="e8f05840-4d27-4b8e-a98a-de071cd8110f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="15" y="20" width="214" height="20" uuid="4ab8b744-788c-4829-b594-268d659f813b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Liquidación de Caja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="0" width="120" height="20" uuid="2bf9d9a6-1ed1-4382-8f24-6a3a61b21656"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="17" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[HIDROSA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="40" width="122" height="20" uuid="0e5c8273-eed9-4fc0-bfc4-872fb4318205"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Impresion:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="435" y="0" width="80" height="20" uuid="5bea7731-4c4c-4079-9764-733bf47b7dd9"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="20" uuid="ca81d006-a8bd-43eb-b557-5e8914856a67"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+		<band height="202">
+			<staticText>
+				<reportElement x="176" y="92" width="100" height="17" uuid="b9fe5ec3-b957-4f52-b407-3c0da78d69db"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EFECTIVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="176" y="92" width="100" height="17" uuid="b9fe5ec3-b957-4f52-b407-3c0da78d69db"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EFECTIVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="92" width="100" height="17" uuid="c9b182f3-76d4-420b-ae14-29c57ec2defa"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CHEQUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="92" width="100" height="17" uuid="eccd4cd8-9171-42f1-b125-6005ce7fb76c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="92" width="100" height="17" uuid="02d39db4-ad99-4c7c-875c-54339f95a8af"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BANCOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="109" width="100" height="20" uuid="bf0b6ef0-c772-4626-acba-a4a7eeea6607"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COBRANZAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="129" width="100" height="20" uuid="9f897612-5d17-4d2e-a804-75153f070f4a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GASTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="149" width="100" height="17" uuid="0d3299bb-a7f6-4db4-b3a1-aa08310a5f38"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL INGRESOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="166" width="100" height="17" uuid="be8d59f5-1abe-4246-9a2b-1e31bbe3689a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL CAJA]]></text>
+			</staticText>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="176" y="109" width="100" height="20" uuid="25436116-f9eb-44c5-a640-dcb55843ad8f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalCobranzasEfectivo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="276" y="109" width="100" height="20" uuid="8c25b2e4-d834-43b8-b8e7-20d67b720469"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalCobranzasCheque}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="276" y="129" width="100" height="20" uuid="3eac206f-2a39-4c7c-af75-5782b4e48f55"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalGastosCheques}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="376" y="129" width="100" height="20" uuid="2e497f06-75a9-4d15-a5ec-0f047f735376"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="176" y="166" width="300" height="17" uuid="b4aa2f14-d99c-4c44-8ba2-fdcfea33fb4c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="10" y="1" width="211" height="20" uuid="7a63e3c6-a52f-4864-8b93-2d181da99ae5"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Resumen]]></text>
+			</staticText>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="376" y="109" width="100" height="20" uuid="d2342d99-12f1-4cb4-8865-80dd761276bd"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalCobranzasBancos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="176" y="129" width="100" height="20" uuid="1a65032c-efd4-49cf-956c-7eb670f40561"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalGastosEfectivo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="176" y="72" width="100" height="20" uuid="9d1cdbc3-78ea-444f-9b8c-08cc7b34f86f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{totalVentasEfectivo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="176" y="52" width="100" height="20" uuid="832b565e-edb6-4f65-997e-f64433f7b4d3"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTADO]]></text>
+			</staticText>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="276" y="72" width="100" height="20" uuid="8e024af4-3a47-41d3-85e8-9aaa24955d32"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{totalVentasCheques}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="276" y="52" width="100" height="20" uuid="093fd8c3-e235-49ff-8870-ba7559fd59ce"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CREDITO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="72" width="100" height="20" uuid="57606afb-e7dc-46e5-9578-c3b18fb9324d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VENTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="52" width="100" height="20" uuid="071fa538-856b-45e3-b32f-baa465054bbe"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="72" width="100" height="20" uuid="fd3a9ae7-6148-44b0-a26c-4a0b73999b38"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="52" width="100" height="20" uuid="63d19aa5-45f2-443d-94d7-c0aecb55a7b5"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="176" y="149" width="100" height="17" uuid="6898adb8-b0c5-4430-9fbb-bd82fa196327"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="276" y="149" width="100" height="17" uuid="25c37ce9-4c1e-47bd-b56c-6f6950cf58d5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="376" y="149" width="100" height="17" uuid="1790911f-ef0d-49f3-a9bd-39216c3c166c"/>
+			</rectangle>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="378" y="150" width="98" height="16" uuid="b7088cc0-7885-436a-951c-9f102386048c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalCobranzasBancos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="176" y="149" width="100" height="17" uuid="eded18f2-cb22-488a-b23f-e32af1348243"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalIngresoEfectivo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="276" y="149" width="100" height="17" uuid="09ca953d-e307-408f-8dea-60fecae4b5a5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalIngresoCheque}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="176" y="166" width="300" height="17" uuid="1b33b6b3-4be0-4313-84f7-ded95847d4f5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalCaja}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="378" y="52" width="98" height="20" uuid="52a1dbd4-6067-4495-8826-2a9c3f38770e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ANTICIPO]]></text>
+			</staticText>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="378" y="72" width="98" height="20" uuid="3bc29278-cd7e-43bf-adc6-addbd33c7bb9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalAnticipo}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="68">
+			<elementGroup>
+				<elementGroup/>
+			</elementGroup>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="211" height="20" uuid="fc103b6a-f554-4f8e-ab0b-9573bbaa493a"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Resumen de Apertura de Caja]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="25" width="555" height="43" uuid="55f6f6ce-bce9-416e-892c-4006e2a9a86f"/>
+				<subreportParameter name="FECHA_HASTA">
+					<subreportParameterExpression><![CDATA[$P{PFECHA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["REPORTEDIARIO_Apertura_de_Caja.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="72">
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="3" y="0" width="211" height="20" uuid="0bf868be-b468-4fe7-ac82-66d7602516f1"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Resumen de Cierre de Caja]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="30" width="555" height="42" uuid="463b3e1d-14a8-414e-af36-6887bbfb6303"/>
+				<subreportParameter name="FECHA_HASTA">
+					<subreportParameterExpression><![CDATA[$P{PFECHA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["REPORTEDIARIO_Cierre_de_Caja.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="70">
+			<subreport>
+				<reportElement x="0" y="26" width="552" height="44" uuid="9fa65b64-7c61-4684-8d4c-72e99ca12e25"/>
+				<subreportParameter name="fecha_Diaria">
+					<subreportParameterExpression><![CDATA[$P{PFECHA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["REPORTEDIARIO_MovimientosDeCajas.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="3" y="6" width="211" height="20" uuid="49cafbd3-baad-4c19-b983-c7c42eef3aee"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Resumen Movimientos de Caja]]></text>
+			</staticText>
+		</band>
+		<band height="63">
+			<subreport>
+				<reportElement x="0" y="21" width="555" height="42" uuid="afd59fbb-2c1d-49bb-81a2-7f1f65bcd891"/>
+				<subreportParameter name="FECHA_HASTA">
+					<subreportParameterExpression><![CDATA[$P{PFECHA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["REPORTEDIARIO_Resumen_de_Factura.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="1" width="211" height="20" uuid="038ce8f5-4a14-4e89-babc-e524305e4d08"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[VTA. CONTADO ]]></text>
+			</staticText>
+		</band>
+		<band height="62">
+			<subreport>
+				<reportElement x="0" y="26" width="555" height="36" uuid="ec580fbf-4b33-4793-aa7e-a6b9b69c12f4"/>
+				<subreportParameter name="FECHA_HASTA">
+					<subreportParameterExpression><![CDATA[$P{PFECHA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["REPORTEDIARIO_FacturaCredito.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="3" y="0" width="241" height="20" uuid="51141221-5157-4208-aa2b-fc41a9c25240"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[VTA. CRÉDITO]]></text>
+			</staticText>
+		</band>
+		<band height="71">
+			<subreport>
+				<reportElement x="0" y="26" width="555" height="45" uuid="26ea0431-0fb4-4b8c-a9cc-b83edf4f7c9e"/>
+				<subreportParameter name="FECHA_HASTA">
+					<subreportParameterExpression><![CDATA[$P{PFECHA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["REPORTEDIARIO_ResumenPresupuesto.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="241" height="20" uuid="287f77e9-928f-4f6d-bbc9-7cf0b2d03726"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[VTA PRESUPUESTO CONTADO]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

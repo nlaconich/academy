@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:body>
+        <ui:composition template="/template/base.xhtml">
+            <ui:define name="content">
+                <h:form id="tipoControlStock-form">
+                    <p:growl id="growl" showDetail="true" sticky="true" />
+                    <p:outputLabel value="Lista de los tipos de control stock" />
+                    <p:dataTable id="dtTipoControlStock" var="tipoControlStock" value="#{tipoControlStockBean.tipoControlStockList}"
+                                 rows="10" paginator="true" paginatorPosition="bottom"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 selection="#{tipoControlStockBean.tipoControlStock}" rowKey="#{tipoControlStock}"
+                                 selectionMode="single">
+
+                        <p:ajax event="rowSelect" listener="#{tipoControlStockBean.alSeleccionarFila}" />
+
+                        <p:column headerText="Descripcion" sortBy="#{tipoControlStock.descripcion}" style="width:6%;">
+                            <h:outputText value="#{tipoControlStock.descripcion}" />
+                        </p:column>
+                        
+                        
+                        <f:facet name="footer">
+                            <p:commandButton process="dtTipoControlStock" icon="ui-icon-document" update=":form-add:tipoControlStockGr" 
+                                             value="Agregar" oncomplete="PF('dlgTipoControlStockAdd').show()" actionListener="#{tipoControlStockBean.actionClean}"/>
+                            <p:commandButton process="dtTipoControlStock" icon="ui-icon-pencil" id="botonEditar"
+                                             value="Editar" oncomplete="PF('dlgTipoControlStockAdd').show()"
+                                             update=":form-add:tipoControlStockGr" 
+                                             disabled="#{tipoControlStockBean.bloquearBotones}"/>                            
+                            
+
+
+                            <p:confirmDialog global="true" showEffect="fade"
+                                             hideEffect="explode">
+                                <p:commandButton value="Si" type="button"
+                                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check" ajax="false" />
+                                <p:commandButton value="No" type="button"
+                                                 styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                <p:commandButton 
+                                    value="Actualizar" 
+                                    action="#{tipoControlStockBean.update}"
+                                    id='btn-actualizar-tipoControlStock'
+                                    />
+                            </p:confirmDialog>
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+
+                <p:dialog header="TipoControlStock" widgetVar="dlgTipoControlStockAdd"
+                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <h:form id="form-add">
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                        <p:panelGrid columns="2" columnClasses="column" id="tipoControlStockGr"> 
+                            
+                            <p:outputLabel value="TipoControlStock" for="tipoControlStock" />
+                            <h:panelGroup>
+                                <p:inputText id="tipoControlStock" required="true" value="#{tipoControlStockBean.tipoControlStock.tipoControlStockId}" />
+                                <h:inputHidden value="#{tipoControlStockBean.tipoControlStock.tipoControlStockId}" />
+                            </h:panelGroup>
+
+                            <p:spacer />
+                            <p:commandButton 
+                                value="Guardar" 
+                                update="tipoControlStockGr,:tipoControlStock-form:dtTipoControlStock" 
+                                action="#{tipoControlStockBean.agregarTipoControlStock}"
+                                />
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+                
+                                
+            </ui:define>
+        </ui:composition>
+    </h:body>
+    
+</html>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <ui:composition template="/template/base.xhtml">
+            <ui:define name="content">
+                <h:form id="tipoProducto-form">
+                    <p:growl id="growl" showDetail="true" sticky="true" />
+                    <p:outputLabel value="Listado de los Tipo de Producto" />
+                    <p:dataTable id="dtTipoProducto" var="tipoProducto" value="#{tipoProductoBean.tipoProductoList}"
+                                 rows="10" paginator="true" paginatorPosition="bottom"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 selection="#{tipoProductoBean.tipoProducto}" rowKey="#{tipoProducto}"
+                                 selectionMode="single">
+
+                        <p:ajax event="rowSelect" listener="#{tipoProductoBean.alSeleccionarFila}" />
+
+                        <p:column headerText="Tipo Producto" sortBy="#{tipoProducto.tipoProducto}">
+                            <h:outputText value="#{tipoProducto.tipoProducto}" style="text-transform: uppercase"/>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton process="dtTipoProducto" icon="ui-icon-document" update=":form-add:tipoProductoGr" 
+                                             value="Agregar" oncomplete="PF('dlgTipoProductoAdd').show()" actionListener="#{tipoProductoBean.actionClean}"/>
+                            <p:commandButton process="dtTipoProducto" icon="ui-icon-pencil" id="botonEditar"
+                                             value="Editar" oncomplete="PF('dlgTipoProductoAdd').show()"
+                                             update=":form-add:tipoProductoGr" 
+                                             disabled="#{tipoProductoBean.bloquearBotones}"/>                            
+
+
+
+                            <p:confirmDialog global="true" showEffect="fade"
+                                             hideEffect="explode">
+                                <p:commandButton value="Si" type="button"
+                                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check" ajax="false" />
+                                <p:commandButton value="No" type="button"
+                                                 styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                <p:commandButton 
+                                    value="Actualizar" 
+                                    action="#{tipoProductoBean.update}"
+                                    id='btn-actualizar-tipoProducto'
+                                    />
+                            </p:confirmDialog>
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+
+                <p:dialog header="TipoProducto" widgetVar="dlgTipoProductoAdd"
+                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <h:form id="form-add">
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                        <p:panelGrid columns="2" columnClasses="column" id="tipoProductoGr">                            
+                            <p:outputLabel value="TipoProducto" for="tipoProducto" />
+                            <h:panelGroup>
+                                <p:inputText id="tipoProducto" required="true" value="#{tipoProductoBean.tipoProducto.tipoProducto}"  style="text-transform: uppercase" />
+                                <h:inputHidden value="#{tipoProductoBean.tipoProducto.tipoId}"/>
+                            </h:panelGroup>
+
+                            <p:commandButton 
+                                value="Guardar" 
+                                update="tipoProductoGr,:tipoProducto-form:dtTipoProducto" 
+                                action="#{tipoProductoBean.agregarTipoProducto}"
+                                id='btn-guardar-tipoProducto'
+                                />
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

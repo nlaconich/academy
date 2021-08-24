@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteFacturacion_Resumen" pageWidth="752" pageHeight="572" orientation="Landscape" columnWidth="752" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="32037cd9-4e0e-4ea5-8bbf-59008c03a37d">
+	<property name="ireport.zoom" value="1.3310000000000106"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Fecha_Hasta" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Fecha_Desde" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     Factura.nro_factura AS NumeroFactura,
+     Cliente.nombre AS Cliente,
+     Factura.cliente_id AS ClienteID,
+     Factura.orden AS Orden,
+     Factura.fecha_emision AS Emision,
+     Factura.fecha_vencimiento AS Vencimiento,
+     Factura.tipo_factura AS TipoFactura,
+     Factura.estado_financiero AS Estado,
+     Factura.estado_impresion AS EstadoImpreso,
+     Factura.forma_pago AS Pago,
+     Factura.total_letras AS Total
+ FROM
+
+ "facturas" Factura
+
+Inner Join "cliente" Cliente on Factura.cliente_id = Cliente.cliente_id
+ WHERE   Factura.fecha_emision between  $P{Fecha_Hasta} and $P{Fecha_Desde}]]>
+	</queryString>
+	<field name="numerofactura" class="java.lang.String"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="clienteid" class="java.lang.Integer"/>
+	<field name="orden" class="java.lang.Integer"/>
+	<field name="emision" class="java.sql.Timestamp"/>
+	<field name="vencimiento" class="java.sql.Date"/>
+	<field name="tipofactura" class="java.lang.String"/>
+	<field name="estado" class="java.lang.Integer"/>
+	<field name="estadoimpreso" class="java.lang.Integer"/>
+	<field name="pago" class="java.lang.String"/>
+	<field name="total" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="9" y="2" width="100" height="20" uuid="3d5c0a38-4487-48da-8fb4-7e3b7873cdde"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Factura Contado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="119" y="2" width="100" height="20" uuid="c441de7a-42cf-4d99-89e4-a3a365581f28"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Factura Credito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="2" width="100" height="20" uuid="b8b32084-fc7f-49fb-8a84-61e401bd7641"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Facturado]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<line>
+				<reportElement x="5" y="0" width="1" height="20" uuid="f6fd0175-52cb-4113-9568-4d32dde98ebc"/>
+			</line>
+			<line>
+				<reportElement x="113" y="0" width="1" height="20" uuid="b1fbc0de-52ca-4e96-98af-ba10d58fad0a"/>
+			</line>
+			<staticText>
+				<reportElement x="9" y="0" width="100" height="20" uuid="82423d82-e5ea-4b75-bea1-9f051c596596"/>
+				<text><![CDATA[Facturas Cobradas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="119" y="0" width="100" height="20" uuid="46bf0ff8-e22f-4300-91dd-2c60e3942d00"/>
+				<text><![CDATA[Facturas Cobradas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="0" width="100" height="20" uuid="1d7d84ac-3c0e-424f-99c7-1d5b7ced54a4"/>
+				<text><![CDATA[Total ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="224" y="0" width="1" height="20" uuid="011be04e-e00d-459c-9f29-a0a313f2743d"/>
+			</line>
+			<line>
+				<reportElement x="339" y="0" width="1" height="20" uuid="176fce97-e4f3-4e96-a435-f72b7fc09927"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<line>
+				<reportElement x="5" y="0" width="1" height="19" uuid="0763d2db-8e46-4e9c-a1a4-7caf804e65bf"/>
+			</line>
+			<line>
+				<reportElement x="113" y="0" width="1" height="19" uuid="c01e3da7-cbe5-423f-a5a5-a2bda1a00262"/>
+			</line>
+			<textField>
+				<reportElement x="233" y="0" width="100" height="19" uuid="92e502d5-9e9c-45e7-8ebd-a0c4cd194f98"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="9" y="0" width="100" height="19" uuid="82ae4c90-afa3-488e-91e6-b1c52934b9b1"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="119" y="0" width="100" height="19" uuid="9f0fa1b3-ccef-4d65-813b-80d8a03d3783"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="224" y="0" width="1" height="19" uuid="a9005f1d-3ddf-45b4-819f-7a7da8ad4bbf"/>
+			</line>
+			<line>
+				<reportElement x="339" y="0" width="1" height="19" uuid="cb907de3-9c32-4f0d-8979-962ea660dc13"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

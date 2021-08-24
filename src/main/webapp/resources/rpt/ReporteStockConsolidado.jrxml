@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c3195e4-ecb8-46a2-a713-8ca096c7be90">
+	<property name="ireport.zoom" value="1.6105100000000032"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+prod.producto_id as id_prod,
+prod.descripcion as producto,
+sum(sd.ingreso) as ingreso,
+sum(sd.egreso) as egreso,
+(SUM (sd.ingreso) - SUM (sd.egreso)) as saldo,
+dep.descripcion as deposito,
+tp.tipo_producto as categoria
+
+
+From stock_detalle as sd
+
+join productos_detalle as pd on sd.producto_detalle_id = pd.producto_detalle_id
+join producto as prod on pd.producto_id = prod.producto_id
+INNER JOIN tipo_producto as tp ON prod.tipo_producto_id = tp.tipo_id
+left join depositos as dep on pd.deposito_id = dep.deposito_id
+
+where pd.anulado = False
+
+GROUP by
+prod.descripcion,
+tp.tipo_producto,
+dep.deposito_id,
+prod.producto_id,
+dep.descripcion
+
+
+order by tp.tipo_producto]]>
+	</queryString>
+	<field name="id_prod" class="java.lang.Integer"/>
+	<field name="producto" class="java.lang.String"/>
+	<field name="ingreso" class="java.lang.Long"/>
+	<field name="egreso" class="java.lang.Long"/>
+	<field name="saldo" class="java.lang.Long"/>
+	<field name="deposito" class="java.lang.String"/>
+	<field name="categoria" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="7" y="50" width="122" height="20" uuid="3a8527a5-0000-4660-8c15-cfc39bc617dc"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<text><![CDATA[Fecha de Impresion:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="129" y="50" width="80" height="20" uuid="2e1c5b7b-6cad-4397-9811-153ab5c254ea"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="30" width="232" height="20" uuid="56ff19cc-40a4-4010-b30d-3977f2fdd98a"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Stock Resumido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="10" width="120" height="20" uuid="6daabd37-579c-4ba4-a612-4af22c3962cf"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="17" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HIDROSA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="19" splitType="Stretch">
+			<staticText>
+				<reportElement x="294" y="2" width="54" height="17" uuid="470d7f86-3453-4308-9097-1b501fa56241"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="2" width="161" height="17" uuid="490513be-298e-4eaa-aeb2-581a51e05819"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="2" width="106" height="17" uuid="b9b6af83-fdbd-450f-ac6a-f6014b1fd6f9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Deposito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="2" width="50" height="17" uuid="db81ce32-8c88-4742-9945-dee8bde0d6cf"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Egreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="2" width="50" height="17" uuid="a4e9026f-c0c8-46f0-8283-350e55a1356b"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Saldo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="163" y="2" width="131" height="17" uuid="2c6b7f77-6d6a-4a39-810a-3a69bef5b625"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Categoria]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement x="448" y="1" width="106" height="20" uuid="3f344e51-8508-4d14-9258-a276223b3208"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="2" y="1" width="161" height="20" uuid="a956634c-d5c3-4360-813a-263a40500fce"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="294" y="1" width="54" height="20" uuid="0163cbe4-b439-429d-ab14-5127756cc0be"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="398" y="1" width="50" height="20" uuid="7e03f02c-e254-4d0c-8c45-9c79b5b80444"/>
+			</rectangle>
+			<textField>
+				<reportElement x="2" y="0" width="161" height="20" uuid="c8869356-afd9-4440-ae4f-fff9c8fd9e89"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{producto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="294" y="0" width="54" height="20" uuid="99494246-5af7-459a-a08b-d33efbfa60b3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ingreso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="398" y="1" width="50" height="20" uuid="aa83b4ae-2217-490d-912f-5ecae81486e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="448" y="1" width="106" height="20" uuid="5b23e5d0-e5e4-4c75-82ec-453071cc19fa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{deposito}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="348" y="1" width="50" height="20" uuid="a136ba48-36a0-43fc-8b1e-b29202421ed0"/>
+			</rectangle>
+			<textField>
+				<reportElement x="348" y="1" width="50" height="20" uuid="884d33b1-e8aa-4d16-af78-3ef8a8caece9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{egreso}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="163" y="1" width="131" height="20" uuid="f7cc901a-c6e5-4ece-b5c7-a6bb1591eff0"/>
+			</rectangle>
+			<textField>
+				<reportElement x="163" y="1" width="131" height="20" uuid="6b6d41c4-684c-46fb-889c-16b5dd13ac17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{categoria}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="REPORTEDIARIO" pageWidth="752" pageHeight="572" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="752" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="be78cb57-3cd2-4e6f-aafc-5b1f909dfaef">
+	<property name="ireport.zoom" value="1.6105100000000014"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FECHA_HASTA" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PFECHA" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+
+    cajas."fecha" AS cajas_fecha,
+     cajas."cheque_usd" AS cajas_cheque_usd,
+     cajas."cheque_gs" AS cajas_cheque_gs,
+     cajas."cant_usd" AS cajas_cant_usd,
+     cajas."cant_gs" AS cajas_cant_gs,
+     cajas."estado" AS estado,
+     Usuario."username" AS Username
+FROM
+       "cajas" cajas
+     INNER JOIN "usuarios" Usuario ON cajas."usuario_id" = Usuario."usuario_id"
+WHERE
+     cajas."fecha"::date = $P{FECHA_HASTA} and estado = true]]>
+	</queryString>
+	<field name="cajas_fecha" class="java.sql.Timestamp"/>
+	<field name="cajas_cheque_usd" class="java.lang.Double"/>
+	<field name="cajas_cheque_gs" class="java.lang.Double"/>
+	<field name="cajas_cant_usd" class="java.lang.Double"/>
+	<field name="cajas_cant_gs" class="java.lang.Double"/>
+	<field name="estado" class="java.lang.Boolean"/>
+	<field name="username" class="java.lang.String"/>
+	<variable name="aperturacajachequeusd" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{cajas_cheque_usd}]]></variableExpression>
+	</variable>
+	<variable name="aperturacajachequegs" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{cajas_cheque_gs}]]></variableExpression>
+	</variable>
+	<variable name="aperturacajacantidadusd" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{cajas_cant_usd}]]></variableExpression>
+	</variable>
+	<variable name="aperturacajacantidadgs" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{cajas_cant_gs}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="288" y="0" width="75" height="20" forecolor="#333333" uuid="24b201cb-9cd4-469e-8c84-37d697afe307"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad Gs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="134" y="0" width="74" height="20" forecolor="#333333" uuid="f519243f-2e6c-4d4b-87b2-670dc4ed6cce"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cheque Gs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="54" height="20" forecolor="#333333" uuid="911219c0-44f5-49b3-8afe-959fd76ff7b9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="54" y="0" width="80" height="20" forecolor="#333333" uuid="60a4027c-6804-407c-819a-69b61bb0abaf"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cheque Usd]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="0" width="80" height="20" forecolor="#333333" uuid="8fca9f81-f825-49e4-8c86-156cfad49e2f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad Usd]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="363" y="0" width="75" height="20" forecolor="#333333" uuid="1e17849e-5cfe-4ec8-81ae-0e4d90789884"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="438" y="0" width="75" height="20" forecolor="#333333" uuid="16121b29-a9bf-4124-a6a4-eea83a4b8fdd"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="288" y="0" width="75" height="20" forecolor="#333333" uuid="05083e17-771d-45ac-924d-1f32fa07142d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cajas_cant_gs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="134" y="0" width="74" height="20" forecolor="#333333" uuid="1a18ed18-7554-4163-b88c-5ec4683accf0"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cajas_cheque_gs}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="54" height="20" forecolor="#333333" uuid="9a84ccd0-9e40-48fb-9bf4-aac44dfbfe3a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cajas_fecha}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="54" y="0" width="80" height="20" forecolor="#333333" uuid="13a979e5-cb3f-4893-97f3-d5a447d6b41d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cajas_cheque_usd}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="208" y="0" width="80" height="20" forecolor="#333333" uuid="3a695e89-c773-40bc-99fa-50a0feba0802"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cajas_cant_usd}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="438" y="0" width="75" height="20" forecolor="#333333" uuid="028127a7-feb9-49ac-842b-f6f964f5ab1d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{username}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="363" y="0" width="75" height="20" forecolor="#333333" uuid="18001dc1-b555-4b97-82a2-c47a711a3e29"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[   Abierto]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="54" y="0" width="80" height="20" forecolor="#333333" uuid="6ec2d6df-efa3-4b2a-b735-506020eeee05"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{aperturacajachequeusd}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="134" y="0" width="74" height="20" forecolor="#333333" uuid="0723c30c-4abd-4f64-8a59-8db0814848af"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{aperturacajachequegs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="208" y="0" width="80" height="20" forecolor="#333333" uuid="2a1edb8e-442c-47bb-b371-bcee7995ce43"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{aperturacajacantidadusd}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="288" y="0" width="75" height="20" forecolor="#333333" uuid="4b56e6e6-fdac-4bc5-a297-46de24b558a3"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{aperturacajacantidadgs}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="54" height="20" forecolor="#333333" uuid="8ce2481d-884f-4596-a005-e690564ffe73"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ServiciosDeGranalladoFacturado_estados_subreport1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="33e3945e-ee28-4036-88f5-7233affaccfc">
+	<property name="ireport.zoom" value="2.853116706110003"/>
+	<property name="ireport.x" value="162"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     facturas."cliente_id" AS facturas_cliente_id,
+     facturas."orden" AS facturas_orden,
+     facturas."fecha_emision" AS facturas_fecha_emision,
+     facturas_detalle."sub_total" AS facturas_detalle_sub_total,
+     cliente."nombre" AS cliente_nombre,
+     servicios."servicio_id" AS servicios_servicio_id,
+     servicios."servicio" AS servicios_servicio,
+      (SELECT sum( fd."sub_total") FROM facturas_detalle fd WHERE servicios."servicio_id" = 4 and facturas."estado_impresion" = 1 ) as Granallado_Pendiente,
+     (SELECT sum( fd."sub_total") FROM facturas_detalle fd WHERE servicios."servicio_id" = 4 and facturas."estado_impresion" = 2 ) as Granallado_Terminado,
+     (SELECT sum( fd."sub_total") FROM facturas_detalle fd WHERE servicios."servicio_id" = 4  ) as Granallado_Total
+FROM
+     "public"."facturas" facturas INNER JOIN "public"."facturas_detalle" facturas_detalle ON facturas."factura_id" = facturas_detalle."factura_id"
+     INNER JOIN "public"."cliente" cliente ON facturas."cliente_id" = cliente."cliente_id"
+     INNER JOIN "public"."servicios" servicios ON facturas_detalle."servicio_id" = servicios."servicio_id"
+WHERE servicios."servicio_id" = 4 and facturas."estado_impresion" = 2]]>
+	</queryString>
+	<field name="facturas_cliente_id" class="java.lang.Integer"/>
+	<field name="facturas_orden" class="java.lang.Integer"/>
+	<field name="facturas_fecha_emision" class="java.sql.Timestamp"/>
+	<field name="facturas_detalle_sub_total" class="java.lang.Double"/>
+	<field name="cliente_nombre" class="java.lang.String"/>
+	<field name="servicios_servicio_id" class="java.lang.Integer"/>
+	<field name="servicios_servicio" class="java.lang.String"/>
+	<field name="granallado_pendiente" class="java.lang.Double"/>
+	<field name="granallado_terminado" class="java.lang.Double"/>
+	<field name="granallado_total" class="java.lang.Double"/>
+	<variable name="granallado_terminado_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{granallado_terminado}]]></variableExpression>
+	</variable>
+	<variable name="granallado_terminado_2" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{granallado_terminado}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="232" y="2" width="50" height="20" uuid="7e210e1c-2f50-4258-97c0-36ddca794149"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField evaluationTime="Column">
+				<reportElement x="282" y="2" width="186" height="20" uuid="c4fa22db-93d3-4b72-b196-81844aeee62d"/>
+				<textFieldExpression><![CDATA[$F{granallado_terminado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

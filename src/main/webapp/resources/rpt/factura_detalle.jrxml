@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura_detalle" pageWidth="595" pageHeight="555" orientation="Landscape" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ca518f65-6e30-4490-84e2-b7d6ed9e287a">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_factura" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[2641]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+	dt.factura_detalle_id as detalle_id,
+	dt.factura_id as factura_id,
+	dt.descripcion,
+	p.codigo as codigo,
+	dt.cantidad as cantidad,
+	CAST (i.porcentaje  AS INTEGER) as iva,
+	dt.sub_total  + dt.total_iva as sub_total,
+	s.servicio as servicio,
+	dt.total_a_pagar_en_letras as total_literal,
+	dt.total_iva as total_iva ,
+	dt.precio_unitario  + ( dt.total_iva /dt.cantidad)  as precio_unitario
+from
+	facturas_detalle dt
+	left join producto p on p.producto_id = dt.producto_id
+	left join iva i on i.iva_id = dt.iva_id
+	left join servicios s on s.servicio_id = dt.servicio_id
+where
+	dt.factura_id =$P{id_factura}]]>
+	</queryString>
+	<field name="detalle_id" class="java.lang.Integer"/>
+	<field name="factura_id" class="java.lang.Integer"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Double"/>
+	<field name="iva" class="java.lang.Integer"/>
+	<field name="sub_total" class="java.lang.Double"/>
+	<field name="servicio" class="java.lang.String"/>
+	<field name="total_literal" class="java.lang.String"/>
+	<field name="total_iva" class="java.lang.Double"/>
+	<field name="precio_unitario" class="java.lang.Double"/>
+	<variable name="iva_5" class="java.lang.Double">
+		<variableExpression><![CDATA[($F{iva} == 5)?$F{precio_unitario} * new Double($F{cantidad}.toString()):0.0]]></variableExpression>
+	</variable>
+	<variable name="iva_10" class="java.lang.Double">
+		<variableExpression><![CDATA[($F{iva} == 10)?$F{precio_unitario} * new Double($F{cantidad}.toString()):0.0]]></variableExpression>
+	</variable>
+	<variable name="iva_0" class="java.lang.Double">
+		<variableExpression><![CDATA[($F{iva} == 0)?$F{precio_unitario} * new Double($F{cantidad}.toString()):0.0]]></variableExpression>
+	</variable>
+	<variable name="sumatotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{iva_10}]]></variableExpression>
+	</variable>
+	<group name="factura_id">
+		<groupExpression><![CDATA[$F{factura_id}]]></groupExpression>
+	</group>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="113" y="0" width="200" height="19" uuid="6cab148e-d1e7-4204-b26c-3b9ecc39fb5a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}==null?"":$F{descripcion}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="46" y="1" width="35" height="19" uuid="2e7cef45-6887-4dab-afdf-af1c2bb3edb5"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement x="14" y="1" width="29" height="18" uuid="d03b046e-8e06-4a22-98cf-e6e61ab08495"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo}==null?"":$F{codigo}.toString()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="370" y="2" width="50" height="19" uuid="ceeb28a6-9551-4644-9033-63741baaa2b4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($V{iva_0}.equals(0.0))?"":$V{iva_0}.toString()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="427" y="2" width="49" height="19" uuid="48735418-cace-4e38-9d2d-0e38679e36ef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($V{iva_5}.equals(0.0))?"":$V{iva_5}.toString()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="498" y="2" width="74" height="19" uuid="e8962172-bb33-4dc3-8392-82569b12d9af"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($V{iva_10}.equals(0.0))?"":$V{iva_10}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="316" y="0" width="46" height="19" uuid="1eca1a5f-57ee-4baf-8aa4-83b7842e95c5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio_unitario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

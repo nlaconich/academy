@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportePresupuestoSinIva" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b783a96c-23cc-4afe-8f75-d20062c6490d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[Select now() limit 1]]>
+	</queryString>
+	<field name="now" class="java.sql.Timestamp"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="122" y="40" width="100" height="20" uuid="ac4daf30-060f-4306-999e-a3b8f38d216c"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="40" width="112" height="20" uuid="0707004c-3933-49a2-9377-84374883f8a4"/>
+				<text><![CDATA[Fecha de Impresion:]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="502" y="10" width="40" height="20" uuid="3e9aa7f6-48f0-4870-8691-8d2405dbbdf6"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="0" width="100" height="20" uuid="d26ea152-d43e-447d-878d-86798ce18006"/>
+				<textElement>
+					<font size="17" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HIDROSA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="20" width="253" height="20" uuid="8fec2d28-b053-41f7-bb76-a482e784abae"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Presupuestos Sin Iva]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="422" y="10" width="80" height="20" uuid="2ab1b6f9-bbcb-4d7c-aeb7-44936589b616"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="59">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="59" uuid="875442a5-d33a-4e82-a25c-cb043640e815"/>
+				<subreportParameter name="fecha_Desde">
+					<subreportParameterExpression><![CDATA[]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fecha_Hasta">
+					<subreportParameterExpression><![CDATA[]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/home/nbaez/Documentos/REPOSITORIO/SGOTFS/src/main/webapp/resources/rpt/ReportePresupuestoSinIva_subreport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

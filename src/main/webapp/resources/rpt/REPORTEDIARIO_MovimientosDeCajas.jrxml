@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="REPORTEDIARIO_novimiento_caja" pageWidth="752" pageHeight="572" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="752" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="be78cb57-3cd2-4e6f-aafc-5b1f909dfaef">
+	<property name="ireport.zoom" value="1.652892561983471"/>
+	<property name="ireport.x" value="7"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="dataset1" uuid="5f3fe8d5-f87b-4c97-9a25-2291d9bd94e8"/>
+	<parameter name="fecha_Diaria" class="java.util.Date">
+		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+
+    cajasGastos.descripcion AS Descripcion,
+    cajasGastos.monto_egreso AS MontoEgreso,
+    cajasGastos.monto_ingreso AS MontoIngreso,
+    cajasGastos.monto_egreso_chq AS MontoEgresoChq,
+    cajasGastos.monto_ingreso_chq AS MontoIngresoChq,
+    cajasGastos.ingreso_bancos AS MontoIngresoBnco,
+    cajasGastos.fecha AS Fecha,
+     Usuario.username AS Usuario
+
+
+ FROM
+     "cajas_gastos" cajasGastos
+inner join "usuarios"Usuario on cajasGastos.usuario_id = Usuario.usuario_id
+WHERE
+     cajasGastos.fecha::date = $P{fecha_Diaria}
+
+
+ORDER BY
+cajasGastos.descripcion]]>
+	</queryString>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="montoegreso" class="java.lang.Double"/>
+	<field name="montoingreso" class="java.lang.Double"/>
+	<field name="montoegresochq" class="java.lang.Double"/>
+	<field name="montoingresochq" class="java.lang.Double"/>
+	<field name="montoingresobnco" class="java.lang.Double"/>
+	<field name="fecha" class="java.sql.Timestamp"/>
+	<field name="usuario" class="java.lang.String"/>
+	<variable name="totalcajagastosegreso" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoegreso}]]></variableExpression>
+	</variable>
+	<variable name="totalcajagastosingreso" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoingreso}]]></variableExpression>
+	</variable>
+	<variable name="totalcajasingresocheque" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoingresochq}]]></variableExpression>
+	</variable>
+	<variable name="totalgastosegresocheque" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoegresochq}]]></variableExpression>
+	</variable>
+	<variable name="totalIngresoBanco" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoingresobnco}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="2" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="43" splitType="Immediate">
+			<staticText>
+				<reportElement x="0" y="23" width="310" height="20" forecolor="#333333" uuid="24b201cb-9cd4-469e-8c84-37d697afe307"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="23" width="52" height="20" forecolor="#333333" uuid="f519243f-2e6c-4d4b-87b2-670dc4ed6cce"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Egreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="362" y="23" width="52" height="20" forecolor="#333333" uuid="8fca9f81-f825-49e4-8c86-156cfad49e2f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="466" y="23" width="52" height="20" forecolor="#333333" uuid="1b01aad5-8c24-442a-b8e4-de3f08192395"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="23" width="52" height="20" forecolor="#333333" uuid="dcb2087f-1005-4a43-9f65-166d80a9bc6d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Egreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="329" y="4" width="47" height="20" uuid="285e3679-02dd-4de7-b457-775e7a239fc9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Efectivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="439" y="4" width="44" height="20" uuid="7fd72acb-03be-4bf8-bbad-5c635090494e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cheque]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="518" y="23" width="52" height="20" forecolor="#333333" uuid="50ce5df5-5238-466f-a108-73daae1e4067"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bancos]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="310" height="20" forecolor="#333333" uuid="05083e17-771d-45ac-924d-1f32fa07142d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Band" pattern="#,##0">
+				<reportElement x="362" y="0" width="52" height="20" forecolor="#333333" uuid="34a424bf-cef5-4a07-840b-8d08ac2bd862"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoingreso}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Band" pattern="#,##0">
+				<reportElement x="466" y="0" width="52" height="20" forecolor="#333333" uuid="884b2be0-2dc1-483b-af54-d275c38a9e09"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoingresochq}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Band" pattern="#,##0">
+				<reportElement x="414" y="0" width="52" height="20" forecolor="#333333" uuid="b5862299-261d-46b0-a959-639f1a9f527d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoegresochq}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Band" pattern="#,##0">
+				<reportElement x="310" y="0" width="52" height="20" forecolor="#333333" uuid="1a18ed18-7554-4163-b88c-5ec4683accf0"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoegreso}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Band" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="518" y="0" width="52" height="20" forecolor="#333333" uuid="c63ec0cc-01ca-4652-9ba9-f21a68ffd9ce"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoingresobnco}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="414" y="0" width="52" height="20" forecolor="#333333" uuid="7ccc57cc-9a73-4cec-b277-0451c264df66"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalgastosegresocheque}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="310" y="0" width="52" height="20" forecolor="#333333" uuid="388ef1c2-a498-4fab-87fa-0e95067116b6"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalcajagastosegreso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="362" y="0" width="52" height="20" forecolor="#333333" uuid="99c1b7a1-43da-429e-b4d2-3bc4d0b656bf"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalcajagastosingreso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="466" y="0" width="52" height="20" forecolor="#333333" uuid="119a641a-f3f9-4c7f-8865-e4317d1ebded"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalcajasingresocheque}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="518" y="0" width="52" height="20" forecolor="#333333" uuid="3af27ed5-9d5e-4d06-a5aa-d26e9846cb88"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalIngresoBanco}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e58be0c5-ba4d-4961-b013-0e980fe8e458">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     ordenes_trabajo."orden_nro" AS ordenes_trabajo_orden_nro,
+     cliente."nombre" AS cliente_nombre,
+     servicios."servicio"AS servicio_servicio,
+     articulos."descripcion" AS articulos_descripcion,
+     paleta."color" AS paleta_color,
+     articulos."descripcion" AS articulos_descripcion,
+     orden_trabajo_detalle."cantidad" AS orden_trabajo_detalle_cantidad,
+     orden_trabajo_detalle."medidas" AS orden_trabajo_detalle_medidas,
+     orden_trabajo_detalle."cabina" AS orden_trabajo_detalle_cabina,
+     orden_trabajo_detalle."granallado" AS orden_trabajo_detalle_granallado, 
+     CASE WHEN orden_trabajo_detalle."granallado" ='true' then 'SI' ELSE 'NO' END  
+
+FROM
+     "public"."ordenes_trabajo" ordenes_trabajo INNER JOIN "public"."orden_trabajo_detalle" orden_trabajo_detalle ON ordenes_trabajo."orden_id" = orden_trabajo_detalle."orden_id"
+     INNER JOIN "public"."articulos" articulos ON orden_trabajo_detalle."articulo_id" = articulos."articulo_id"
+     INNER JOIN "public"."paleta" paleta ON orden_trabajo_detalle."paleta_id" = paleta."paleta_id"
+     INNER JOIN "public"."cliente" cliente ON ordenes_trabajo."cliente_id" = cliente."cliente_id"
+     INNER JOIN "public".servicios servicios ON orden_trabajo_detalle."servicio_id" = servicios."servicio_id"]]>
+	</queryString>
+	<field name="ordenes_trabajo_orden_nro" class="java.math.BigDecimal"/>
+	<field name="cliente_nombre" class="java.lang.String"/>
+	<field name="servicio_servicio" class="java.lang.String"/>
+	<field name="articulos_descripcion" class="java.lang.String"/>
+	<field name="paleta_color" class="java.lang.String"/>
+	<field name="orden_trabajo_detalle_cantidad" class="java.math.BigDecimal"/>
+	<field name="orden_trabajo_detalle_medidas" class="java.math.BigDecimal"/>
+	<field name="orden_trabajo_detalle_cabina" class="java.math.BigDecimal"/>
+	<field name="orden_trabajo_detalle_granallado" class="java.lang.Boolean"/>
+	<field name="case" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="8" y="5" width="100" height="20" uuid="754e198c-1da6-4094-81e8-b2c48c4435e3"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HIDROSA S.A.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="136" y="40" width="415" height="30" uuid="02219a26-3bff-45a2-b440-1bcb7ee19cbb"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="DejaVu Sans" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Orden Manual de Produccion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="562" y="10" width="60" height="20" uuid="eb430e96-1ea2-4856-8dd9-203231316703"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="626" y="10" width="100" height="20" uuid="264d14bf-3d9e-4061-b8bf-1ac35b802965"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="8" y="7" width="55" height="20" uuid="7f7835e6-025f-48cc-b588-5767e7e5e410"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Orden ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="64" y="7" width="57" height="20" uuid="c18404dc-02a0-437f-876d-2f443559b54f"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="197" y="7" width="88" height="20" uuid="1377d72c-4a61-42ab-84b1-5c0a1a1472d9"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="7" width="100" height="20" uuid="7b8d77d2-e16a-478d-a92e-3e1abc669b3a"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paleta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="7" width="90" height="20" uuid="175ee285-ed0c-4d9d-b20b-34e2270ca1a8"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Articulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="7" width="75" height="20" uuid="f74e6773-1528-4f04-8899-772e44d083e5"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="557" y="7" width="81" height="20" uuid="1cba64cf-795a-4063-a27c-45be5f2c6580"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Medida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="639" y="7" width="81" height="20" uuid="2637c1ec-ba1b-47a3-a1cb-5380704cd12e"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cabina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="722" y="7" width="78" height="20" uuid="9806dd84-93eb-4837-9496-7d989aa2aeb7"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Granallado]]></text>
+			</staticText>
+			<line>
+				<reportElement x="5" y="30" width="785" height="1" uuid="120bb7c4-2dd6-4349-89a2-a44c942fe165"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="197" y="9" width="88" height="20" uuid="65d621e6-c6ab-425c-8dac-a06f7365c177"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{servicio_servicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="287" y="9" width="100" height="20" uuid="78a81ef6-9178-48c6-a46e-c39e5ad3a839"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{paleta_color}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="9" width="90" height="20" uuid="f57ff010-9e21-4547-b512-6929511017d2"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{articulos_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="9" width="75" height="20" uuid="909dcbcd-4f4f-4c73-858f-8ce20eff98e5"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{orden_trabajo_detalle_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="557" y="9" width="81" height="20" uuid="e020ac77-f143-44e8-89f9-27d43f451006"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{orden_trabajo_detalle_medidas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="638" y="9" width="82" height="20" uuid="f5cfd1bf-4ba2-4199-87a2-68ec718a70d4"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{orden_trabajo_detalle_cabina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="722" y="9" width="78" height="20" uuid="c5ed7887-54c7-4c54-9887-4130b4ccf60d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{case}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="9" y="9" width="54" height="20" uuid="535e2e51-8f63-44ba-8bb4-51bb39138dc7"/>
+				<textFieldExpression><![CDATA[$F{ordenes_trabajo_orden_nro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="63" y="9" width="134" height="20" uuid="22f75d67-16f6-418d-9ca1-fd3c770fdabd"/>
+				<textFieldExpression><![CDATA[$F{cliente_nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="3" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="1" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

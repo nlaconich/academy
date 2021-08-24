@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ce1c43fd-83ea-4295-b08a-db2b8d329f1e">
+	<property name="ireport.zoom" value="1.4641000000000013"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaS" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     stock_pesable."peso_actual" AS stock_pesable_peso_actual,
+     stock_pesable."fecha_registro" AS stock_pesable_fecha_registro,
+     stock_pesable."usuario" AS stock_pesable_usuario,
+     stock_pesable."id_producto" AS stock_pesable_id_producto,
+     stock_pesable."id_paleta" AS stock_pesable_id_paleta,
+     stock_pesable."observacion" AS stock_pesable_observacion,
+     usuarios."username" AS usuarios_username,
+     producto."descripcion" AS nombre_producto,
+     paleta."color" AS color
+FROM
+     "public"."stock_pesable" stock_pesable INNER JOIN "public"."usuarios" usuarios ON stock_pesable."usuario" = usuarios."usuario_id"
+     INNER JOIN "public"."producto" producto ON stock_pesable."id_producto" = producto."producto_id"
+     INNER JOIN "public"."paleta" paleta ON stock_pesable."id_paleta" = paleta."paleta_id"
+     INNER JOIN "public"."tipo_producto" tipo_producto ON producto."tipo_producto_id" = tipo_producto."tipo_id"
+WHERE
+     tipo_producto."tipo_id" = 2]]>
+	</queryString>
+	<field name="stock_pesable_peso_actual" class="java.lang.Integer"/>
+	<field name="stock_pesable_fecha_registro" class="java.sql.Date"/>
+	<field name="stock_pesable_usuario" class="java.lang.Integer"/>
+	<field name="stock_pesable_id_producto" class="java.lang.Integer"/>
+	<field name="stock_pesable_id_paleta" class="java.lang.Integer"/>
+	<field name="stock_pesable_observacion" class="java.lang.String"/>
+	<field name="usuarios_username" class="java.lang.String"/>
+	<field name="nombre_producto" class="java.lang.String"/>
+	<field name="color" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="64" splitType="Stretch">
+			<staticText>
+				<reportElement x="7" y="0" width="121" height="20" uuid="42472930-ff3b-4b8d-9f98-0959fb0a3480"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="17" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hidrosa S.A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="20" width="216" height="20" uuid="c1807368-1934-41a5-8675-9e5f4151593e"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Stock Pesable]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="40" width="116" height="20" uuid="d9dc5780-651f-4878-aa5b-90a349fa387c"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<text><![CDATA[Fecha de impresion]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="123" y="40" width="100" height="20" uuid="58dc76bc-13a8-4810-be09-329195894380"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="434" y="0" width="80" height="20" uuid="44e2842e-f0b8-42eb-90a5-1cdd33c35a55"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="0" width="40" height="20" uuid="059df3ab-f62c-465d-a3b7-d0f3af715da0"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="7" y="1" width="67" height="20" uuid="8db393dc-4a54-407a-8db1-6e907cb1ebf5"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Registro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="74" y="1" width="49" height="20" uuid="6881686f-a60a-4826-94df-69a320dd60dc"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peso ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="1" width="54" height="20" uuid="a7b9d22e-5791-4c14-8f41-5653bc5b1ccd"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paleta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="1" width="171" height="20" uuid="4d471344-db51-4ba7-9fad-9d411376d8c9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="177" y="1" width="116" height="20" uuid="79323ec8-db89-4e6a-b2e4-8f18e42245ff"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Color]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="464" y="1" width="56" height="20" uuid="71514f03-7f7f-43df-a7dd-c07bd4770f14"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="7" y="0" width="67" height="20" uuid="1954f958-2217-4579-a849-dd122f566c7d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stock_pesable_fecha_registro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="293" y="0" width="171" height="20" uuid="523f7601-a3d8-4eda-a8e5-f544920136dd"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_producto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="0" width="116" height="20" uuid="79114054-170d-4a8e-9672-64adec762fde"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{color}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="464" y="0" width="56" height="20" uuid="6a855a6c-3717-48d9-a6fa-5ff7b9bf735c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuarios_username}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="74" y="0" width="49" height="20" uuid="15e325b4-e867-4d58-95fb-1f6b29827b11"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stock_pesable_peso_actual}==null?"-":$F{stock_pesable_peso_actual}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="123" y="0" width="54" height="20" uuid="8dabdd53-abfc-4d4e-96f8-9dcd135c1a2b"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stock_pesable_id_paleta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

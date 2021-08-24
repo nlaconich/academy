@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="98cd5c68-7703-4da4-9e8b-5888652f8b8b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/josmor/NetBeansProjects/SGOTFS/src/main/webapp/resources/rpt/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cliente_id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select c.cliente_id as clienteid,
+       c.nombre as nombre,
+       f.factura_id
+
+from cliente c inner join facturas f on c.cliente_id = f.cliente_id]]>
+	</queryString>
+	<field name="clienteid" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="factura_id" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement x="5" y="54" width="100" height="20" uuid="831e4919-1b44-45e2-95e7-2861f0cef5a8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Impresion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="6" width="132" height="20" uuid="d8ec8209-43c7-40bf-997f-75352f24c429"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HIDROSA ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="30" width="200" height="20" uuid="79b579cd-607b-4125-a9a9-60b698c0a917"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado General de Cuentas]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="115" y="54" width="100" height="20" uuid="771652f9-96e0-41a3-b175-7d58713873b5"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="104" splitType="Stretch">
+			<staticText>
+				<reportElement x="5" y="7" width="50" height="20" uuid="3d1b88f4-6a86-44aa-9c20-699be30a42b3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="76" y="7" width="100" height="20" uuid="111307bd-4c29-4ca4-b89c-bd4614582185"/>
+				<textFieldExpression><![CDATA[$F{clienteid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="7" width="123" height="20" uuid="daa7a3ed-b3ac-4082-910d-2a220954c36e"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="5" y="31" width="258" height="45" uuid="e5ff5fa1-ea0d-4b58-a989-2d801dc30854"/>
+				<subreportParameter name="cliente_id">
+					<subreportParameterExpression><![CDATA[$F{clienteid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="factura_id">
+					<subreportParameterExpression><![CDATA[$F{factura_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/home/josmor/NetBeansProjects/SGOTFS/src/main/webapp/resources/rpt/EstadoCta_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="203" y="35" width="55" height="45" uuid="9bfd0b80-2b41-489e-875f-e05585611aa7"/>
+				<subreportParameter name="cliente_id">
+					<subreportParameterExpression><![CDATA[$F{clienteid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/home/josmor/NetBeansProjects/SGOTFS/src/main/webapp/resources/rpt/EstadoCta_subreport2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Resumenes_de_Cajas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f86eda9b-afd8-4f11-b71a-96d4ca6fee8e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="88"/>
+	<parameter name="PFECHA" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[Select now() limit 1]]>
+	</queryString>
+	<field name="now" class="java.sql.Timestamp"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="126">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="1" uuid="c217c9e6-58a4-4985-ad24-ec5e46a73136"/>
+			</line>
+			<textField>
+				<reportElement x="21" y="0" width="100" height="28" uuid="6bee49e0-5d1e-48a6-814c-4e317da3ce83"/>
+				<textElement>
+					<font size="17" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[HIDROSA]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="21" y="28" width="154" height="20" uuid="97feefee-3af5-4fe7-b56e-a58158ae675c"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[Liquidación de Caja]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="21" y="48" width="142" height="20" uuid="616c91b2-0b2d-46ae-b5ab-369b37dad92b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[Fecha de Impresión:]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="163" y="48" width="122" height="20" uuid="7bdaac8f-80fc-4a82-a1d2-081f5981528d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="498" y="8" width="40" height="20" uuid="9bd71cd1-f423-464f-a085-aa5c7e6b0ffe"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="8" width="80" height="20" uuid="de326041-9da5-4876-ac43-22c97a044c63"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="88">
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="211" height="20" uuid="6dd026cd-1c43-4aeb-8514-2f08a3c315c6"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Resumen]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="27" width="555" height="61" uuid="c23157b0-4687-461e-984d-414048ded958"/>
+				<subreportParameter name="FECHA_HASTA">
+					<subreportParameterExpression><![CDATA[$P{PFECHA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/home/nbaez/Documentos/REPOSITORIO/SGOTFS/src/main/webapp/resources/rpt/ReporteLiquidaciondeCajas_ResumenTotal.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="75">
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="2" width="211" height="20" uuid="6fb5f42e-87ca-4fc8-a59f-385ada8af6d9"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Vta Contado]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="-5" y="32" width="560" height="43" uuid="440d75e3-f3d9-40a7-a7b3-bc5703f490e4"/>
+				<subreportParameter name="FECHA_DIARIA">
+					<subreportParameterExpression><![CDATA[$P{PFECHA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/home/nbaez/Documentos/REPOSITORIO/SGOTFS/src/main/webapp/resources/rpt/ReporteLiquidacion_de_Caja_VtaContado.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="70">
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="211" height="20" uuid="e00aa4e5-e23b-48a5-90e9-f0b203805d90"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Vta Credito]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="-5" y="17" width="560" height="53" uuid="a0a95aec-2f33-420d-b1b6-0efca4440189"/>
+				<subreportParameter name="FECHA_DIARIA">
+					<subreportParameterExpression><![CDATA[$P{PFECHA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/home/nbaez/Documentos/REPOSITORIO/SGOTFS/src/main/webapp/resources/rpt/ReporteLiquidacion_de_Caja_VtaCredito.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="71">
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="211" height="20" uuid="46170d6c-f129-4b3a-94a6-87a7d2437d58"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Cobranzas]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="20" width="555" height="51" uuid="053d2bae-bf64-453d-925e-5e25f2af3e9b"/>
+				<subreportParameter name="FECHA_HASTA">
+					<subreportParameterExpression><![CDATA[$P{PFECHA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/home/nbaez/Documentos/REPOSITORIO/SGOTFS/src/main/webapp/resources/rpt/ReporteLiquidaciondeCajas_Cobranzas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="66">
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="211" height="20" uuid="3159a4a8-80fe-4409-8ff5-327cbe547d14"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Gastos]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="20" width="555" height="46" uuid="67fabbaa-f6fa-4ec2-a6ee-a8b02941945b"/>
+				<subreportParameter name="FECHA_HASTA">
+					<subreportParameterExpression><![CDATA[$P{PFECHA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["/home/nbaez/Documentos/REPOSITORIO/SGOTFS/src/main/webapp/resources/rpt/ReporteLiquidaciondeCajas_Gastos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
