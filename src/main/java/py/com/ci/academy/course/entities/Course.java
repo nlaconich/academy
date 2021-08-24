@@ -41,9 +41,9 @@ public class Course {
     @Override
     public String toString() {
         return "courseId = " + courseId +
-                "\n courseName = " + courseName +
-                "\n teacherId = " + teacherId +
-                "\n teacherName = " + teacherName +
+                " courseName = " + courseName +
+                " teacherId = " + teacherId +
+                " teacherName = " + teacherName +
                 "\n-----------------------------------";
     }
 }

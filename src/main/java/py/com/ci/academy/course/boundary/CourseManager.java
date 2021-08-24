@@ -1,5 +1,6 @@
 package py.com.ci.academy.course.boundary;
 
+import py.com.ci.academy.course.entities.Course;
 import py.com.ci.academy.utils.ConnectionManager;
 
 import java.sql.PreparedStatement;
@@ -18,10 +19,10 @@ public class CourseManager {
     private Course getFromRsCourse(ResultSet rs) {
         try {
             Course course = new Course();
-            course.setIdCourse(rs.getInt("id_course"));
-            course.setNameCourse(rs.getString("name_course"));
-            course.setIdTeacher(rs.getInt("id_teacher"));
-            course.setNameTeacher(rs.getString("name_teacher"));
+            course.setCourseId(rs.getInt("id_course"));
+            course.setCourseName(rs.getString("name_course"));
+            course.setTeacherId(rs.getInt("id_teacher"));
+            course.setTeacherName(rs.getString("name_teacher"));
             return course;
         } catch (Exception e) {
             e.printStackTrace();
@@ -32,8 +33,8 @@ public class CourseManager {
     public void addCourse(Course course) {
         String sql = "INSERT INTO public.course(name_course, id_teacher) VALUES(?,?);";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setString(1, course.getNameCourse());
-            s1.setInt(2, course.getIdTeacher());
+            s1.setString(1, course.getCourseName());
+            s1.setInt(2, course.getTeacherId());
             s1.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,9 +60,9 @@ public class CourseManager {
     public boolean updateCourse(Course course) {
         String sql = "UPDATE public.course SET name_course=?, id_teacher=? WHERE id_course=?";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setString(1, course.getNameCourse());
-            s1.setInt(2, course.getIdTeacher());
-            s1.setInt(3, course.getIdCourse());
+            s1.setString(1, course.getCourseName());
+            s1.setInt(2, course.getTeacherId());
+            s1.setInt(3, course.getCourseId());
             s1.executeUpdate();
             return true;
         } catch (SQLException throwables) {
@@ -73,7 +74,7 @@ public class CourseManager {
     public boolean deleteCourse(Course course) {
         String sql = "DELETE FROM public.course WHERE id_course= ?";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-            s1.setInt(1, course.getIdCourse());
+            s1.setInt(1, course.getCourseId());
             s1.executeUpdate();
             return true;
         } catch (SQLException throwables) {
@@ -82,51 +83,51 @@ public class CourseManager {
         }
     }
 
-    public static class Course {
-        private int idCourse;
-        private String nameCourse;
-        private int idTeacher;
-        private String nameTeacher;
-
-        public int getIdCourse() {
-            return idCourse;
-        }
-
-        public void setIdCourse(int idCourse) {
-            this.idCourse = idCourse;
-        }
-
-        public String getNameCourse() {
-            return nameCourse;
-        }
-
-        public void setNameCourse(String nameCourse) {
-            this.nameCourse = nameCourse;
-        }
-
-        public int getIdTeacher() {
-            return idTeacher;
-        }
-
-        public void setIdTeacher(int idTeacher) {
-            this.idTeacher = idTeacher;
-        }
-
-        public String getNameTeacher() {
-            return nameTeacher;
-        }
-
-        public void setNameTeacher(String nameTeacher) {
-            this.nameTeacher = nameTeacher;
-        }
-
-        @Override
-        public String toString() {
-            return "idCourse=" + idCourse +
-                    "\nnameCourse=" + nameCourse +
-                    "\nidTeacher=" + idTeacher +
-                    "\nnameTeacher=" + nameTeacher +
-                    "\n----------------------------------------";
-        }
-    }
+//    public static class Course {
+//        private int idCourse;
+//        private String nameCourse;
+//        private int idTeacher;
+//        private String nameTeacher;
+//
+//        public int getIdCourse() {
+//            return idCourse;
+//        }
+//
+//        public void setIdCourse(int idCourse) {
+//            this.idCourse = idCourse;
+//        }
+//
+//        public String getNameCourse() {
+//            return nameCourse;
+//        }
+//
+//        public void setNameCourse(String nameCourse) {
+//            this.nameCourse = nameCourse;
+//        }
+//
+//        public int getIdTeacher() {
+//            return idTeacher;
+//        }
+//
+//        public void setIdTeacher(int idTeacher) {
+//            this.idTeacher = idTeacher;
+//        }
+//
+//        public String getNameTeacher() {
+//            return nameTeacher;
+//        }
+//
+//        public void setNameTeacher(String nameTeacher) {
+//            this.nameTeacher = nameTeacher;
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return "idCourse=" + idCourse +
+//                    " nameCourse=" + nameCourse +
+//                    " idTeacher=" + idTeacher +
+//                    " nameTeacher=" + nameTeacher +
+//                    "\n----------------------------------------";
+//        }
+//    }
 }

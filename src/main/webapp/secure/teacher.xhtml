@@ -14,23 +14,68 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="/template/base.xhtml">
             <ui:define name="content">
-                 <h:form id="teacher-form">   
+                <h:form id="teacher-form">
                     <div class="card">
                         <p:dataTable var="teacher" value="#{teacherBean.teacherList}">
-                            <p:column headerText="Id Teacher">
+                            <p:column headerText="Code">
                                 <h:outputText value="#{teacher.idTeacher}" />
                             </p:column>
 
-                            <p:column headerText="Teacher Name">
+                            <p:column headerText="Name">
                                 <h:outputText value="#{teacher.nameTeacher}" />
                             </p:column>
-                            
-                            <p:column headerText="Teacher Last Name">
+
+                            <p:column headerText="Last Name">
                                 <h:outputText value="#{teacher.lastName}" />
                             </p:column>
+
+                            <p:column headerText="Cellphone">
+                                <h:outputText value="#{teacher.cellphone}" />
+                            </p:column>
+
+                            <p:column headerText="Address">
+                                <h:outputText value="#{teacher.address}" />
+                            </p:column>
+
+                            <p:column headerText="Email">
+                                <h:outputText value="#{teacher.email}" />
+                            </p:column>
+
                         </p:dataTable>
                     </div>
-                <h:form>  
+                </h:form>
+
+
+                <h:form id="addteacher">
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                    <p:panelGrid columns="5" columnClasses="column" id="addteacher">                            
+                        <p:outputLabel value="New Teacher" for="teacher" />
+
+
+                        <p:inputText id="teacherName" required="true" value="#{teacherBean.teacher.nameTeacher}"  style="text-transform: none" />
+                        <p:inputText id="teacherlastName" required="true" value="#{teacherBean.teacher.lastName}"  style="text-transform: none" />
+                        <p:inputText id="teacherAddress" required="true" value="#{teacherBean.teacher.address}"  style="text-transform: none" />
+                        <p:inputText id="teachercellphone" required="true" value="#{teacherBean.teacher.cellphone}"  style="text-transform: none" />
+                        <p:inputText id="teacheremail" required="true" value="#{teacherBean.teacher.email}"  style="text-transform: none" />
+
+
+                        <h:inputHidden value="#{teacherBean.teacher.idTeacher}"/>
+                        <p:inputText id="teacherName" required="true" value="#{teacherBean.teacher.nameTeacher}"  style="text-transform: none" />
+                        <p:inputText id="teacherlastName" required="true" value="#{teacherBean.teacher.lastName}"  style="text-transform: none" />
+                        <p:inputText id="teacherAddress" required="true" value="#{teacherBean.teacher.address}"  style="text-transform: none" />
+                        <p:inputText id="teachercellphone" required="true" value="#{teacherBean.teacher.cellphone}"  style="text-transform: none" />
+                        <p:inputText id="teacheremail" required="true" value="#{teacherBean.teacher.email}"  style="text-transform: none" />
+
+
+                        <p:commandButton 
+                            value="Save" 
+                            update="addteacher,:teacher-form" 
+                            actionListener="#{teacherBean.addTeacher}"
+                            id='btn-save-teacher'
+                            />
+                    </p:panelGrid>
+                </h:form>
+
             </ui:define>
         </ui:composition>
     </h:body>

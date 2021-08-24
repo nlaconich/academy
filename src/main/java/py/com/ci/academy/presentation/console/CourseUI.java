@@ -1,6 +1,7 @@
 package py.com.ci.academy.presentation.console;
 
 import py.com.ci.academy.course.boundary.CourseManager;
+import py.com.ci.academy.course.entities.Course;
 
 import java.util.List;
 import java.util.Scanner;
@@ -8,7 +9,7 @@ import java.util.Scanner;
 public class CourseUI {
     Scanner sc = new Scanner(System.in);
     CourseManager manager = new CourseManager();
-    CourseManager.Course course = new CourseManager.Course();
+    Course course = new Course();
 
     public static void main(String[] args) {
         CourseUI test = new CourseUI();
@@ -52,9 +53,9 @@ public class CourseUI {
     }
 
     public void listAllCourses() {
-        List<CourseManager.Course> courses = manager.getAll();
+        List<Course> courses = manager.getAll();
         if (!courses.isEmpty()) {
-            for (CourseManager.Course course : courses) {
+            for (Course course : courses) {
                 System.out.println(course);
             }
         } else {
@@ -73,8 +74,8 @@ public class CourseUI {
         System.out.println("Insert Teacher Id");
         int teacherId = sc.nextInt();
 
-        course.setNameCourse(nameCourse);
-        course.setIdTeacher(teacherId);
+        course.setCourseName(nameCourse);
+        course.setTeacherId(teacherId);
 
         manager.addCourse(course);
     }
@@ -83,7 +84,7 @@ public class CourseUI {
         this.listAllCourses();
         System.out.println("Insert Id");
         int id = sc.nextInt();
-        course.setIdCourse(id);
+        course.setCourseId(id);
 
         boolean ban = manager.deleteCourse(course);
         if (ban == true) {
@@ -109,8 +110,8 @@ public class CourseUI {
         System.out.println("Insert new Teacher Id");
         int teacherId = sc.nextInt();
 
-        course.setNameCourse(nameCourse);
-        course.setIdTeacher(teacherId);
+        course.setCourseName(nameCourse);
+        course.setTeacherId(teacherId);
 
         boolean ban = manager.updateCourse(course);
         if (ban == true) {

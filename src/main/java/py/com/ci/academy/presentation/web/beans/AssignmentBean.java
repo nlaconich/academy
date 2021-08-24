@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.faces.bean.ViewScoped;
 import py.com.ci.academy.assignment.boundary.*;
 import py.com.ci.academy.assignment.entities.Assignment;
 /**
@@ -24,11 +25,11 @@ public class AssignmentBean implements Serializable {
         assignmentManager = new AssignmentManager();
         assignmentList = assignmentManager.getAll();
         assignment  = new Assignment();
-        logAssignments();
+        logAssigments();
 
     }
 
-    private void logAssignments() {
+    private void logAssigments() {
         if ( assignmentList != null && !assignmentList.isEmpty())
         System.out.println("AssignmentBean  - init > "+ assignmentList.size());
         else
@@ -50,9 +51,9 @@ public class AssignmentBean implements Serializable {
     public void setAssignment(Assignment assignment) {
         this.assignment = assignment;
     }
-   public String agregarAssigment() {
-       System.out.println("Agregar Assigment");
-init();
-        return "";
+   public void agregarAssigment() {
+    assignmentManager.addAssignment(assignment);   
+    init();
+        
     }
 }

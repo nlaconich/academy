@@ -30,12 +30,18 @@ public class TeacherBean implements Serializable {
     }
 
     private void logTeacher() {
-        if ( teacherList != null && !teacherList.isEmpty())
-        System.out.println("TeacherBean  - init > "+ teacherList.size());
-        else
+        if ( teacherList != null && !teacherList.isEmpty()){
+        System.out.println("TeacherBean  - init > "+ teacherList);
+        }else{
             System.out.println("TeacherBean  - init > no result found");
+        }
     }
+    
 
+    public void addTeacher() {
+    teacherManager.add(teacher);
+    }
+   
     public List<Teacher> getTeacherList() {
         return teacherList;
     }
@@ -51,5 +57,6 @@ public class TeacherBean implements Serializable {
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
+   
     
 }
