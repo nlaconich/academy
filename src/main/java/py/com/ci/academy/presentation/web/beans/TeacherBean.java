@@ -80,7 +80,7 @@ public class TeacherBean implements Serializable {
     public void alSeleccionarFila(SelectEvent event) {
                 this.teacher = (Teacher) event.getObject();
 
-        FacesMessage msg = new FacesMessage("Product Selected", String.valueOf(teacher.getIdTeacher()));
+        FacesMessage msg = new FacesMessage("Teacher Selected id", String.valueOf(teacher.getIdTeacher()));
         FacesContext.getCurrentInstance().addMessage(null, msg);
         System.out.println("TeachersBean > Seleccionar Fila > " + this.teacher);
 

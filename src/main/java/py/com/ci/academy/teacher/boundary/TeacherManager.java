@@ -89,7 +89,7 @@ public class TeacherManager {
         return false;
     }
 
-    public int deleteById(Teacher teacher) {
+    public int deleteTeacher(Teacher teacher) {
         String sql = "DELETE FROM public.teacher, public.course WHERE id_teacher= ?";
         int rows = 0;
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
@@ -102,7 +102,7 @@ public class TeacherManager {
         }
     }
 
-    public int updateById(Teacher teacher) {
+    public int updateTeacher(Teacher teacher) {
         int rows = 0;
         String sql = "UPDATE public.teacher SET name_teacher=?, lastname=?,cellphone=?,address=?,email=? WHERE id_teacher=?";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
@@ -119,4 +119,5 @@ public class TeacherManager {
             return 0;
         }
     }
+
 }
