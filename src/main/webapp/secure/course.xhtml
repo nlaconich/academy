@@ -12,10 +12,10 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <script type="text/javascript">
+<!--        <script type="text/javascript">
             function loadUpdate() {
                 console.log("test");
-                var v1 = "#{courseBean.getCourse(course.courseId)}";
+                var v1 = "courseid";
 
                 document.getElementById("updateCourse.courseName").value = v1.courseName;
                 document.getElementById("updateCourse.courseName").value = v1.courseId;
@@ -26,7 +26,7 @@ and open the template in the editor.
                 document.getElementById("form-delete.courseIde").value=idCourse;
             }
 
-        </script>
+        </script>-->
 
     </h:head>
 
@@ -38,7 +38,12 @@ and open the template in the editor.
                 <h:form id="course-form">
 
                     <div class="card">
-                        <p:dataTable var="course" value="#{courseBean.courseList}">
+                        <p:dataTable id="dtCourse" var="course" value="#{courseBean.courseList}"
+                                     rows="10" paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     selection="#{course}" rowKey="#{course.courseId}"
+                                     selectionMode="single">>
                             <p:column headerText="Id Course">
                                 <h:outputText id="courseId" value="#{course.courseId}"/>
                             </p:column>
@@ -56,12 +61,13 @@ and open the template in the editor.
                             </p:column>
 
                             <p:column headerText="Actions">
-                                <p:commandButton value="Update" type="button" icon="pi pi-external-link" onclick="PF('dlg1').show()" action="loadUpdate();" />
-                                <p:commandButton value="Delete" type="button" icon="pi pi-external-link" oncomplete="PF('dlg2').show()" update="dlg2"/>
-
+                                <p:commandButton process="dtCourse" type="button" update=":form-update" 
+                                    icon="pi pi-external-link" value="Update" onclick="PF('dlgCourseUpdate').show()" />
+                                <p:commandButton process="dtCourse" type="button" update=":form-delete" 
+                                    icon="pi pi-external-link" value="Delete" oncomplete="PF('dlgCourseDelete').show()" />
                             </p:column>
-
                         </p:dataTable>
+                        <p:ajax event="rowSelect" listener="#{courseBean.onRowSelected}"  />
                     </div>
                 </h:form>
 
@@ -88,7 +94,7 @@ and open the template in the editor.
                 </h:form>	
 
 
-                <p:dialog header="Update" widgetVar="dlg1" minHeight="40" width="600" showEffect="fade" id="UpdateDialog">
+                <p:dialog header="Update" widgetVar="dlgCourseUpdate" modal="true" showEffect="fade" resizable="false">
                     <h:form id="form-update" >
                         <p:messages id="messages" showDetail="true" autoUpdate="true" />
                         <p:panelGrid columns="3" columnClasses="column" id="updateCourse">                            
@@ -107,13 +113,14 @@ and open the template in the editor.
                             update="form-update,:course-form" 
                             actionListener="#{courseBean.updateCourse}"
                             id='btn-update-course'
+                            oncomplete="PF('dlgCourseUpdate').hide()"
                             />
                     </h:form>	
 
                 </p:dialog>
 
 
-                <p:dialog header="Delete" widgetVar="dlg2" minHeight="40" width="400" showEffect="fade" id="DeleteDialog">
+                <p:dialog header="Delete" widgetVar="dlgCourseDelete" minHeight="40" width="400" showEffect="fade" id="DeleteDialog">
                     <h:form id="form-delete">
                         <p:messages id="messages" showDetail="true" autoUpdate="true" />
                         <p:panelGrid columns="1" columnClasses="column" id="deleteCourse">                            

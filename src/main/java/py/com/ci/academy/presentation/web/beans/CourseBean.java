@@ -10,7 +10,10 @@ import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.SelectEvent;
+import py.com.ci.academy.teacher.entities.Teacher;
 
 @Named("courseBean")
 @SessionScoped
@@ -25,6 +28,7 @@ public class CourseBean implements Serializable {
         courseList= courseManager.getAll();
         course= new Course();
         logCourses();
+        RequestContext.getCurrentInstance().update("course-form:dtCourse");
     }
 
     public void logCourses(){
@@ -69,6 +73,17 @@ public class CourseBean implements Serializable {
     public void updateCourse(){
         courseManager.updateCourse(course);
         init();
+    }
+    
+    ///TABLE MANAGEMENT
+    
+    public void onRowSelected(SelectEvent event) {
+                this.course = (Course) event.getObject();
+
+        FacesMessage msg = new FacesMessage("Course Selected id", String.valueOf(course.getCourseId()));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        System.out.println("CourseBean > Seleccionar Fila > " + this.course);
+
     }
     
     
