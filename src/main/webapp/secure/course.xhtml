@@ -11,30 +11,50 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
+    <h:head>
+        <script>
+            function loadUpdate(idCourse, courseName, idTeacher) {
+                var name=document.getElementById("course-form.courseName").value;
+                document.getElementById("form-add.courseName").value=name;
+            }
+            
+            function loadDelete(idCourse){
+                document.getElementById("form-delete:courseId").value=idCourse;
+            }
+
+        </script>
+
+    </h:head>
+
+
+
     <h:body>
         <ui:composition template="/template/base.xhtml">
             <ui:define name="content">
                 <h:form id="course-form">
+
                     <div class="card">
                         <p:dataTable var="course" value="#{courseBean.courseList}">
                             <p:column headerText="Id Course">
-                                <h:outputText value="#{course.courseId}"/>
+                                <h:outputText id="courseId" value="#{course.courseId}"/>
                             </p:column>
 
                             <p:column headerText="Name Course">
-                                <h:outputText value="#{course.courseName}"/>
+                                <h:outputText id="courseName" value="#{course.courseName}"/>
                             </p:column>
 
                             <p:column headerText="Id Teacher">
-                                <h:outputText value="#{course.teacherId}"/>
+                                <h:outputText id="teacherId" value="#{course.teacherId}"/>
                             </p:column>
 
                             <p:column headerText="Name Teacher">
                                 <h:outputText value="#{course.teacherName}"/>
                             </p:column>
 
-                            <p:column headerText="">
-                                <p:commandButton value="Update" type="button" icon="pi pi-external-link" onclick="PF('dlg2').show()"/>
+                            <p:column headerText="Actions">
+                                <a href="javascript:loadUpdate('#{course.courseId}','#{course.courseName}','#{course.teacherId}')"><p:commandButton value="Update" type="button" icon="pi pi-external-link" onclick="PF('dlg1').show()" update="form-add"/></a>
+                                <a href="javascript:loadDelete('#{course.courseId}')"><p:commandButton value="Delete" type="button" icon="pi pi-external-link" onclick="PF('dlg2').show()"/></a>
+
                             </p:column>
 
                         </p:dataTable>
@@ -64,51 +84,48 @@ and open the template in the editor.
                 </h:form>	
 
 
-                <h5>Update Course</h5>
-                <h:form id="form-update">
-                    <p:messages id="messages" showDetail="true" autoUpdate="true" />
-                    <p:panelGrid columns="3" columnClasses="column" id="updateCourse">                            
-                        <p:outputLabel value="Id Course" for="courseId" />
-                        <p:outputLabel value="Name Course" for="courseName" />
-                        <p:outputLabel value="Id Teacher" for="teacherId" />
+                <p:dialog header="Update" widgetVar="dlg1" minHeight="40" width="600" showEffect="fade" id="UpdateDialog">
+                    <h:form id="form-update" >
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                        <p:panelGrid columns="3" columnClasses="column" id="updateCourse">                            
+                            <p:outputLabel value="Id Course" for="courseId" />
+                            <p:outputLabel value="Name Course" for="courseName" />
+                            <p:outputLabel value="Id Teacher" for="teacherId" />
 
-                        <p:inputText id="courseId" required="true" value="#{courseBean.course.courseId}"  style="text-transform: none" />
-                        <p:inputText id="courseName" required="true" value="#{courseBean.course.courseName}"  style="text-transform: none" />
-                        <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none" />
+                            <p:inputText id="courseId" required="true" value="#{courseBean.course.courseId}"  style="text-transform: none" />
+                            <p:inputText id="courseName" required="true" value="#{courseBean.course.courseName}"  style="text-transform: none" />
+                            <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none" />
 
-                    </p:panelGrid>
+                        </p:panelGrid>
 
-                    <p:commandButton 
-                        value="Update" 
-                        update="form-update,:course-form" 
-                        actionListener="#{courseBean.updateCourse}"
-                        id='btn-update-course'
-                        />
-                </h:form>	
+                        <p:commandButton 
+                            value="Update" 
+                            update="form-update,:course-form" 
+                            actionListener="#{courseBean.updateCourse}"
+                            id='btn-update-course'
+                            />
+                    </h:form>	
+
+                </p:dialog>
 
 
-                <h5>Delete Course</h5>
-                <h:form id="form-delete">
-                    <p:messages id="messages" showDetail="true" autoUpdate="true" />
-                    <p:panelGrid columns="1" columnClasses="column" id="deleteCourse">                            
-                        <p:outputLabel value="Id Course" for="courseId" />
-                        <p:inputText id="courseId" required="true" value="#{courseBean.course.courseId}"  style="text-transform: none" />
+                <p:dialog header="Delete" widgetVar="dlg2" minHeight="40" width="400" showEffect="fade" id="DeleteDialog">
+                    <h:form id="form-delete">
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                        <p:panelGrid columns="1" columnClasses="column" id="deleteCourse">                            
+                            <p:outputLabel value="Id Course" for="courseId" />
+                            <p:inputText id="courseId" required="true" value="#{courseBean.course.courseId}"  style="text-transform: none" />
 
-                    </p:panelGrid>
+                        </p:panelGrid>
 
-                    <p:commandButton 
-                        value="Delete" 
-                        update="form-delete,:course-form" 
-                        actionListener="#{courseBean.deleteCourse}"
-                        id='btn-delete-course'
-                        />
-                </h:form>	
+                        <p:commandButton 
+                            value="Delete" 
+                            update="form-delete,:course-form" 
+                            actionListener="#{courseBean.deleteCourse}"
+                            id='btn-delete-course'
+                            />
+                    </h:form>	
 
-                <p:dialog header="Header" widgetVar="dlg2" minHeight="40" width="350" showEffect="fade" modal="true">
-                    <p class="p-m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 </p:dialog>
 
             </ui:define>

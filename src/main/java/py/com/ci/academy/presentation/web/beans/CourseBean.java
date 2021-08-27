@@ -4,11 +4,13 @@ import py.com.ci.academy.course.boundary.CourseManager;
 import py.com.ci.academy.course.entities.Course;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.RowEditEvent;
 
 @Named("courseBean")
 @SessionScoped
@@ -50,6 +52,7 @@ public class CourseBean implements Serializable {
         this.course = course;
     }
     
+    ///C R U D
     public  void addCourse(){
         courseManager.addCourse(course);
         init();
