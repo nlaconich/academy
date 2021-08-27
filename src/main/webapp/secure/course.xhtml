@@ -12,14 +12,18 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <script>
-            function loadUpdate(idCourse, courseName, idTeacher) {
-                var name=document.getElementById("course-form.courseName").value;
-                document.getElementById("form-add.courseName").value=name;
+        <script type="text/javascript">
+            function loadUpdate() {
+                console.log("test");
+                var v1 = "#{courseBean.getCourse(course.courseId)}";
+
+                document.getElementById("updateCourse.courseName").value = v1.courseName;
+                document.getElementById("updateCourse.courseName").value = v1.courseId;
+                document.getElementById("updateCourse.courseName").value = v1.teacherId;
             }
             
             function loadDelete(idCourse){
-                document.getElementById("form-delete:courseId").value=idCourse;
+                document.getElementById("form-delete.courseIde").value=idCourse;
             }
 
         </script>
@@ -39,7 +43,7 @@ and open the template in the editor.
                                 <h:outputText id="courseId" value="#{course.courseId}"/>
                             </p:column>
 
-                            <p:column headerText="Name Course">
+                            <p:column headerText="Name Course"> 
                                 <h:outputText id="courseName" value="#{course.courseName}"/>
                             </p:column>
 
@@ -52,8 +56,8 @@ and open the template in the editor.
                             </p:column>
 
                             <p:column headerText="Actions">
-                                <a href="javascript:loadUpdate('#{course.courseId}','#{course.courseName}','#{course.teacherId}')"><p:commandButton value="Update" type="button" icon="pi pi-external-link" onclick="PF('dlg1').show()" update="form-add"/></a>
-                                <a href="javascript:loadDelete('#{course.courseId}')"><p:commandButton value="Delete" type="button" icon="pi pi-external-link" onclick="PF('dlg2').show()"/></a>
+                                <p:commandButton value="Update" type="button" icon="pi pi-external-link" onclick="PF('dlg1').show()" action="loadUpdate();" />
+                                <p:commandButton value="Delete" type="button" icon="pi pi-external-link" oncomplete="PF('dlg2').show()" update="dlg2"/>
 
                             </p:column>
 
@@ -69,9 +73,9 @@ and open the template in the editor.
                         <p:outputLabel value="Name Course" for="courseName" />
                         <p:outputLabel value="Teacher Id" for="teacherId" />
 
-                        <p:inputText id="courseName" required="true" value="#{courseBean.course.courseName}"  style="text-transform: none" />
-                        <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none"  />
-                        <h:inputHidden value="#{courseBean.course.courseId}"/>
+                        <p:inputText id="courseName" required="true" value="#{course.courseName}"  style="text-transform: none" />
+                        <p:inputText id="teacherId" required="true" value="#{course.teacherId}"  style="text-transform: none"  />
+                        <h:inputHidden value="#{course.courseId}"/>
 
                     </p:panelGrid>
 
@@ -92,9 +96,9 @@ and open the template in the editor.
                             <p:outputLabel value="Name Course" for="courseName" />
                             <p:outputLabel value="Id Teacher" for="teacherId" />
 
-                            <p:inputText id="courseId" required="true" value="#{courseBean.course.courseId}"  style="text-transform: none" />
-                            <p:inputText id="courseName" required="true" value="#{courseBean.course.courseName}"  style="text-transform: none" />
-                            <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none" />
+                            <p:inputText id="courseId" required="true" value="#{course.courseId}"  style="text-transform: none" />
+                            <p:inputText id="courseName" required="true" value="#{course.courseName}"  style="text-transform: none" />
+                            <p:inputText id="teacherId" required="true" value="#{course.teacherId}"  style="text-transform: none" />
 
                         </p:panelGrid>
 
@@ -113,8 +117,8 @@ and open the template in the editor.
                     <h:form id="form-delete">
                         <p:messages id="messages" showDetail="true" autoUpdate="true" />
                         <p:panelGrid columns="1" columnClasses="column" id="deleteCourse">                            
-                            <p:outputLabel value="Id Course" for="courseId" />
-                            <p:inputText id="courseId" required="true" value="#{courseBean.course.courseId}"  style="text-transform: none" />
+                            <p:outputLabel value="Id Course" for="courseIde" />
+                            <p:inputText id="courseIde" required="true" value="#{course.courseId}"  style="text-transform: none" />
 
                         </p:panelGrid>
 

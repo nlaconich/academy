@@ -44,8 +44,11 @@ public class CourseBean implements Serializable {
         this.courseList = courseList;
     }
 
-    public Course getCourse() {
-        return course;
+    public Course getCourse(int courseId) {
+        for (Course course1 : courseList) {
+            if(course1.getCourseId() == courseId) return course1;
+        }
+        return null;
     }
 
     public void setCourse(Course course) {
@@ -67,4 +70,6 @@ public class CourseBean implements Serializable {
         courseManager.updateCourse(course);
         init();
     }
+    
+    
 }
