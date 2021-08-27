@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="academy" options="-endorseddirs C:\Users\CI-IAcosta\Documents\NetBeansProjects\academy\target/endorsed" />
+      <module name="academy" options="-endorseddirs $PROJECT_DIR$/target/endorsed" />
     </option>
   </component>
 </project>

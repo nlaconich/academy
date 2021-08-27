@@ -64,7 +64,7 @@ public class InscriptionUI {
         }
     }
 
-    private void registerInscription() {
+    public void registerInscription() {
         CourseAssignmentUI courseAssignmentUI = new CourseAssignmentUI();
         StudentUI studentUI = new StudentUI();
 

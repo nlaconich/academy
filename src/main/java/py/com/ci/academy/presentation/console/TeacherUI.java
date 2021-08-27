@@ -100,7 +100,7 @@ public class TeacherUI {
         int id = sc.nextInt();
         teacher.setIdTeacher(id);
 
-        int rows = teacherManager.deleteById(teacher);
+        int rows = teacherManager.deleteTeacher(teacher);
         System.out.println("Applied, " + rows + " affected");
     }
 
@@ -126,7 +126,7 @@ public class TeacherUI {
         teacher.setAddress(address);
         teacher.setEmail(email);
 
-        int rows = teacherManager.updateById(teacher);
+        int rows = teacherManager.updateTeacher(teacher);
         System.out.println("Applied, " + rows + " affected");
     }
 
