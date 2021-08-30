@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <ui:composition template="/template/base.xhtml">
+            <ui:define name="content">                
+                    <h3>Student List</h3>
+                    <h:form id="student-form">
+
+                        <h:dataTable value="#{studentBean.studentList}" var="student" border="1" cellspacing="2">
+                            <h:column><f:facet name="header">ID</f:facet>#{student.idStudent}</h:column>
+                            <h:column><f:facet name="header">Name</f:facet>#{student.name}</h:column>
+                            <h:column><f:facet name="header">Last Name</f:facet>#{student.lastName}</h:column>
+                            <h:column><f:facet name="header">Phone Number</f:facet>#{student.cellphone}</h:column>
+                            <h:column><f:facet name="header">Address</f:facet>#{student.address}</h:column>
+                            <h:column><f:facet name="header">E-mail</f:facet>#{student.email}</h:column>
+                            
+                            <h:column>
+                                <h:inputHidden value="#{studentBean.student.idStudent}"/>
+                                <h:commandButton value="edit" action="#{studentBean.updateStudent(student)}" />
+                                
+                                
+                            </h:column>
+                            <h:column>
+                                <h:commandButton value="delete" action="#{studentBean.deleteStudent()}" />
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+
+                    <h:panelGroup rendered="#{empty studentBean.studentList}">
+                        <p>No students! Please add students.</p>
+                    </h:panelGroup>
+
+                    <h:panelGroup >
+                        <h3>Add student</h3>
+                        <h:form id="form-add">
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                            <p:panelGrid columns="5" columnClasses="column" id="addStudent">                            
+                                <p:outputLabel for="name" value="Name"/>
+                                <p:outputLabel for="lastName" value="last Name"/>
+                                <p:outputLabel for="cellphone" value="Phone Number"/>
+                                <p:outputLabel for="address" value="Address" />
+                                <p:outputLabel for="email" value="e-mail"/>
+
+                                <p:inputText id="name" value="#{studentBean.student.name}"/> 
+                                <p:inputText id="lastName" value="#{studentBean.student.lastName}"/>                             
+                                <p:inputText id="cellphone" value="#{studentBean.student.cellphone}" />
+                                <p:inputText id="address" value="#{studentBean.student.address}" />
+                                <p:inputText id="email" value="#{studentBean.student.email}"/>
+                                <h:inputHidden value="#{studentBean.student.idStudent}"/>
+                            </p:panelGrid>
+
+                            <p:commandButton 
+                                value="Save" 
+                                update="form-add,:student-form" 
+                                actionListener="#{studentBean.agregarStudent}"
+                                id='btn-guardar-student'
+                                /> 
+                        </h:form>
+                    </h:panelGroup>
+               
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
