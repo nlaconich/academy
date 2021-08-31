@@ -9,11 +9,15 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 import py.com.ci.academy.assignment.boundary.*;
 import py.com.ci.academy.students.boundary.StudentManager;
 import py.com.ci.academy.students.entities.Student;
+import py.com.ci.academy.teacher.entities.Teacher;
 
 /**
  *
@@ -62,8 +66,9 @@ public class StudentBean implements Serializable {
         this.student = student;
     }
     
-    public void updateStudent(Student student) {
-        this.student = student;
+    public void updateStudent() {
+        studentManager.updateById(student);
+        init();
     }
     
     public void deleteStudent(){
@@ -74,6 +79,15 @@ public class StudentBean implements Serializable {
     public void agregarStudent() {
         studentManager.add(student);
         init();
+
+    }
+        
+        public void onSelect(SelectEvent event) {
+                this.student = (Student) event.getObject();
+
+        FacesMessage msg = new FacesMessage("Student Selected id", String.valueOf(student.getIdStudent()));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        System.out.println("StudentBean > Seleccionar Fila > " + this.student);
 
     }
 }

@@ -7,68 +7,128 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:body>
         <ui:composition template="/template/base.xhtml">
-            <ui:define name="content">                
-                    <h3>Student List</h3>
-                    <h:form id="student-form">
+            <ui:define name="content">
+                <h:form id="student-form">
 
-                        <h:dataTable value="#{studentBean.studentList}" var="student" border="1" cellspacing="2">
-                            <h:column><f:facet name="header">ID</f:facet>#{student.idStudent}</h:column>
-                            <h:column><f:facet name="header">Name</f:facet>#{student.name}</h:column>
-                            <h:column><f:facet name="header">Last Name</f:facet>#{student.lastName}</h:column>
-                            <h:column><f:facet name="header">Phone Number</f:facet>#{student.cellphone}</h:column>
-                            <h:column><f:facet name="header">Address</f:facet>#{student.address}</h:column>
-                            <h:column><f:facet name="header">E-mail</f:facet>#{student.email}</h:column>
-                            
-                            <h:column>
-                                <h:inputHidden value="#{studentBean.student.idStudent}"/>
-                                <h:commandButton value="edit" action="#{studentBean.updateStudent(student)}" />
-                                
-                                
-                            </h:column>
-                            <h:column>
-                                <h:commandButton value="delete" action="#{studentBean.deleteStudent()}" />
-                            </h:column>
-                        </h:dataTable>
-                    </h:form>
+                    <p:growl id="msgs" showDetail="true" />
+                    <div class="card">
+                        <p:dataTable id="dtStudent" var="student" value="#{studentBean.studentList}"
 
-                    <h:panelGroup rendered="#{empty studentBean.studentList}">
-                        <p>No students! Please add students.</p>
-                    </h:panelGroup>
+                                     rows="10" paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     selection="#{studentBean.student}" rowKey="#{student.idStudent}"
+                                     selectionMode="single">
+                            <p:column headerText="Student ID">
+                                <h:outputText value="#{student.idStudent}" />
+                            </p:column>
 
-                    <h:panelGroup >
-                        <h3>Add student</h3>
-                        <h:form id="form-add">
-                            <p:messages id="messages" showDetail="true" autoUpdate="true" />
-                            <p:panelGrid columns="5" columnClasses="column" id="addStudent">                            
-                                <p:outputLabel for="name" value="Name"/>
-                                <p:outputLabel for="lastName" value="last Name"/>
-                                <p:outputLabel for="cellphone" value="Phone Number"/>
-                                <p:outputLabel for="address" value="Address" />
-                                <p:outputLabel for="email" value="e-mail"/>
+                            <p:column headerText="Name">
+                                <h:outputText value="#{student.name}" />
+                            </p:column>
 
-                                <p:inputText id="name" value="#{studentBean.student.name}"/> 
-                                <p:inputText id="lastName" value="#{studentBean.student.lastName}"/>                             
-                                <p:inputText id="cellphone" value="#{studentBean.student.cellphone}" />
-                                <p:inputText id="address" value="#{studentBean.student.address}" />
-                                <p:inputText id="email" value="#{studentBean.student.email}"/>
-                                <h:inputHidden value="#{studentBean.student.idStudent}"/>
-                            </p:panelGrid>
+                            <p:column headerText="Last Name">
+                                <h:outputText value="#{student.lastName}" />
+                            </p:column>
+
+                            <p:column headerText="Cellphone">
+                                <h:outputText value="#{student.cellphone}" />
+                            </p:column>
+
+                            <p:column headerText="Address">
+                                <h:outputText value="#{student.address}" />
+                            </p:column>
+
+                            <p:column headerText="Email">
+                                <h:outputText value="#{student.email}" />
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton process="dtStudent" icon="ui-icon-document" update=":form-update" 
+                                                 value="Update" oncomplete="PF('dlgStudentUpdate').show()"  />
+                                <p:commandButton process="dtStudent" icon="ui-icon-document" update=":form-add" 
+                                                 value="Add" oncomplete="PF('dlgStudentAdd').show()"  />
+                                <p:commandButton 
+                                    value="Delete" 
+                                    update="student-form" 
+                                    actionListener="#{studentBean.deleteStudent()}"
+                                    id="btn-delete-student"
+                                    onclick="return confirm('Are you sure?')"/>
+
+                            </f:facet>
+                            <p:ajax event="rowSelect" listener="#{studentBean.onSelect}"  />
+                        </p:dataTable>
+                    </div>
+                </h:form> 
+
+                <p:dialog header="Students" widgetVar="dlgStudentAdd"
+                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <h5>Add Student</h5>
+                    <h:form id="form-add">
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                        <p:panelGrid columns="6" columnClasses="column" id="addStudent">                            
+                            <p:outputLabel for="name" value="Name"/>
+                            <p:outputLabel for="lastName" value="last Name"/>
+                            <p:outputLabel for="cellphone" value="Phone Number"/>
+                            <p:outputLabel for="address" value="Address" />
+                            <p:outputLabel for="email" value="e-mail"/>
+
+                            <h:inputHidden value="#{studentBean.student.idStudent}"/>
+                            <p:inputText id="name" value="#{studentBean.student.name}"/> 
+                            <p:inputText id="lastName" value="#{studentBean.student.lastName}"/>                             
+                            <p:inputText id="cellphone" value="#{studentBean.student.cellphone}" />
+                            <p:inputText id="address" value="#{studentBean.student.address}" />
+                            <p:inputText id="email" value="#{studentBean.student.email}"/>
+
 
                             <p:commandButton 
-                                value="Save" 
-                                update="form-add,:student-form" 
+                                value="Save"  
                                 actionListener="#{studentBean.agregarStudent}"
+                                update="form-add,:student-form"
+                                oncomplete="PF('dlgStudentAdd').hide()"
                                 id='btn-guardar-student'
-                                /> 
-                        </h:form>
-                    </h:panelGroup>
-               
+                                />
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog header="Students" widgetVar="dlgStudentUpdate"
+                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <h5>Update Student</h5>
+                    <h:form id="form-update">
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                        <p:panelGrid columns="6" columnClasses="column" id="updateStudent">                            
+                            <p:outputLabel value="Student Name" for="name" />
+                            <p:outputLabel value="Last Name" for="lastName" />
+                            <p:outputLabel value="Address" for="address" />
+                            <p:outputLabel value="Cellphone" for="cellphone" />
+                            <p:outputLabel value="Email" for="email" />
+
+                            <h:inputHidden value="#{studentBean.student.idStudent}"/>
+                            <p:inputText id="name" required="true" value="#{studentBean.student.name}"  style="text-transform: none" />
+                            <p:inputText id="lastName" required="true" value="#{studentBean.student.lastName}"  style="text-transform: none" />
+                            <p:inputText id="address" required="true" value="#{studentBean.student.address}"  style="text-transform: none" />
+                            <p:inputText id="cellphone" required="true" value="#{studentBean.student.cellphone}"  style="text-transform: none" />
+                            <p:inputText id="email" required="true" value="#{studentBean.student.email}"  style="text-transform: none" />
+
+
+                            <p:commandButton 
+                                value="Update" 
+                                actionListener="#{studentBean.updateStudent()}"
+                                id="btn-update-student"
+                                update="form-update,:student-form"
+                                oncomplete="PF('dlgStudentUpdate').hide()" 
+                                />
+                        </p:panelGrid>
+
+
+                    </h:form>	
+                </p:dialog>
             </ui:define>
         </ui:composition>
     </h:body>
