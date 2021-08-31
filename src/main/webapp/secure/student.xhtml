@@ -50,11 +50,11 @@ and open the template in the editor.
                             </p:column>
                             <f:facet name="footer">
                                 <p:commandButton process="dtStudent" icon="ui-icon-document" update=":form-update" 
-                                                 value="Update" oncomplete="PF('dlgStudentUpdate').show()"  />
+                                                 value="UPDATE" oncomplete="PF('dlgStudentUpdate').show()" />
                                 <p:commandButton process="dtStudent" icon="ui-icon-document" update=":form-add" 
-                                                 value="Add" oncomplete="PF('dlgStudentAdd').show()"  />
+                                                 value="NEW" oncomplete="PF('dlgStudentAdd').show()"  />
                                 <p:commandButton 
-                                    value="Delete" 
+                                    value="DELETE" 
                                     update="student-form" 
                                     actionListener="#{studentBean.deleteStudent()}"
                                     id="btn-delete-student"
