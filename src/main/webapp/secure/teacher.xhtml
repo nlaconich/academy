@@ -15,7 +15,6 @@ and open the template in the editor.
         <ui:composition template="/template/base.xhtml">
             <ui:define name="content">
                 <h:form id="teacher-form">
-                        <p:growl id="msgs" showDetail="true" />
                     <div class="card">
                         <p:dataTable id="dtTeachers" var="teacher" value="#{teacherBean.teacherList}"
                                      rows="10" paginator="true" paginatorPosition="bottom"
@@ -46,92 +45,100 @@ and open the template in the editor.
                             <p:column headerText="Email">
                                 <h:outputText value="#{teacher.email}" />
                             </p:column>
+                            
+                            <p:ajax event="rowSelect" listener="#{teacherBean.alSeleccionarFila}"  />
+                            
                             <f:facet name="footer">
-                                <p:commandButton process="dtTeachers" icon="ui-icon-document" update=":form-update" 
+                                <p:commandButton process="dtTeachers" icon="ui-icon-document" update=":form-add:addTeacher" 
+                                                 value="Add" oncomplete="PF('dlgTeachersAdd').show()"  />
+                            </f:facet>    
+                            
+                            <p:column headerText="Update">
+                                <p:commandButton process="dtTeachers" icon="ui-icon-document" update=":form-update:updateTeacher" 
                                                  value="Update" oncomplete="PF('dlgTeachersUpdate').show()"  />
-                                <p:commandButton process="dtTeachers" icon="ui-icon-document" update=":form-update" 
-                                                 value="LogSelectedTeacher" actionListener="#{teacherBean.logSelectedTheacher}" />
-                            </f:facet>
-                             <p:ajax event="rowSelect" listener="#{teacherBean.alSeleccionarFila}"  />
+                            </p:column>    
+                            <p:column headerText="Delete">    
+                                <p:commandButton 
+                                    value="Delete" 
+                                    update="teacher-form" 
+                                    actionListener="#{teacherBean.deleteTeacher()}"
+                                    id="btn-delete-teacher">
+                                </p:commandButton>
+                            </p:column>    
+                                
+                            
+                            
+                            
+                            
                         </p:dataTable>
                     </div>
                 </h:form> 
 
+                
+            <p:dialog header="Teachers" widgetVar="dlgTeachersAdd"
+                      modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <h5>Add Teacher</h5>
-                <h:form id="form-add">
-                    <p:messages id="messages" showDetail="true" autoUpdate="true" />
-                    <p:panelGrid columns="5" columnClasses="column" id="addTeacher">                            
-
-                        <p:outputLabel value="Teacher Name" for="nameTeacher" />
-                        <p:outputLabel value="Last Name" for="lastName" />
-                        <p:outputLabel value="Address" for="address" />
-                        <p:outputLabel value="Cellphone" for="cellphone" />
-                        <p:outputLabel value="Email" for="email" />
-
-                        <h:inputHidden value="#{teacherBean.teacher.idTeacher}"/>
-                        <p:inputText id="nameTeacher" required="true" value="#{teacherBean.teacher.nameTeacher}"  style="text-transform: none" />
-                        <p:inputText id="lastName" required="true" value="#{teacherBean.teacher.lastName}"  style="text-transform: none" />
-                        <p:inputText id="address" required="true" value="#{teacherBean.teacher.address}"  style="text-transform: none" />
-                        <p:inputText id="cellphone" required="true" value="#{teacherBean.teacher.cellphone}"  style="text-transform: none" />
-                        <p:inputText id="email" required="true" value="#{teacherBean.teacher.email}"  style="text-transform: none" />
-
-
-                        <p:commandButton 
-                            value="Save" 
-                            update="form-add,:teacher-form" 
-                            actionListener="#{teacherBean.addTeacher}"
-                            id='btn-save-teacher'
-                            />
-                    </p:panelGrid>
-                </h:form>
-                <p:dialog header="Teachers" widgetVar="dlgTeachersUpdate"
-                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                    <h5>Update Teacher</h5>
-                    <h:form id="form-update">
+                    <h:form id="form-add">
                         <p:messages id="messages" showDetail="true" autoUpdate="true" />
-                        <p:panelGrid columns="6" columnClasses="column" id="updateTeacher">                            
+                        <p:panelGrid columns="5" columnClasses="column" id="addTeacher">                            
+
                             <p:outputLabel value="Teacher Name" for="nameTeacher" />
                             <p:outputLabel value="Last Name" for="lastName" />
                             <p:outputLabel value="Address" for="address" />
                             <p:outputLabel value="Cellphone" for="cellphone" />
                             <p:outputLabel value="Email" for="email" />
 
-                            <h:inputHidden value="#{teacherBean.teacher.idTeacher}"/>
+                                                    
                             <p:inputText id="nameTeacher" required="true" value="#{teacherBean.teacher.nameTeacher}"  style="text-transform: none" />
                             <p:inputText id="lastName" required="true" value="#{teacherBean.teacher.lastName}"  style="text-transform: none" />
                             <p:inputText id="address" required="true" value="#{teacherBean.teacher.address}"  style="text-transform: none" />
                             <p:inputText id="cellphone" required="true" value="#{teacherBean.teacher.cellphone}"  style="text-transform: none" />
                             <p:inputText id="email" required="true" value="#{teacherBean.teacher.email}"  style="text-transform: none" />
 
-                        </p:panelGrid>
-
+                    </p:panelGrid> 
+                        
                         <p:commandButton 
-                            value="Update" 
-                            update="form-update,:teacher-form" 
-                            actionListener="#{teacherBean.updateTeacher()}"
-                            id="btn-update-teacher"
-                            oncomplete="PF('dlgTeachersUpdate').hide()" 
+                            value="Save" 
+                            update="form-add,:teacher-form" 
+                            actionListener="#{teacherBean.addTeacher}"
+                            id='btn-save-teacher'
+                            oncomplete="PF('dlgTeachersAdd').hide()" 
                             />
-                    </h:form>	
-                </p:dialog>
-                <h5>Delete Course</h5>
-                <h:form id="form-delete">
-                    <p:messages id="messages" showDetail="true" autoUpdate="true" />
-                    <p:panelGrid columns="1" columnClasses="column" id="deleteTeacher">                            
-                        <p:outputLabel value="Id Teacher" for="idTeacher" />
-                        <p:inputText id="idTeacher" required="true" value="#{teacherBean.teacher.idTeacher}"  style="text-transform: none" />
+                </h:form>  
+            </p:dialog>        
+                    
+                
+                <p:dialog header="Teachers" widgetVar="dlgTeachersUpdate"
+                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <h5>Update Teacher</h5>
+                        <h:form id="form-update">
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                            <p:panelGrid columns="5" columnClasses="column" id="updateTeacher"> 
+                            
+                                <p:outputLabel value="Teacher Name" for="nameTeacher" />
+                                <p:outputLabel value="Last Name" for="lastName" />
+                                <p:outputLabel value="Address" for="address" />
+                                <p:outputLabel value="Cellphone" for="cellphone" />
+                                <p:outputLabel value="Email" for="email" />
 
-                    </p:panelGrid>
+                                
+                                <p:inputText id="nameTeacher" required="true" value="#{teacherBean.teacher.nameTeacher}"  style="text-transform: none" />
+                                <p:inputText id="lastName" required="true" value="#{teacherBean.teacher.lastName}"  style="text-transform: none" />
+                                <p:inputText id="address" required="true" value="#{teacherBean.teacher.address}"  style="text-transform: none" />
+                                <p:inputText id="cellphone" required="true" value="#{teacherBean.teacher.cellphone}"  style="text-transform: none" />
+                                <p:inputText id="email" required="true" value="#{teacherBean.teacher.email}"  style="text-transform: none" />
+                            
+                            </p:panelGrid>
 
-                    <p:commandButton 
-                        value="Delete" 
-                        update="form-delete,:teacher-form" 
-                        actionListener="#{teacherBean.deleteTeacher()}"
-                        id="btn-delete-teacher">
-                    </p:commandButton>
-
-                </h:form>
-
+                                <p:commandButton 
+                                    value="Update" 
+                                    update="form-update,:teacher-form" 
+                                    actionListener="#{teacherBean.updateTeacher}"
+                                    id="btn-update-teacher"
+                                    oncomplete="PF('dlgTeachersUpdate').hide()" 
+                                    />
+                        </h:form>	
+                </p:dialog>    
             </ui:define>
         </ui:composition>
     </h:body>
