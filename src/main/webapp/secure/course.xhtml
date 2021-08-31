@@ -12,26 +12,23 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-<!--        <script type="text/javascript">
-            function loadUpdate() {
-                console.log("test");
-                var v1 = "courseid";
-
-                document.getElementById("updateCourse.courseName").value = v1.courseName;
-                document.getElementById("updateCourse.courseName").value = v1.courseId;
-                document.getElementById("updateCourse.courseName").value = v1.teacherId;
-            }
-            
-            function loadDelete(idCourse){
-                document.getElementById("form-delete.courseIde").value=idCourse;
-            }
-
-        </script>-->
+        <!--        <script type="text/javascript">
+                    function loadUpdate() {
+                        console.log("test");
+                        var v1 = "courseid";
+        
+                        document.getElementById("updateCourse.courseName").value = v1.courseName;
+                        document.getElementById("updateCourse.courseName").value = v1.courseId;
+                        document.getElementById("updateCourse.courseName").value = v1.teacherId;
+                    }
+                    
+                    function loadDelete(idCourse){
+                        document.getElementById("form-delete.courseIde").value=idCourse;
+                    }
+        
+                </script>-->
 
     </h:head>
-
-
-
     <h:body>
         <ui:composition template="/template/base.xhtml">
             <ui:define name="content">
@@ -42,8 +39,8 @@ and open the template in the editor.
                                      rows="10" paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15"
-                                     selection="#{course}" rowKey="#{course.courseId}"
-                                     selectionMode="single">>
+                                     selection="#{courseBean.course}" rowKey="#{course.courseId}"
+                                     selectionMode="single">
                             <p:column headerText="Id Course">
                                 <h:outputText id="courseId" value="#{course.courseId}"/>
                             </p:column>
@@ -61,13 +58,19 @@ and open the template in the editor.
                             </p:column>
 
                             <p:column headerText="Actions">
-                                <p:commandButton process="dtCourse" type="button" update=":form-update" 
-                                    icon="pi pi-external-link" value="Update" onclick="PF('dlgCourseUpdate').show()" />
-                                <p:commandButton process="dtCourse" type="button" update=":form-delete" 
-                                    icon="pi pi-external-link" value="Delete" oncomplete="PF('dlgCourseDelete').show()" />
+                                <p:commandButton process="dtCourse" icon="ui-icon-document" update=":form-update:updateCourse" 
+                                                 value="Update"  oncomplete="PF('dlgCourseUpdate').show()"/>
+                                <p:commandButton 
+                                    value="Delete" 
+                                    actionListener="#{courseBean.deleteCourse()}"
+                                    id="btn-delete-course"
+                                    update=":course-form" 
+                                    />
                             </p:column>
+
+                            <p:ajax event="rowSelect" listener="#{courseBean.onRowSelected}"  />
+
                         </p:dataTable>
-                        <p:ajax event="rowSelect" listener="#{courseBean.onRowSelected}"  />
                     </div>
                 </h:form>
 
@@ -75,66 +78,48 @@ and open the template in the editor.
                 <h5>Add course</h5>
                 <h:form id="form-add">
                     <p:messages id="messages" showDetail="true" autoUpdate="true" />
-                    <p:panelGrid columns="2" columnClasses="column" id="addCourse">                            
-                        <p:outputLabel value="Name Course" for="courseName" />
+                    <p:panelGrid columns="3" columnClasses="column" id="addCourse">                            
+
+                        <p:outputLabel value="Name Course" for="nameCourse" />
                         <p:outputLabel value="Teacher Id" for="teacherId" />
+                        
+                        <h:inputHidden value="#{courseBean.course.courseId}"/>
+                        <p:inputText id="nameCourse" required="true" value="#{courseBean.course.courseName}"  style="text-transform: none" />
+                        <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none" />
 
-                        <p:inputText id="courseName" required="true" value="#{course.courseName}"  style="text-transform: none" />
-                        <p:inputText id="teacherId" required="true" value="#{course.teacherId}"  style="text-transform: none"  />
-                        <h:inputHidden value="#{course.courseId}"/>
-
+                        <p:commandButton 
+                            value="Save" 
+                            update="form-add,:course-form" 
+                            actionListener="#{courseBean.addCourse()}"
+                            id='btn-save-course'
+                            />
                     </p:panelGrid>
-
-                    <p:commandButton 
-                        value="Save" 
-                        update="form-add,:course-form" 
-                        actionListener="#{courseBean.addCourse}"
-                        id='btn-save-course'
-                        />
-                </h:form>	
+                </h:form>               	
 
 
                 <p:dialog header="Update" widgetVar="dlgCourseUpdate" modal="true" showEffect="fade" resizable="false">
                     <h:form id="form-update" >
                         <p:messages id="messages" showDetail="true" autoUpdate="true" />
                         <p:panelGrid columns="3" columnClasses="column" id="updateCourse">                            
-                            <p:outputLabel value="Id Course" for="courseId" />
+
                             <p:outputLabel value="Name Course" for="courseName" />
                             <p:outputLabel value="Id Teacher" for="teacherId" />
 
-                            <p:inputText id="courseId" required="true" value="#{course.courseId}"  style="text-transform: none" />
-                            <p:inputText id="courseName" required="true" value="#{course.courseName}"  style="text-transform: none" />
-                            <p:inputText id="teacherId" required="true" value="#{course.teacherId}"  style="text-transform: none" />
+                            <h:inputHidden id="courseId" required="true" value="#{courseBean.course.courseId}"/>
+                            <p:inputText id="courseName" required="true" value="#{courseBean.course.courseName}" style="text-transform: none" />
+                            <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none" />
 
-                        </p:panelGrid>
-
-                        <p:commandButton 
-                            value="Update" 
+                            
+                            <p:commandButton 
+                            value="Save" 
+                            actionListener="#{courseBean.updateCourse()}"
+                            id="btn-update-course"
                             update="form-update,:course-form" 
-                            actionListener="#{courseBean.updateCourse}"
-                            id='btn-update-course'
                             oncomplete="PF('dlgCourseUpdate').hide()"
                             />
-                    </h:form>	
-
-                </p:dialog>
-
-
-                <p:dialog header="Delete" widgetVar="dlgCourseDelete" minHeight="40" width="400" showEffect="fade" id="DeleteDialog">
-                    <h:form id="form-delete">
-                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
-                        <p:panelGrid columns="1" columnClasses="column" id="deleteCourse">                            
-                            <p:outputLabel value="Id Course" for="courseIde" />
-                            <p:inputText id="courseIde" required="true" value="#{course.courseId}"  style="text-transform: none" />
-
                         </p:panelGrid>
 
-                        <p:commandButton 
-                            value="Delete" 
-                            update="form-delete,:course-form" 
-                            actionListener="#{courseBean.deleteCourse}"
-                            id='btn-delete-course'
-                            />
+                       
                     </h:form>	
 
                 </p:dialog>

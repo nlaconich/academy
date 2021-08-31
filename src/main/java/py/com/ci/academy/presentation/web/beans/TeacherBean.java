@@ -36,8 +36,8 @@ public class TeacherBean implements Serializable {
     }
 
     public void logTeacher(){
-        if (teacherList != null && !teacherList.isEmpty()){
-            System.out.println("TeacherBean  - init > "+ teacherList);
+        if (teacher != null ){
+            System.out.println("TeacherBean  - init > "+ teacher);
         }else{
             System.out.println("TeacherBean  - init > no result fount");
         }

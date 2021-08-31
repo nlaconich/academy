@@ -47,7 +47,7 @@ and open the template in the editor.
                                 <h:outputText value="#{teacher.email}" />
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton process="dtTeachers" icon="ui-icon-document" update=":form-update" 
+                                <p:commandButton process="dtTeachers" icon="ui-icon-document" update=":form-update:updateTeacher" 
                                                  value="Update" oncomplete="PF('dlgTeachersUpdate').show()"  />
                                 <p:commandButton process="dtTeachers" icon="ui-icon-document" update=":form-update" 
                                                  value="LogSelectedTeacher" actionListener="#{teacherBean.logSelectedTheacher}" />
@@ -97,7 +97,7 @@ and open the template in the editor.
                             <p:outputLabel value="Email" for="email" />
 
                             <h:inputHidden value="#{teacherBean.teacher.idTeacher}"/>
-                            <p:inputText id="nameTeacher" required="true" value="#{teacherBean.teacher.nameTeacher}"  style="text-transform: none" />
+                            <p:inputText id="nameTeacher" required="true" value="#{teacherBean.teacher.nameTeacher}"  />
                             <p:inputText id="lastName" required="true" value="#{teacherBean.teacher.lastName}"  style="text-transform: none" />
                             <p:inputText id="address" required="true" value="#{teacherBean.teacher.address}"  style="text-transform: none" />
                             <p:inputText id="cellphone" required="true" value="#{teacherBean.teacher.cellphone}"  style="text-transform: none" />
@@ -106,7 +106,7 @@ and open the template in the editor.
                         </p:panelGrid>
 
                         <p:commandButton 
-                            value="Update" 
+                            value="Save" 
                             update="form-update,:teacher-form" 
                             actionListener="#{teacherBean.updateTeacher()}"
                             id="btn-update-teacher"
