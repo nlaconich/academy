@@ -11,26 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class TeacherManager {
-    //private static final long serialVersionUID = 1L;
 
-    /*
-    public Teacher getById(Integer idTeacher) {
-        String sql = getStatement() + " where idTeacher =" + idTeacher;
-        try (PreparedStatement s1 = ConnectionManager.getConnection()
-                .prepareStatement(sql)) {
-            s1.setMaxRows(100);
-            try (ResultSet rs = s1.executeQuery()) {
-                while (rs.next()) {
-                    return getFromRsTeacher(rs);
-                }
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-
-        }
-        return null;
-    }
-    */
     public List<Teacher> getAll() {
         List<Teacher> listTeacher = new ArrayList();
         try (PreparedStatement s1 = ConnectionManager.getConnection()
@@ -69,15 +50,15 @@ public class TeacherManager {
         }
     }
 
-    public Boolean add(Teacher entity) {
+    public Boolean add(Teacher teacher) {
         String statement = "INSERT INTO public.teacher(name_teacher, lastname, cellphone, address, email) VALUES ( ?, ?, ?, ?, ?)";
         try (PreparedStatement s1 = ConnectionManager.getConnection()
                 .prepareStatement(statement)) {
-            s1.setString(1, entity.getNameTeacher());
-            s1.setString(2, entity.getLastName());
-            s1.setString(3, entity.getCellphone());
-            s1.setString(4, entity.getAddress());
-            s1.setString(5, entity.getEmail());
+            s1.setString(1, teacher.getNameTeacher());
+            s1.setString(2, teacher.getLastName());
+            s1.setString(3, teacher.getCellphone());
+            s1.setString(4, teacher.getAddress());
+            s1.setString(5, teacher.getEmail());
             Integer rs = s1.executeUpdate();
             if (rs > 0) {
                 return true;
@@ -89,10 +70,10 @@ public class TeacherManager {
         return false;
     }
 
-    public int deleteTeacher(Teacher teacher) {
-        String sql = "DELETE FROM public.teacher, public.course WHERE id_teacher= ?";
-        int rows = 0;
-        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
+    public int deleteTeacher(Teacher teacher) {       
+        String sql = "DELETE FROM public.teacher, public.course WHERE id_teacher=?";
+         int rows = 0;
+                try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setInt(1, teacher.getIdTeacher());
             rows = s1.executeUpdate();
             return rows;
