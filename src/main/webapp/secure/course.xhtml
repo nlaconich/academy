@@ -62,10 +62,10 @@ and open the template in the editor.
                                                  value="Update"  oncomplete="PF('dlgCourseUpdate').show()"/>
                                 <p:commandButton 
                                     value="Delete" 
+                                    update="course-form" 
                                     actionListener="#{courseBean.deleteCourse()}"
-                                    id="btn-delete-course"
-                                    update=":course-form" 
-                                    />
+                                    id="btn-delete-course">
+                                </p:commandButton>                       
                             </p:column>
 
                             <p:ajax event="rowSelect" listener="#{courseBean.onRowSelected}"  />
@@ -82,7 +82,7 @@ and open the template in the editor.
 
                         <p:outputLabel value="Name Course" for="nameCourse" />
                         <p:outputLabel value="Teacher Id" for="teacherId" />
-                        
+
                         <h:inputHidden value="#{courseBean.course.courseId}"/>
                         <p:inputText id="nameCourse" required="true" value="#{courseBean.course.courseName}"  style="text-transform: none" />
                         <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none" />
@@ -109,17 +109,17 @@ and open the template in the editor.
                             <p:inputText id="courseName" required="true" value="#{courseBean.course.courseName}" style="text-transform: none" />
                             <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none" />
 
-                            
+
                             <p:commandButton 
-                            value="Save" 
-                            actionListener="#{courseBean.updateCourse()}"
-                            id="btn-update-course"
-                            update="form-update,:course-form" 
-                            oncomplete="PF('dlgCourseUpdate').hide()"
-                            />
+                                value="Save" 
+                                actionListener="#{courseBean.updateCourse()}"
+                                id="btn-update-course"
+                                update="form-update,:course-form" 
+                                oncomplete="PF('dlgCourseUpdate').hide()"
+                                />
                         </p:panelGrid>
 
-                       
+
                     </h:form>	
 
                 </p:dialog>
