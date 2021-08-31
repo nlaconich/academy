@@ -71,7 +71,7 @@ public class TeacherManager {
     }
 
     public int deleteTeacher(Teacher teacher) {       
-        String sql = "DELETE FROM public.teacher, public.course WHERE id_teacher=?";
+        String sql = "DELETE FROM public.teacher WHERE id_teacher=?";
          int rows = 0;
                 try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setInt(1, teacher.getIdTeacher());
