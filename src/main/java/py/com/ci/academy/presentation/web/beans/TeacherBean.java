@@ -28,10 +28,10 @@ public class TeacherBean implements Serializable {
     @PostConstruct
     public void init(){
         teacherManager= new TeacherManager();
-        teacherList= teacherManager.getAll();
         teacher= new Teacher();
+        teacherList= teacherManager.getAll();
         logTeacher();
-         RequestContext.getCurrentInstance().update("teacher-form:dtTeachers");
+        RequestContext.getCurrentInstance().update("teacher-form:dtTeachers");
 
     }
 
@@ -58,22 +58,22 @@ public class TeacherBean implements Serializable {
     public void setTeacherList(List<Teacher> teacherList) {
         this.teacherList = teacherList;
     }
-   
-    
-    public  void addTeacher(){
+
+    public void addTeacher() {
         teacherManager.add(teacher);
-        init();    
-    }
-    
-    public void updateTeacher(){
-        teacherManager.updateTeacher(teacher);
         init();
     }
-        
-    public void deleteTeacher(){
+
+    public void deleteTeacher() {
         teacherManager.deleteTeacher(teacher);
         init();
     }
+
+    public void updateTeacher() {
+        teacherManager.updateTeacher(teacher);
+        init();
+    }
+    
         
 
     
