@@ -19,7 +19,7 @@ import java.util.List;
 public class AccountManager {
 
     public String getStatement() {
-        String statement = "SELECT id_account, date_account, status,remark";
+        String statement = "SELECT id_account, date_account, remark, status, id_inscription, amount From accounts";
         return statement;
     }
 
