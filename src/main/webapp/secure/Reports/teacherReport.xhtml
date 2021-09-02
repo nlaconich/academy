@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:body>
+        <ui:composition template="/template/base.xhtml">
+            <ui:define name="content">
+                <h:form id="teacherReport-form">
+                    <p:growl id="msgs" showDetail="true" />
+                    <div class="card">
+                        <p:dataTable id="dtTeachersReport" var="teacherReport" value="#{teacherReportBean.teacherReportList}"
+                                     rows="10" paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     selection="#{teacherReportBean.teacherReport}" rowKey="#{teacherReport.idTeacher}"
+                                     selectionMode="single">
+                            <p:column headerText="Teacher Id">
+                                <h:outputText value="#{teacherReport.idTeacher}" />
+                            </p:column>
+
+                            <p:column headerText="Name">
+                                <h:outputText value="#{teacherReport.idAssignment}" />
+                            </p:column>
+
+                            <p:column headerText="Last Name">
+                                <h:outputText value="#{teacherReport.idCourse}" />
+                            </p:column>
+
+                            <p:column headerText="Cellphone">
+                                <h:outputText value="#{teacherReport.nameTeacher}" />
+                            </p:column>
+
+                            <p:column headerText="Address">
+                                <h:outputText value="#{teacherReport.lastNameTeacher}" />
+                            </p:column>
+
+                            <p:column headerText="Email">
+                                <h:outputText value="#{teacherReport.nameAssignment}" />
+                            </p:column>
+                            
+                            <p:column headerText="Email">
+                                <h:outputText value="#{teacherReport.nameCourse}" />
+                            </p:column>
+                            
+                            <p:column headerText="Actions">
+                                <p:commandButton 
+                                    value="Delete" 
+                                    update="teacher-form" 
+                                    actionListener="#{teacherReportBean.deleteReport()}"
+                                    id="btn-delete-Report">
+                                </p:commandButton>
+                                    
+                                    <p:commandButton process="dtTeachersReport" icon="ui-icon-document" update=":form-update:updateReport" 
+                                                 value="Update" oncomplete="PF('dlgReportUpdate').show()"  />
+                                </p:commandButton>  
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton process="dtTeachersReport" icon="ui-icon-document" update=":form-add:addReport" 
+                                                 value="Add" oncomplete="PF('dlgAddReport').show()"  />
+                                
+                                
+                            </f:facet>
+                            <p:ajax event="rowSelect" listener="#{teacherReportBean.alSeleccionarFila}"  />
+                        </p:dataTable>
+                    </div>
+                </h:form> 
+
+            <p:dialog header="Add" widgetVar="dlgAddReport" modal="true" showEffect="fade" resizable="false">
+                <h:form id="form-add">
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                    <p:panelGrid columns="5" columnClasses="column" id="addReport">                            
+
+                        <p:outputLabel value="Teacher Id" for="idTeacher" />
+                        <p:outputLabel value="Assignment Id" for="idAssignment" />
+                        <p:outputLabel value="Course Id" for="idCourse" />
+                        <p:outputLabel value="Teacher Name" for="nameTeacher" />
+                        <p:outputLabel value="Teacher Last Name" for="lastNameTeacher" />
+                        <p:outputLabel value="Asignment Name" for="nameAssignment" />
+                        <p:outputLabel value="Course Name" for="lastNameTeacher" />
+
+                        
+                        <p:inputText id="idTeacher" value="#{teacherReportBean.teacherReport.idTeacher}"  style="text-transform: none" />
+                        <p:inputText id="idAssignment" value="#{teacherReportBean.teacherReport.idAssignment}"  style="text-transform: none" />
+                        <p:inputText id="idCourse" value="#{teacherReportBean.teacherReport.idCourse}"  style="text-transform: none" />
+                        <p:inputText id="nameTeacher" value="#{teacherReportBean.teacherReport.nameTeacher}"  style="text-transform: none" />
+                        <p:inputText id="lastNameTeacher" value="#{teacherReportBean.teacherReport.lastNameTeacher}"  style="text-transform: none" />
+                        <p:inputText id="nameAssignment" value="#{teacherReportBean.teacherReport.nameAssignment}"  style="text-transform: none" />
+                        <p:inputText id="lastNameTeacher" value="#{teacherReportBean.teacherReport.lastNameTeacher}"  style="text-transform: none" />
+                    
+                    </p:panelGrid>
+                    
+                        <p:commandButton 
+                            value="Save" 
+                            update="form-add,:teacherReport-form" 
+                            actionListener="#{teacherReportBean.addReport}"
+                            id='btn-save-report'
+                            oncomplete="PF('dlgAddReport').hide()"
+                            />
+                    
+                </h:form>
+            </p:dialog>  
+                
+                <p:dialog header="Update" widgetVar="dlgUpdateReport" modal="true" showEffect="fade" resizable="false">
+                    <h:form id="form-update" >
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                        <p:panelGrid columns="6" columnClasses="column" id="updateReport">                            
+
+                        <p:outputLabel value="Teacher Id" for="idTeacher" />
+                        <p:outputLabel value="Assignment Id" for="idAssignment" />
+                        <p:outputLabel value="Course Id" for="idCourse" />
+                        <p:outputLabel value="Teacher Name" for="nameTeacher" />
+                        <p:outputLabel value="Teacher Last Name" for="lastNameTeacher" />
+                        <p:outputLabel value="Asignment Name" for="nameAssignment" />
+                        <p:outputLabel value="Course Name" for="lastNameTeacher" />
+
+                        
+                        <p:inputText id="idTeacher" value="#{teacherReportBean.teacherReport.idTeacher}"  style="text-transform: none" />
+                        <p:inputText id="idAssignment" value="#{teacherReportBean.teacherReport.idAssignment}"  style="text-transform: none" />
+                        <p:inputText id="idCourse" value="#{teacherReportBean.teacherReport.idCourse}"  style="text-transform: none" />
+                        <p:inputText id="nameTeacher" value="#{teacherReportBean.teacherReport.nameTeacher}"  style="text-transform: none" />
+                        <p:inputText id="lastNameTeacher" value="#{teacherReportBean.teacherReport.lastNameTeacher}"  style="text-transform: none" />
+                        <p:inputText id="nameAssignment" value="#{teacherReportBean.teacherReport.nameAssignment}"  style="text-transform: none" />
+                        <p:inputText id="lastNameTeacher" value="#{teacherReportBean.teacherReport.lastNameTeacher}"  style="text-transform: none" />
+
+
+                            <p:commandButton 
+                                value="Save" 
+                                actionListener="#{teacherReportBean.updateReport()}"
+                                id="btn-update-report"
+                                update="form-update,:teacher-form" 
+                                oncomplete="PF('dlgUpdateReport').hide()"
+                                />
+                        </p:panelGrid>
+
+
+                    </h:form>	
+
+                </p:dialog>
+            
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
