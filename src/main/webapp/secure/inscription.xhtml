@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:body>
+        <ui:composition template="/template/base.xhtml">
+            <ui:define name="content">
+
+                <h:form id="list-form">
+
+                    <p:growl id="msgs" showDetail="true" />
+                    <div class="card">
+                        <p:dataTable id="dtInscription" var="student" value="#{inscriptionBean.inscriptiontList}"
+
+                                     rows="10" paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     selection="#{inscriptionBean.inscription}" rowKey="#{inscriptionBean.inscription.idInscription}"
+                                     selectionMode="single">
+
+                            <p:column headerText="ID">
+                                <h:outputText value="#{inscriptionBean.inscription.idInscription}" />
+                            </p:column>
+
+                            <p:column headerText="STUDENT">
+                                <h:outputText value="#{inscriptionBean.inscription.nameStudent}" />
+                            </p:column>
+
+                            <p:column headerText="COURSE">
+                                <h:outputText value="#{inscriptionBean.inscription.nameCourse}" />
+                            </p:column>
+
+                            <p:column headerText="ASSIGNMENT">
+                                <h:outputText value="#{inscriptionBean.inscription.nameAssignment}" />
+                            </p:column>
+
+                            <f:facet name="footer">
+
+                                <p:commandButton process="dtInscription" icon="ui-icon-document" update=":form-inscription" 
+                                                 value="NEW" oncomplete="PF('dlgInscription').show()" />
+
+                            </f:facet>
+                        </p:dataTable>
+                    </div>
+                </h:form> 
+
+                <p:dialog header="Complete Inscription" widgetVar="dlgInscription"
+                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+
+                    <h:form id="form-inscription">
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+
+                            <p:outputLabel for="@next" value="SELECT COURSE" />
+                            <p:selectOneMenu id="course" value="#{courseBean.course}" converter="#{courseConverter}" panelStyle="width:300px"
+                                             effect="fade" var="t" style="width:300px" filter="true" filterMatchMode="startsWith">
+                                <f:selectItems value="#{courseBean.courseList}" var="theme" itemLabel="#{courseBean.course.courseName}" itemValue="#{courseName}" />
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Name"/>
+                                    </f:facet>
+                                    <h:outputText value="#{t.courseName}" />
+                                </p:column>
+
+                            </p:selectOneMenu>
+
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+
+                            <p:outputLabel for="@next" value="SELECT ASSIGNMENT" />
+                            <p:selectOneMenu id="assignment" value="#{assignmentBean.assignment}" converter="#{assignmentConverter}" panelStyle="width:300px"
+                                             effect="fade" var="t" style="width:300px" filter="true" filterMatchMode="startsWith">
+                                <f:selectItems value="#{assignmentBean.assignmentList}" var="theme" itemLabel="#{assignmentBean.assignment.nameAssignment}" itemValue="#{nameAssignment}" />
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Name"/>
+                                    </f:facet>
+                                    <h:outputText value="#{t.nameAssignment}" />
+                                </p:column>
+
+                            </p:selectOneMenu>
+
+                        </h:panelGrid>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+
+</html>
+
+
