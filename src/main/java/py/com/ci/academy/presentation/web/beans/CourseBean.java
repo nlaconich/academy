@@ -54,7 +54,7 @@ public class CourseBean implements Serializable {
         this.course = course;
     }
 
-    ///C R U D
+    //---------C R U D
     public void addCourse() {
         courseManager.addCourse(course);
         init();
@@ -84,7 +84,7 @@ public class CourseBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    ///TABLE MANAGEMENT
+    //---------TABLE MANAGEMENT
     public void onRowSelected(SelectEvent event) {
         this.course = (Course) event.getObject();
 
