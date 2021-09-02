@@ -110,6 +110,7 @@ public class CourseUI {
         System.out.println("Insert new Teacher Id");
         int teacherId = sc.nextInt();
 
+        course.setCourseId(id);
         course.setCourseName(nameCourse);
         course.setTeacherId(teacherId);
 

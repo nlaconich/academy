@@ -10,6 +10,8 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+   
 
     <h:body>
         <ui:composition template="/template/base.xhtml">
@@ -50,15 +52,15 @@ and open the template in the editor.
                             </p:column>
                             <f:facet name="footer">
                                 <p:commandButton process="dtStudent" icon="ui-icon-document" update=":form-update" 
-                                                 value="Update" oncomplete="PF('dlgStudentUpdate').show()"  />
+                                                 value="UPDATE" oncomplete="PF('dlgStudentUpdate').show()" />
                                 <p:commandButton process="dtStudent" icon="ui-icon-document" update=":form-add" 
-                                                 value="Add" oncomplete="PF('dlgStudentAdd').show()"  />
+                                                 value="NEW" oncomplete="PF('dlgStudentAdd').show()"  />
                                 <p:commandButton 
-                                    value="Delete" 
+                                    value="DELETE" 
                                     update="student-form" 
                                     actionListener="#{studentBean.deleteStudent()}"
                                     id="btn-delete-student"
-                                    onclick="return confirm('Are you sure?')"/>
+                                    onclick="return confirm('DELETE STUDENT?')"/>
 
                             </f:facet>
                             <p:ajax event="rowSelect" listener="#{studentBean.onSelect}"  />
