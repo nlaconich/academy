@@ -40,7 +40,7 @@ and open the template in the editor.
                             <p:column headerText="Id Assignment">
                                 <h:outputText value="#{courseA.idAssignment}"/>
                             </p:column>
-                            
+
                             <p:column headerText="Name Assignment">
                                 <h:outputText value="#{courseA.nameAssignment}"/>
                             </p:column>
@@ -51,7 +51,7 @@ and open the template in the editor.
                                 <p:commandButton 
                                     value="Delete" 
                                     update="courseAssignment-form" 
-                                    actionListener="#{courseBean.deleteCourse()}"
+                                    actionListener="#{courseAssignmentBean.deleteCourseAssignment()}"
                                     id="btn-delete-courseAssignment">
                                 </p:commandButton>                       
                             </p:column>
@@ -71,17 +71,23 @@ and open the template in the editor.
                         <p:outputLabel value="Id Assignment" for="assignmentId" />
 
                         <h:inputHidden id="courseAssignmentId" value="#{courseAssignmentBean.courseAssignment.idCourseAssignment}"/>
-                        <p:inputText id="courseId" required="true" value="#{courseAssignmentBean.courseAssignment.idCourse}"  style="text-transform: none" />
+
+                        <p:selectOneMenu id="courseId" value="#{courseAssignmentBean.courseAssignment.idCourse}" >
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItems value="#{courseAssignmentBean.courseList}" var="co" 
+                                           itemValue="#{co.courseId}" itemLabel="#{co.courseName}" />
+                        </p:selectOneMenu>
+
                         <p:selectOneMenu id="assignmentId" value="#{courseAssignmentBean.courseAssignment.idAssignment}" >
                             <f:selectItem itemLabel="Select One" itemValue="" />
-                            <f:selectItems value="#{courseAssignmentBean.courseAssignmentList}" var="ca" 
+                            <f:selectItems value="#{courseAssignmentBean.assignmentList}" var="ca" 
                                            itemValue="#{ca.idAssignment}" itemLabel="#{ca.nameAssignment}" />
                         </p:selectOneMenu>
 
                         <p:commandButton 
                             value="Save" 
                             update="form-add,:courseAssignment-form" 
-                            actionListener="#{courseBean.addCourse()}"
+                            actionListener="#{courseAssignmentBean.addCourseAssignment()}"
                             id='btn-save-courseAssignment'
                             />
                     </p:panelGrid>
@@ -93,20 +99,27 @@ and open the template in the editor.
                         <p:messages id="messages" showDetail="true" autoUpdate="true" />
                         <p:panelGrid columns="3" columnClasses="column" id="updateCourse">                            
 
-                            <p:outputLabel value="Name Course" for="courseName" />
-                            <p:outputLabel value="Id Teacher" for="teacherId" />
+                            <p:outputLabel value="Id Course" for="courseId" />
+                            <p:outputLabel value="Id Assignment" for="assignmentId" />
 
-                            <h:inputHidden id="courseId" required="true" value="#{courseBean.course.courseId}"/>
-                            <p:inputText id="courseName" required="true" value="#{courseBean.course.courseName}" style="text-transform: none" />
-                            <p:selectOneMenu id="teacherId" value="#{courseBean.course.teacherId}" >
+                            <h:inputHidden id="courseAssignmentId" value="#{courseAssignmentBean.courseAssignment.idCourseAssignment}"/>
+
+                            <p:selectOneMenu id="courseId" value="#{courseAssignmentBean.courseAssignment.idCourse}" >
                                 <f:selectItem itemLabel="Select One" itemValue="" />
-                                <f:selectItems value="#{courseBean.teacherList}" />
+                                <f:selectItems value="#{courseAssignmentBean.courseList}" var="co" 
+                                               itemValue="#{co.courseId}" itemLabel="#{co.courseName}" />
+                            </p:selectOneMenu>
+
+                            <p:selectOneMenu id="assignmentId" value="#{courseAssignmentBean.courseAssignment.idAssignment}" >
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{courseAssignmentBean.assignmentList}" var="ca" 
+                                               itemValue="#{ca.idAssignment}" itemLabel="#{ca.nameAssignment}" />
                             </p:selectOneMenu>
 
                             <p:commandButton 
                                 value="Save" 
-                                actionListener="#{courseBean.updateCourse()}"
-                                id="btn-update-course"
+                                actionListener="#{courseAssignmentBean.updateCourseAssignment()}"
+                                id="btn-update-courseAssignment"
                                 update="form-update,:courseAssignment-form" 
                                 oncomplete="PF('dlgCourseAssignmentUpdate').hide()"
                                 />

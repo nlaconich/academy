@@ -9,6 +9,10 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
+import py.com.ci.academy.assignment.boundary.AssignmentManager;
+import py.com.ci.academy.assignment.entities.Assignment;
+import py.com.ci.academy.course.boundary.CourseManager;
+import py.com.ci.academy.course.entities.Course;
 import py.com.ci.academy.courseassignment.boundary.CourseAssignmentManager;
 import py.com.ci.academy.courseassignment.entities.CourseAssignment;
 
@@ -16,6 +20,14 @@ import py.com.ci.academy.courseassignment.entities.CourseAssignment;
 @SessionScoped
 public class CourseAssignmentBean implements Serializable {
 
+    Course course;
+    CourseManager courseManager;
+    List<Course> courseList;
+    
+    Assignment assignment;
+    AssignmentManager assignmentManager;
+    List<Assignment> assignmentList;
+    
     CourseAssignment courseAssignment;
     CourseAssignmentManager courseAssignmentManager;
     List<CourseAssignment> courseAssignmentList;
@@ -25,6 +37,14 @@ public class CourseAssignmentBean implements Serializable {
         courseAssignment = new CourseAssignment();
         courseAssignmentManager = new CourseAssignmentManager();
         courseAssignmentList = courseAssignmentManager.getAll();
+        
+        course = new Course();
+        courseManager = new CourseManager();
+        courseList = courseManager.getAll();
+        
+        assignment = new Assignment();
+        assignmentManager = new AssignmentManager();
+        assignmentList = assignmentManager.getAll();
 
         logAssignmentC();
         RequestContext.getCurrentInstance().update("courseAssignment-form:dtCourseAssignment");
@@ -36,6 +56,38 @@ public class CourseAssignmentBean implements Serializable {
         } else {
             System.out.println("CourseassignmentBean  - init > no result fount");
         }
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(List<Course> courseList) {
+        this.courseList = courseList;
+    }
+
+    public Assignment getAssignment() {
+        return assignment;
+    }
+
+    public void setAssignment(Assignment assignment) {
+        this.assignment = assignment;
+    }
+
+    public List<Assignment> getAssignmentList() {
+        return assignmentList;
+    }
+
+    public void setAssignmentList(List<Assignment> assignmentList) {
+        this.assignmentList = assignmentList;
     }
 
     public CourseAssignment getCourseAssignment() {
@@ -57,14 +109,17 @@ public class CourseAssignmentBean implements Serializable {
     //------------CRUD
     public void addCourseAssignment() {
         courseAssignmentManager.addCourseAssignment(courseAssignment);
+        init();
     }
 
     public void updateCourseAssignment() {
         courseAssignmentManager.updateCourseAssignment(courseAssignment);
+        init();
     }
 
     public void deleteCourseAssignment() {
         courseAssignmentManager.deleteCourseAssignment(courseAssignment);
+        init();
     }
 
     //------------TABLE MANAGEMENT
