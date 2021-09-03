@@ -67,9 +67,12 @@ and open the template in the editor.
                         <p:outputLabel value="Name Course" for="nameCourse" />
                         <p:outputLabel value="Teacher Id" for="teacherId" />
 
-                        <h:inputHidden value="#{courseBean.course.courseId}"/>
+                        <h:inputHidden id="courseIdId" value="#{courseBean.course.courseId}"/>
                         <p:inputText id="nameCourse" required="true" value="#{courseBean.course.courseName}"  style="text-transform: none" />
-                        <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none" />
+                        <p:selectOneMenu id="teacherId" value="#{courseBean.course.teacherId}" >
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItems value="#{courseBean.teacherList}" />
+                        </p:selectOneMenu>
 
                         <p:commandButton 
                             value="Save" 
@@ -91,8 +94,10 @@ and open the template in the editor.
 
                             <h:inputHidden id="courseId" required="true" value="#{courseBean.course.courseId}"/>
                             <p:inputText id="courseName" required="true" value="#{courseBean.course.courseName}" style="text-transform: none" />
-                            <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none" />
-
+                            <p:selectOneMenu id="teacherId" value="#{courseBean.course.teacherId}" >
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{courseBean.teacherList}" />
+                            </p:selectOneMenu>
 
                             <p:commandButton 
                                 value="Save" 

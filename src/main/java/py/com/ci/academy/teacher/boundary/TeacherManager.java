@@ -100,5 +100,38 @@ public class TeacherManager {
             return 0;
         }
     }
+    
+    /////// GET TEACHERS ID
 
+     public String getStatementId() {
+        String statement = "SELECT id_teacher FROM public.teacher;";
+        return statement;
+    }
+     
+     public Integer getFromRsTeacherId(ResultSet rs) {
+        try {
+            int data=(rs.getInt("id_teacher"));
+            return data;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+      
+    public List<Integer> getTeacherId() {
+        List<Integer> listTeacher = new ArrayList();
+        try (PreparedStatement s1 = ConnectionManager.getConnection()
+                .prepareStatement(getStatement())) {
+            s1.setMaxRows(100);
+            try (ResultSet rs = s1.executeQuery()) {
+                while (rs.next()) {
+                    listTeacher.add(getFromRsTeacherId(rs));
+                }
+            }
+            return listTeacher;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Collections.EMPTY_LIST;
+        }
+    }
 }
