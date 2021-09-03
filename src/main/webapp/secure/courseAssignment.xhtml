@@ -16,75 +16,79 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="/template/base.xhtml">
             <ui:define name="content">
-                <h:form id="course-form">
+                <h:form id="courseAssignment-form">
 
                     <div class="card">
-                        <p:dataTable id="dtCourse" var="course" value="#{courseBean.courseList}"
+                        <p:dataTable id="dtCourseAssignment" var="courseA" value="#{courseAssignmentBean.courseAssignmentList}"
                                      rows="10" paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15"
-                                     selection="#{courseBean.course}" rowKey="#{course.courseId}"
+                                     selection="#{courseAssignmentBean.courseAssignment}" rowKey="#{courseA.idCourseAssignment}"
                                      selectionMode="single">
-                            <p:column headerText="Id Course">
-                                <h:outputText id="courseId" value="#{course.courseId}"/>
+                            <p:column headerText="Id Course/Assignment">
+                                <h:outputText id="courseAssignmentId" value="#{courseA.idCourseAssignment}"/>
                             </p:column>
 
-                            <p:column headerText="Name Course"> 
-                                <h:outputText id="courseName" value="#{course.courseName}"/>
+                            <p:column headerText="Id Course"> 
+                                <h:outputText id="courseId" value="#{courseA.idCourse}"/>
                             </p:column>
 
-                            <p:column headerText="Id Teacher">
-                                <h:outputText id="teacherId" value="#{course.teacherId}"/>
+                            <p:column headerText="Name Course">
+                                <h:outputText id="courseName" value="#{courseA.nameCourse}"/>
                             </p:column>
 
-                            <p:column headerText="Name Teacher">
-                                <h:outputText value="#{course.teacherName}"/>
+                            <p:column headerText="Id Assignment">
+                                <h:outputText value="#{courseA.idAssignment}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Name Assignment">
+                                <h:outputText value="#{courseA.nameAssignment}"/>
                             </p:column>
 
                             <p:column headerText="Actions">
-                                <p:commandButton process="dtCourse" icon="ui-icon-document" update=":form-update:updateCourse" 
-                                                 value="Update"  oncomplete="PF('dlgCourseUpdate').show()"/>
+                                <p:commandButton process="dtCourseAssignment" icon="ui-icon-document" update=":form-update:updateCourse" 
+                                                 value="Update"  oncomplete="PF('dlgCourseAssignmentUpdate').show()"/>
                                 <p:commandButton 
                                     value="Delete" 
-                                    update="course-form" 
+                                    update="courseAssignment-form" 
                                     actionListener="#{courseBean.deleteCourse()}"
-                                    id="btn-delete-course">
+                                    id="btn-delete-courseAssignment">
                                 </p:commandButton>                       
                             </p:column>
 
-                            <p:ajax event="rowSelect" listener="#{courseBean.onRowSelected}"  />
-
+                            <p:ajax event="rowSelect" listener="#{courseAssignmentBean.onRowSelected}"  />
                         </p:dataTable>
                     </div>
                 </h:form>
 
 
-                <h5>Add course</h5>
+                <h5>Add course/assignment</h5>
                 <h:form id="form-add">
                     <p:messages id="messages" showDetail="true" autoUpdate="true" />
-                    <p:panelGrid columns="3" columnClasses="column" id="addCourse">                            
+                    <p:panelGrid columns="3" columnClasses="column" id="addCourseAssignment">                            
 
-                        <p:outputLabel value="Name Course" for="nameCourse" />
-                        <p:outputLabel value="Teacher Id" for="teacherId" />
+                        <p:outputLabel value="Id Course" for="courseId" />
+                        <p:outputLabel value="Id Assignment" for="assignmentId" />
 
-                        <h:inputHidden id="courseIdId" value="#{courseBean.course.courseId}"/>
-                        <p:inputText id="nameCourse" required="true" value="#{courseBean.course.courseName}"  style="text-transform: none" />
-                        <p:selectOneMenu id="teacherId" value="#{courseBean.course.teacherId}" >
+                        <h:inputHidden id="courseAssignmentId" value="#{courseAssignmentBean.courseAssignment.idCourseAssignment}"/>
+                        <p:inputText id="courseId" required="true" value="#{courseAssignmentBean.courseAssignment.idCourse}"  style="text-transform: none" />
+                        <p:selectOneMenu id="assignmentId" value="#{courseAssignmentBean.courseAssignment.idAssignment}" >
                             <f:selectItem itemLabel="Select One" itemValue="" />
-                            <f:selectItems value="#{courseBean.teacherList}" />
+                            <f:selectItems value="#{courseAssignmentBean.courseAssignmentList}" var="ca" 
+                                           itemValue="#{ca.idAssignment}" itemLabel="#{ca.nameAssignment}" />
                         </p:selectOneMenu>
 
                         <p:commandButton 
                             value="Save" 
-                            update="form-add,:course-form" 
+                            update="form-add,:courseAssignment-form" 
                             actionListener="#{courseBean.addCourse()}"
-                            id='btn-save-course'
+                            id='btn-save-courseAssignment'
                             />
                     </p:panelGrid>
                 </h:form>               	
 
 
-                <p:dialog header="Update" widgetVar="dlgCourseUpdate" modal="true" showEffect="fade" resizable="false" width="450px">
+                <p:dialog header="Update" widgetVar="dlgCourseAssignmentUpdate" modal="true" showEffect="fade" resizable="false">
                     <h:form id="form-update" >
                         <p:messages id="messages" showDetail="true" autoUpdate="true" />
                         <p:panelGrid columns="3" columnClasses="column" id="updateCourse">                            
@@ -103,8 +107,8 @@ and open the template in the editor.
                                 value="Save" 
                                 actionListener="#{courseBean.updateCourse()}"
                                 id="btn-update-course"
-                                update="form-update,:course-form" 
-                                oncomplete="PF('dlgCourseUpdate').hide()"
+                                update="form-update,:courseAssignment-form" 
+                                oncomplete="PF('dlgCourseAssignmentUpdate').hide()"
                                 />
                         </p:panelGrid>
 
