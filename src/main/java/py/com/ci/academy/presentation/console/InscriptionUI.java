@@ -6,8 +6,6 @@ import py.com.ci.academy.inscription.entities.Inscription;
 
 import java.util.List;
 import java.util.Scanner;
-import py.com.ci.academy.account.boundary.AccountManager;
-import py.com.ci.academy.account.entities.Account;
 
 public class InscriptionUI {
     Scanner sc = new Scanner(System.in);
@@ -56,11 +54,10 @@ public class InscriptionUI {
     }
 
     public void listAllInscriptions() {
-        AccountManager managerAccount= new AccountManager();
-        List<Account> accounts = managerAccount.getAll();
-        if (!accounts.isEmpty()) {
-            for (Account account : accounts) {
-                System.out.println(account);
+        List<Inscription> inscriptions = manager.getAll();
+        if (!inscriptions.isEmpty()) {
+            for (Inscription inscription : inscriptions) {
+                System.out.println(inscription);
             }
         } else {
             System.out.println("No inscription found");
