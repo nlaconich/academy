@@ -79,7 +79,7 @@ public class AccountManager {
 
     public int updateById(Account account) {
         int rows = 0;
-        String sql = "UPDATE public.accounts SET status=?, remark=?,date=? WHERE id_account=?";
+        String sql = "UPDATE public.accounts SET status=?, remark=?,date_account=? WHERE id_account=?";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
             s1.setString(1, account.getStatus());
             s1.setString(2, account.getRemark());
