@@ -65,14 +65,15 @@ and open the template in the editor.
                     <p:panelGrid columns="3" columnClasses="column" id="addCourse">                            
 
                         <p:outputLabel value="Name Course" for="nameCourse" />
-                        <p:outputLabel value="Teacher Id" for="teacherId" />
+                        <p:outputLabel value="Name Teacher" for="teacherId" />
 
                         <h:inputHidden id="courseIdId" value="#{courseBean.course.courseId}"/>
                         <p:inputText id="nameCourse" required="true" value="#{courseBean.course.courseName}"  style="text-transform: none" />
                         <p:selectOneMenu id="teacherId" value="#{courseBean.course.teacherId}" >
-                            <f:selectItem itemLabel="Select One" itemValue="" />
-                            <f:selectItems value="#{courseBean.teacherList}" />
-                        </p:selectOneMenu>
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{courseBean.teacherList}" var="teacher" 
+                                               itemValue="#{teacher.idTeacher}" itemLabel="#{teacher.nameTeacher} #{teacher.lastName}" />
+                            </p:selectOneMenu>
 
                         <p:commandButton 
                             value="Save" 
@@ -90,13 +91,14 @@ and open the template in the editor.
                         <p:panelGrid columns="3" columnClasses="column" id="updateCourse">                            
 
                             <p:outputLabel value="Name Course" for="courseName" />
-                            <p:outputLabel value="Id Teacher" for="teacherId" />
+                            <p:outputLabel value="Name Teacher" for="teacherId" />
 
                             <h:inputHidden id="courseId" required="true" value="#{courseBean.course.courseId}"/>
                             <p:inputText id="courseName" required="true" value="#{courseBean.course.courseName}" style="text-transform: none" />
                             <p:selectOneMenu id="teacherId" value="#{courseBean.course.teacherId}" >
                                 <f:selectItem itemLabel="Select One" itemValue="" />
-                                <f:selectItems value="#{courseBean.teacherList}" />
+                                <f:selectItems value="#{courseBean.teacherList}" var="teacher" 
+                                               itemValue="#{teacher.idTeacher}" itemLabel="#{teacher.nameTeacher} #{teacher.lastName}" />
                             </p:selectOneMenu>
 
                             <p:commandButton 

@@ -20,7 +20,7 @@ import py.com.ci.academy.teacher.entities.Teacher;
 public class CourseBean implements Serializable {
     
     
-    private List<Integer> teacherList;
+    private List<Teacher> teacherList;
     private Teacher teacher;
     private TeacherManager teacherManager;
     
@@ -36,7 +36,7 @@ public class CourseBean implements Serializable {
         
         teacher= new Teacher();
         teacherManager= new TeacherManager();
-        teacherList= teacherManager.getTeacherId();
+        teacherList= teacherManager.getAll();
         
         logCourses();
         RequestContext.getCurrentInstance().update("course-form:dtCourse");
@@ -50,16 +50,16 @@ public class CourseBean implements Serializable {
         }
     }
 
-    public List<Integer> getTeacherList() {
+    public List<Teacher> getTeacherList() {
         return teacherList;
     }
 
-    public void setTeacherList(List<Integer> teacherList) {
+    public void setTeacherList(List<Teacher> teacherList) {
         this.teacherList = teacherList;
     }
-
     
-
+    
+    
     public Teacher getTeacher() {
         return teacher;
     }
