@@ -3,8 +3,6 @@ package py.com.ci.academy.presentation.console;
 
 import py.com.ci.academy.course.boundary.CourseReportManager;
 import py.com.ci.academy.course.entities.CourseReport;
-import py.com.ci.academy.presentation.console.CourseUI;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
