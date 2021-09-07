@@ -6,8 +6,11 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 import py.com.ci.academy.assignment.boundary.*;
 import py.com.ci.academy.assignment.entities.Assignment;
+import py.com.ci.academy.courseassignment.boundary.CourseAssignmentManager;
+
 /**
  *
  * @author CI-IAcosta
@@ -16,24 +19,36 @@ import py.com.ci.academy.assignment.entities.Assignment;
 @SessionScoped
 public class AssignmentBean implements Serializable {
 
-    private AssignmentManager  assignmentManager;
+    private AssignmentManager assignmentManager;
     private Assignment assignment;
     private List<Assignment> assignmentList;
+    private CourseAssignmentManager cxa;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         assignmentManager = new AssignmentManager();
         assignmentList = assignmentManager.getAll();
-        assignment  = new Assignment();
+        assignment = new Assignment();
+        cxa = new CourseAssignmentManager();
         logAssigments();
 
     }
 
+    @Inject
+    private CourseBean courseBean;
+
+    public void completarLista() {
+
+        assignmentList = cxa.getAssignmentByIdCourse(courseBean.getCourse().getCourseId());
+
+    }
+
     private void logAssigments() {
-        if ( assignmentList != null && !assignmentList.isEmpty())
-        System.out.println("AssignmentBean  - init > "+ assignmentList.size());
-        else
+        if (assignmentList != null && !assignmentList.isEmpty()) {
+            System.out.println("AssignmentBean  - init > " + assignmentList.size());
+        } else {
             System.out.println("AssignmentBean  - init > no result found");
+        }
     }
 
     public List<Assignment> getAssignmentList() {
@@ -51,9 +66,10 @@ public class AssignmentBean implements Serializable {
     public void setAssignment(Assignment assignment) {
         this.assignment = assignment;
     }
-   public void agregarAssigment() {
-    assignmentManager.addAssignment(assignment);   
-    init();
-        
+
+    public void agregarAssigment() {
+        assignmentManager.addAssignment(assignment);
+        init();
+
     }
 }
