@@ -39,7 +39,7 @@ public class CourseBean implements Serializable {
         teacherList= teacherManager.getTeacherId();
         
         logCourses();
-        RequestContext.getCurrentInstance().update("course-form:dtCourse");
+//        RequestContext.getCurrentInstance().update("course-form:dtCourse");
     }
 
     public void logCourses() {

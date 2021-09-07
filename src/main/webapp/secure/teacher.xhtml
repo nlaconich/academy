@@ -48,6 +48,10 @@ and open the template in the editor.
                             </p:column>
                             
                             <p:column headerText="Actions">
+                                
+                                <p:commandButton process="dtTeachers" icon="ui-icon-document" update=":form-update:updateTeacher" 
+                                                 value="Update" oncomplete="PF('dlgTeacherUpdate').show()"  />
+                                
                                 <p:commandButton 
                                     value="Delete" 
                                     update="teacher-form" 
@@ -56,17 +60,16 @@ and open the template in the editor.
                                 </p:commandButton>  
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton process="dtTeachers" icon="ui-icon-document" update=":form-update:updateTeacher" 
-                                                 value="Update" oncomplete="PF('dlgTeacherUpdate').show()"  />
-                                <p:commandButton process="dtTeachers" icon="ui-icon-document" update=":form-update" 
-                                                 value="LogSelectedTeacher" actionListener="#{teacherBean.logSelectedTheacher}" />
+                                
+                                <p:commandButton process="dtTeachers" icon="ui-icon-document" update=":form-add:addTeacher" 
+                                                 value="Add" oncomplete="PF('dlgTeacherAdd').show()"  />
                                 
                             </f:facet>
                             <p:ajax event="rowSelect" listener="#{teacherBean.alSeleccionarFila}"  />
                         </p:dataTable>
                     </div>
                 </h:form> 
-
+                <p:dialog header="Add" widgetVar="dlgTeacherAdd" modal="true" showEffect="fade" resizable="false">
                 <h5>Add Teacher</h5>
                 <h:form id="form-add">
                     <p:messages id="messages" showDetail="true" autoUpdate="true" />
@@ -90,9 +93,11 @@ and open the template in the editor.
                             update="form-add,:teacher-form" 
                             actionListener="#{teacherBean.addTeacher}"
                             id='btn-save-teacher'
+                            oncomplete="PF('dlgTeacherAdd').hide()"
                             />
                     </p:panelGrid>
                 </h:form>
+                </p:dialog>
                 <p:dialog header="Update" widgetVar="dlgTeacherUpdate" modal="true" showEffect="fade" resizable="false">
                     <h:form id="form-update" >
                         <p:messages id="messages" showDetail="true" autoUpdate="true" />
