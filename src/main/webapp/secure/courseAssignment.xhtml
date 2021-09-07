@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template/base.xhtml">
+            <ui:define name="content">
+                <h:form id="courseAssignment-form">
+
+                    <div class="card">
+                        <p:dataTable id="dtCourseAssignment" var="courseA" value="#{courseAssignmentBean.courseAssignmentList}"
+                                     rows="10" paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     selection="#{courseAssignmentBean.courseAssignment}" rowKey="#{courseA.idCourseAssignment}"
+                                     selectionMode="single">
+                            <p:column headerText="Id Course/Assignment">
+                                <h:outputText id="courseAssignmentId" value="#{courseA.idCourseAssignment}"/>
+                            </p:column>
+
+                            <p:column headerText="Id Course"> 
+                                <h:outputText id="courseId" value="#{courseA.idCourse}"/>
+                            </p:column>
+
+                            <p:column headerText="Name Course">
+                                <h:outputText id="courseName" value="#{courseA.nameCourse}"/>
+                            </p:column>
+
+                            <p:column headerText="Id Assignment">
+                                <h:outputText value="#{courseA.idAssignment}"/>
+                            </p:column>
+
+                            <p:column headerText="Name Assignment">
+                                <h:outputText value="#{courseA.nameAssignment}"/>
+                            </p:column>
+
+                            <p:column headerText="Actions">
+                                <p:commandButton process="dtCourseAssignment" icon="ui-icon-document" update=":form-update:updateCourse" 
+                                                 value="Update"  oncomplete="PF('dlgCourseAssignmentUpdate').show()"/>
+                                <p:commandButton 
+                                    value="Delete" 
+                                    update="courseAssignment-form" 
+                                    actionListener="#{courseAssignmentBean.deleteCourseAssignment()}"
+                                    id="btn-delete-courseAssignment">
+                                </p:commandButton>                       
+                            </p:column>
+
+                            <p:ajax event="rowSelect" listener="#{courseAssignmentBean.onRowSelected}"  />
+                        </p:dataTable>
+                    </div>
+                </h:form>
+
+
+                <h5>Add course/assignment</h5>
+                <h:form id="form-add">
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                    <p:panelGrid columns="3" columnClasses="column" id="addCourseAssignment">                            
+
+                        <p:outputLabel value="Id Course" for="courseId" />
+                        <p:outputLabel value="Id Assignment" for="assignmentId" />
+
+                        <h:inputHidden id="courseAssignmentId" value="#{courseAssignmentBean.courseAssignment.idCourseAssignment}"/>
+
+                        <p:selectOneMenu id="courseId" value="#{courseAssignmentBean.courseAssignment.idCourse}" >
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItems value="#{courseAssignmentBean.courseList}" var="co" 
+                                           itemValue="#{co.courseId}" itemLabel="#{co.courseName}" />
+                        </p:selectOneMenu>
+
+                        <p:selectOneMenu id="assignmentId" value="#{courseAssignmentBean.courseAssignment.idAssignment}" >
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItems value="#{courseAssignmentBean.assignmentList}" var="ca" 
+                                           itemValue="#{ca.idAssignment}" itemLabel="#{ca.nameAssignment}" />
+                        </p:selectOneMenu>
+
+                        <p:commandButton 
+                            value="Save" 
+                            update="form-add,:courseAssignment-form" 
+                            actionListener="#{courseAssignmentBean.addCourseAssignment()}"
+                            id='btn-save-courseAssignment'
+                            />
+                    </p:panelGrid>
+                </h:form>               	
+
+
+                <p:dialog header="Update" widgetVar="dlgCourseAssignmentUpdate" modal="true" showEffect="fade" resizable="false">
+                    <h:form id="form-update" >
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                        <p:panelGrid columns="3" columnClasses="column" id="updateCourse">                            
+
+                            <p:outputLabel value="Id Course" for="courseId" />
+                            <p:outputLabel value="Id Assignment" for="assignmentId" />
+
+                            <h:inputHidden id="courseAssignmentId" value="#{courseAssignmentBean.courseAssignment.idCourseAssignment}"/>
+
+                            <p:selectOneMenu id="courseId" value="#{courseAssignmentBean.courseAssignment.idCourse}" >
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{courseAssignmentBean.courseList}" var="co" 
+                                               itemValue="#{co.courseId}" itemLabel="#{co.courseName}" />
+                            </p:selectOneMenu>
+
+                            <p:selectOneMenu id="assignmentId" value="#{courseAssignmentBean.courseAssignment.idAssignment}" >
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{courseAssignmentBean.assignmentList}" var="ca" 
+                                               itemValue="#{ca.idAssignment}" itemLabel="#{ca.nameAssignment}" />
+                            </p:selectOneMenu>
+
+                            <p:commandButton 
+                                value="Save" 
+                                actionListener="#{courseAssignmentBean.updateCourseAssignment()}"
+                                id="btn-update-courseAssignment"
+                                update="form-update,:courseAssignment-form" 
+                                oncomplete="PF('dlgCourseAssignmentUpdate').hide()"
+                                />
+                        </p:panelGrid>
+
+
+                    </h:form>	
+
+                </p:dialog>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
