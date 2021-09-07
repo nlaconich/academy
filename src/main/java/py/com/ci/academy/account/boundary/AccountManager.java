@@ -1,20 +1,18 @@
 package py.com.ci.academy.account.boundary;
 
+import java.sql.Date;
 import py.com.ci.academy.account.entities.Account;
-import py.com.ci.academy.inscription.entities.Inscription;
 import py.com.ci.academy.utils.ConnectionManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
+
 
 public class AccountManager {
 
@@ -23,18 +21,11 @@ public class AccountManager {
         return statement;
     }
 
-
+//1 FUNCION ADD // CACHIBACHE!!
     public void addAccount(Account account) {
-
-        LocalDate expireDate[] = getDate();
-        account.setStatus("Pending");
-        account.setAmount(50000);
         String sql = "INSERT INTO public.accounts(date_account,remark,status,id_inscription,amount) VALUES (?,?,?,?,?)";
-
-        for (int i = 1; i < 7; i++) {
-            account.setExpireDate(expireDate[i]);
             try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-                s1.setDate(1, account.getExpireDate());
+                s1.setDate(1, (Date) account.getExpireDate());
                 s1.setString(2, account.getRemark());
                 s1.setString(3, account.getStatus());
                 s1.setInt(4, account.getIdInscription());
@@ -43,7 +34,6 @@ public class AccountManager {
             } catch (SQLException throwable) {
                 throwable.printStackTrace();
             }
-        }
 
     }
 
@@ -84,7 +74,7 @@ public class AccountManager {
             s1.setString(1, account.getStatus());
             s1.setString(2, account.getRemark());
             s1.setInt(3, account.getIdAccount());
-            s1.setDate(4, account.getExpireDate());
+            s1.setDate(4, new java.sql.Date(account.getExpireDate().getTime()));
             rows = s1.executeUpdate();
             return rows;
         } catch (SQLException throwable) {
@@ -116,7 +106,8 @@ public class AccountManager {
             data.setRemark(rs.getString("remark"));
             data.setStatus(rs.getString("status"));
             Date temporaryDate = rs.getDate("date_account");
-            data.setExpireDate(temporaryDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            java.util.Date utilDate = rs.getTimestamp("date_account");
+            data.setExpireDate(utilDate);
             return data;
         } catch (SQLException ex) {
             ex.printStackTrace();
