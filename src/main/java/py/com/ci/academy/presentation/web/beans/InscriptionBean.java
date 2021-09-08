@@ -66,7 +66,7 @@ public class InscriptionBean implements Serializable {
     }
 
     public List<Inscription> getInscriptiontList() {
-        return inscriptionManager.getAll();
+        return inscriptionList;
     }
 
     public void setInscriptionList(List<Inscription> studentList) {
