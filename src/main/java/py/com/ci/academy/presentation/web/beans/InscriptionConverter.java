@@ -25,13 +25,6 @@ public class InscriptionConverter implements Converter {
         return fromSelect(arg1, objectString);
     }
  
-    /**
-     * Serialize.
-     *
-     * @param object
-     *            the object
-     * @return the string
-     */
     private String serialize(final Object object) {
         if (object == null) {
             return null;

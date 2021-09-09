@@ -6,6 +6,7 @@
 package py.com.ci.academy.presentation.web.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -35,7 +36,7 @@ public class CourseAssignmentBean implements Serializable {
         courseAssignmentManager = new CourseAssignmentManager();
         courseAssignmentList = courseAssignmentManager.getAll();
         courseAssignment = new CourseAssignment();
-        assignmentList = assignmentManager.getAll();
+        assignmentList = new ArrayList<Assignment>();
         assignmentManager = new AssignmentManager();
         assignment = new Assignment();
     }

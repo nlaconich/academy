@@ -24,7 +24,7 @@ and open the template in the editor.
                                      rows="10" paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15"
-                                     selection="#{inscriptionBean.inscription}" rowKey="#{inscriptionBean.inscription.idInscription}"
+                                     selection="#{inscriptionBean.inscription}" rowKey="#{inscriptionBean.inscription.idStudent}"
                                      selectionMode="single">
 
                             <p:column headerText="ID">
@@ -80,7 +80,7 @@ and open the template in the editor.
                         <h:panelGrid id="pnlAssignment" columns="2" style="margin-bottom:10px" cellpadding="5">
 
                             <p:outputLabel for="@next" value="SELECT ASSIGNMENT" />
-                            <p:selectOneMenu id="assignment" value="#{courseAssignmentBean.courseAssignment}" converter="InscriptionConverter" panelStyle="width:300px"
+                            <p:selectOneMenu id="assignment" value="#{assignmentBean.assignment}" converter="InscriptionConverter" panelStyle="width:300px"
                                              effect="fade" style="width:300px" filter="true" filterMatchMode="startsWith">
                                 <f:selectItems value="#{courseAssignmentBean.assignmentList}" itemLabel="#{courseAssignmentBean.courseAssignment.nameAssignment}" itemValue="#{courseAssignmentBean.courseAssignment}" />
 
