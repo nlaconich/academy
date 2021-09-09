@@ -38,7 +38,7 @@ public class CourseAssignmentManager {
                 + "from public.courseassignment ca\n"
                 + "join public.\"assignment\" a on a.id_assignment = ca.id_assignment\n"
                 + "where ca.id_course = ?";
-        List<Assignment> courses = new ArrayList();
+        List<Assignment> assignmentList = new ArrayList();
         try (PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql)) {
             stmt.setInt(1, courseId);
             ResultSet rs = stmt.executeQuery();
@@ -46,11 +46,11 @@ public class CourseAssignmentManager {
                 Assignment courseAssignment = new Assignment();
                 courseAssignment.setIdAssignment(rs.getInt("id_assignment"));
                 courseAssignment.setNameAssignment(rs.getString("name_assignment"));
-                courses.add(courseAssignment);
+                assignmentList.add(courseAssignment);
             }
-            return courses;
+            return assignmentList;
         } catch (Exception e) {
-            return courses;
+            return assignmentList;
         }
     }
 
@@ -107,6 +107,6 @@ public class CourseAssignmentManager {
             throwables.printStackTrace();
             return false;
         }
-    }
+    }    
 
 }

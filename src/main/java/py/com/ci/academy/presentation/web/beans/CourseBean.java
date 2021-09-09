@@ -26,6 +26,7 @@ public class CourseBean implements Serializable {
         courseManager = new CourseManager();
         courseList = courseManager.getAll();
         course = new Course();
+        course.setCourseId(69);
         logCourses();
 //        RequestContext.getCurrentInstance().update("course-form:dtCourse");
     }

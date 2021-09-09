@@ -17,6 +17,7 @@ import org.primefaces.event.SelectEvent;
 import py.com.ci.academy.courseassignment.boundary.CourseAssignmentManager;
 import py.com.ci.academy.courseassignment.entities.CourseAssignment;
 import py.com.ci.academy.inscription.boundary.InscriptionManager;
+import py.com.ci.academy.inscription.controller.Controller;
 import py.com.ci.academy.inscription.entities.Inscription;
 
 /**
@@ -34,12 +35,14 @@ public class InscriptionBean implements Serializable {
     private List<Inscription> inscriptionList;
     private CourseAssignmentManager courseAssignmentManager;
     private CourseAssignment courseAssignment;
+    private Controller controller;
 
     @PostConstruct
     public void init() {
         inscriptionManager = new InscriptionManager();
         inscriptionList = inscriptionManager.getAll();
         inscription = new Inscription();
+        controller = new Controller();
         logInscription();
 
     }
@@ -51,10 +54,6 @@ public class InscriptionBean implements Serializable {
             System.out.println("StudentBean  - init > no result found");
         }
     }
-
-//    public String getAssignment() {
-//        return courseAssignment.();
-//    }
 
     public List<Inscription> getInscriptiontList() {
         return inscriptionManager.getAll();
