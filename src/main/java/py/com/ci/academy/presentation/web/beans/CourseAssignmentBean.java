@@ -9,12 +9,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import py.com.ci.academy.assignment.boundary.AssignmentManager;
 import py.com.ci.academy.assignment.entities.Assignment;
 import py.com.ci.academy.courseassignment.boundary.CourseAssignmentManager;
 import py.com.ci.academy.courseassignment.entities.CourseAssignment;
+import py.com.ci.academy.inscription.controller.InscriptionController;
 
 /**
  *
@@ -30,6 +33,7 @@ public class CourseAssignmentBean implements Serializable {
     private AssignmentManager assignmentManager;
     private List<Assignment> assignmentList;
     private Assignment assignment;
+    private InscriptionController inscriptionController;
 
     @PostConstruct
     public void init() {
@@ -39,10 +43,11 @@ public class CourseAssignmentBean implements Serializable {
         assignmentList = new ArrayList<Assignment>();
         assignmentManager = new AssignmentManager();
         assignment = new Assignment();
+        inscriptionController = new InscriptionController();
     }
 
     public void generateAssignmentList() {
-        this.assignmentList = courseAssignmentManager.getAssignmentByIdCourse(courseAssignment.getIdCourse());
+        assignmentList = inscriptionController.getAssignmentByIdCourse(courseAssignment.getIdCourse());
     }
 
     private void logAssigments() {

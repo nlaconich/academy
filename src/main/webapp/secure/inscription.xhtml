@@ -15,90 +15,94 @@ and open the template in the editor.
         <ui:composition template="/template/base.xhtml">
             <ui:define name="content">
 
-                <h:form id="list-form">
+                <h:form id="student-form">
 
                     <p:growl id="msgs" showDetail="true" />
                     <div class="card">
-                        <p:dataTable id="dtInscription" var="inscription" value="#{inscriptionBean.inscriptiontList}"
+                        <p:dataTable id="dtStudent" var="student" value="#{studentBean.studentList}"
 
                                      rows="10" paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15"
-                                     selection="#{inscriptionBean.inscription}" rowKey="#{inscriptionBean.inscription.idStudent}"
+                                     selection="#{studentBean.student}" rowKey="#{student.idStudent}"
                                      selectionMode="single">
-
-                            <p:column headerText="ID">
-                                <h:outputText value="#{inscription.idInscription}" />
+                            <p:column headerText="Student ID">
+                                <h:outputText value="#{student.idStudent}" />
                             </p:column>
 
-                            <p:column headerText="STUDENT">
-                                <h:outputText value="#{inscription.nameStudent}" />
+                            <p:column headerText="Name">
+                                <h:outputText value="#{student.name}" />
                             </p:column>
 
-                            <p:column headerText="COURSE">
-                                <h:outputText value="#{inscription.nameCourse}" />
+                            <p:column headerText="Last Name">
+                                <h:outputText value="#{student.lastName}" />
                             </p:column>
 
-                            <p:column headerText="ASSIGNMENT">
-                                <h:outputText value="#{inscription.nameAssignment}" />
+                            <p:column headerText="Cellphone">
+                                <h:outputText value="#{student.cellphone}" />
                             </p:column>
 
+                            <p:column headerText="Address">
+                                <h:outputText value="#{student.address}" />
+                            </p:column>
+
+                            <p:column headerText="Email">
+                                <h:outputText value="#{student.email}" />
+                            </p:column>
                             <f:facet name="footer">
-
-                                <p:commandButton process="dtInscription" icon="ui-icon-document" update=":form-inscription" 
-                                                 value="NEW" oncomplete="PF('dlgInscription').show()" />
-
+                                <p:commandButton process="dtStudent" icon="ui-icon-document" update=":form-inscription" 
+                                                 value="NEW INSCRIPTION" oncomplete="PF('dlgInscription').show()" />
                             </f:facet>
                         </p:dataTable>
                     </div>
                 </h:form> 
 
-                <p:dialog header="Complete Inscription" widgetVar="dlgInscription"
+                <p:dialog header="Inscription" widgetVar="dlgInscription"
                           modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-
                     <h:form id="form-inscription">
                         <p:messages id="messages" showDetail="true" autoUpdate="true" />
 
-                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                        <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
+
+                            <h:inputHidden value="#{studentBean.student.idStudent}"/>
+                            <p:outputLabel for="name" value="STUDENT"/>
+                            
+                            <p:inputText id="name" required="true" value="#{studentBean.student.name}" style="text-transform: none" />
 
                             <p:outputLabel for="@next" value="SELECT COURSE" />
                             <p:selectOneMenu id="course" value="#{courseBean.course}" converter="InscriptionConverter" panelStyle="width:300px"
                                              effect="fade" style="width:300px" filter="true" filterMatchMode="startsWith">
                                 <f:selectItems value="#{courseBean.courseList}" var="curso" itemLabel="#{curso.courseName}" itemValue="#{curso}" />
                                 <f:ajax event="change" listener="#{assignmentBean.generateAssignmentList()}" render="assignment" />
-                                <p:column>
+<!--                                <p:column>-->
                                     <f:facet name="header">
                                         <h:outputText value="Name"/>
                                     </f:facet>      
                                     <h:outputText value="#{curso.courseName}" />
-                                </p:column>
+<!--                                </p:column>-->
 
                             </p:selectOneMenu>
-
-                        </h:panelGrid>
-
-                        <h:panelGrid id="pnlAssignment" columns="2" style="margin-bottom:10px" cellpadding="5">
-
                             <p:outputLabel for="@next" value="SELECT ASSIGNMENT" />
                             <p:selectOneMenu id="assignment" value="#{assignmentBean.assignment}" converter="InscriptionConverter" panelStyle="width:300px"
                                              effect="fade" style="width:300px" filter="true" filterMatchMode="startsWith">
-                                <f:selectItems value="#{courseAssignmentBean.assignmentList}" itemLabel="#{courseAssignmentBean.courseAssignment.nameAssignment}" itemValue="#{courseAssignmentBean.courseAssignment}" />
+                                <f:selectItems value="#{assignmentBean.assignmentList}" var="asg" itemLabel="#{asg.nameAssignment}" itemValue="#{asg}" />
 
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="Name"/>
                                     </f:facet>
-                                    <h:outputText value="#{courseAssignmentBean.courseAssignment.nameAssignment}" />
+                                    <h:outputText value="#{asg.nameAssignment}" />
                                 </p:column>
 
                             </p:selectOneMenu>
 
                             <p:commandButton 
                                 value="SAVE"  
-                                actionListener="#{inscriptionBean.agregarInscription()}"
-                                update="list-form,:form-inscription"
-                                oncomplete="PF('dlgInscription').hide()"
+                                actionListener="#{inscriptionBean.newInscription()}"
+                                update=":form-inscription"
                                 id='btn-save-inscription'
+                                oncomplete="PF('dlgInscription').hide()"
+                                
                                 />
 
                         </h:panelGrid>

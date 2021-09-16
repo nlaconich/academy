@@ -30,7 +30,6 @@ public class AssignmentBean implements Serializable {
         assignmentList = assignmentManager.getAll();
         assignment = new Assignment();
         cxa = new CourseAssignmentManager();
-        logAssigments();
 
     }
     @Inject

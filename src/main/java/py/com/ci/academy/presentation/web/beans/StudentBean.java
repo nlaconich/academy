@@ -39,7 +39,6 @@ public class StudentBean implements Serializable {
         studentManager = new StudentManager();
         studentList = studentManager.getAll();
         student = new Student();
-        logStudent();
     }
 
     private void logStudent() {
