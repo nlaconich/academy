@@ -1,16 +1,16 @@
 package py.com.ci.academy.presentation.console;
 
-
-import py.com.ci.academy.inscription.boundary.InscriptionManager;
 import py.com.ci.academy.inscription.entities.Inscription;
 
 import java.util.List;
 import java.util.Scanner;
+import py.com.ci.academy.inscription.boundary.InscriptionController;
 
 public class InscriptionUI {
+
     Scanner sc = new Scanner(System.in);
-    InscriptionManager manager = new InscriptionManager();
     Inscription inscription = new Inscription();
+    InscriptionController inscriptionController = new InscriptionController();
 
     public static void main(String[] args) {
         InscriptionUI test = new InscriptionUI();
@@ -54,7 +54,7 @@ public class InscriptionUI {
     }
 
     public void listAllInscriptions() {
-        List<Inscription> inscriptions = manager.getAll();
+        List<Inscription> inscriptions = inscriptionController.getAll();
         if (!inscriptions.isEmpty()) {
             for (Inscription inscription : inscriptions) {
                 System.out.println(inscription);
@@ -65,6 +65,7 @@ public class InscriptionUI {
     }
 
     public void registerInscription() {
+        
         CourseAssignmentUI courseAssignmentUI = new CourseAssignmentUI();
         StudentUI studentUI = new StudentUI();
 
@@ -81,7 +82,7 @@ public class InscriptionUI {
         inscription.setIdCxA(idCourse);
         inscription.setIdStudent(idStudent);
 
-        manager.addInscription(inscription);
+        inscriptionController.addInscription(inscription);
     }
 
     private void deleteInscription() {
@@ -91,7 +92,7 @@ public class InscriptionUI {
         int id = sc.nextInt();
         inscription.setIdInscription(id);
 
-        boolean ban = manager.deleteInscription(inscription);
+        boolean ban = inscriptionController.deleteInscription(inscription);
         if (ban == true) {
             System.out.println("Delete successful");
         } else {
@@ -101,6 +102,7 @@ public class InscriptionUI {
     }
 
     private void updateInscription() {
+        
         CourseAssignmentUI courseAssignmentUI = new CourseAssignmentUI();
         StudentUI studentUI = new StudentUI();
 
@@ -120,7 +122,7 @@ public class InscriptionUI {
         inscription.setIdCxA(idCourse);
         inscription.setIdStudent(idStudent);
 
-        boolean ban = manager.updateInscription(inscription);
+        boolean ban = inscriptionController.updateInscription(inscription);
         if (ban == true) {
             System.out.println("Update successful");
         } else {
