@@ -16,15 +16,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import org.primefaces.event.SelectEvent;
-import py.com.ci.academy.assignment.entities.Assignment;
-import py.com.ci.academy.course.entities.Course;
-import py.com.ci.academy.courseassignment.boundary.CourseAssignmentManager;
-import py.com.ci.academy.courseassignment.entities.CourseAssignment;
 import py.com.ci.academy.inscription.boundary.InscriptionManager;
 import py.com.ci.academy.inscription.controller.InscriptionController;
 import py.com.ci.academy.inscription.entities.Inscription;
-import py.com.ci.academy.students.entities.Student;
-
 /**
  *
  * @author matias

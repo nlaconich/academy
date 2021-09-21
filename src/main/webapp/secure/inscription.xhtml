@@ -26,10 +26,6 @@ and open the template in the editor.
                                      rowsPerPageTemplate="5,10,15"
                                      selection="#{studentBean.student}" rowKey="#{student.idStudent}"
                                      selectionMode="single">
-                            <p:column headerText="Student ID">
-                                <h:outputText value="#{student.idStudent}" />
-                            </p:column>
-
                             <p:column headerText="Name">
                                 <h:outputText value="#{student.name}" />
                             </p:column>
@@ -52,6 +48,9 @@ and open the template in the editor.
                             <f:facet name="footer">
                                 <p:commandButton process="dtStudent" icon="ui-icon-document" update=":form-inscription" 
                                                  value="NEW INSCRIPTION" oncomplete="PF('dlgInscription').show()" />
+
+                                <p:commandButton process="dtStudent" icon="ui-icon-document" update=":log-form" 
+                                                 value="INSCRIPTIONS" oncomplete="PF('dlgLog').show()" />
                             </f:facet>
                         </p:dataTable>
                     </div>
@@ -66,7 +65,7 @@ and open the template in the editor.
 
                             <h:inputHidden value="#{studentBean.student.idStudent}"/>
                             <p:outputLabel for="name" value="STUDENT"/>
-                            
+
                             <p:inputText id="name" required="true" value="#{studentBean.student.name}" style="text-transform: none" />
 
                             <p:outputLabel for="@next" value="SELECT COURSE" />
@@ -74,12 +73,12 @@ and open the template in the editor.
                                              effect="fade" style="width:300px" filter="true" filterMatchMode="startsWith">
                                 <f:selectItems value="#{courseBean.courseList}" var="curso" itemLabel="#{curso.courseName}" itemValue="#{curso}" />
                                 <f:ajax event="change" listener="#{assignmentBean.generateAssignmentList()}" render="assignment" />
-<!--                                <p:column>-->
-                                    <f:facet name="header">
-                                        <h:outputText value="Name"/>
-                                    </f:facet>      
-                                    <h:outputText value="#{curso.courseName}" />
-<!--                                </p:column>-->
+                                <!--                                <p:column>-->
+                                <f:facet name="header">
+                                    <h:outputText value="Name"/>
+                                </f:facet>      
+                                <h:outputText value="#{curso.courseName}" />
+                                <!--                                </p:column>-->
 
                             </p:selectOneMenu>
                             <p:outputLabel for="@next" value="SELECT ASSIGNMENT" />
@@ -102,11 +101,50 @@ and open the template in the editor.
                                 update=":form-inscription"
                                 id='btn-save-inscription'
                                 oncomplete="PF('dlgInscription').hide()"
-                                
+
                                 />
 
                         </h:panelGrid>
                     </h:form>
+                </p:dialog>
+
+                <p:dialog header="Log" widgetVar="dlgLog"
+                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+
+                    <h:form id="log-form">
+
+                        <p:growl id="msgs" showDetail="true" />
+                        <div class="card">
+                            <p:dataTable id="dtLog" var="log" value="#{inscriptionBean.inscriptiontList}"
+
+                                         rows="10" paginator="true" paginatorPosition="bottom"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15"
+                                         selection="#{inscriptionBean.inscription}" rowKey="#{log.idInscription}"
+                                         selectionMode="single">
+                                <p:column headerText="Student">
+                                    <h:outputText value="#{log.nameStudent}" />
+                                </p:column>
+
+                                <p:column headerText="Course">
+                                    <h:outputText value="#{log.nameCourse}" />
+                                </p:column>
+
+                                <p:column headerText="Asignment">
+                                    <h:outputText value="#{log.nameAssignment}" />
+                                </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton 
+                                        value="DELETE" 
+                                        update="log-form" 
+                                        actionListener="#{inscriptionBean.deleteInscription()}"
+                                        id="btn-delete-inscription"
+                                        onclick="return confirm('DELETE INSCRIPTION?')"/>
+                                </f:facet>
+                            </p:dataTable>
+                        </div>
+                    </h:form> 
+
                 </p:dialog>
             </ui:define>
         </ui:composition>

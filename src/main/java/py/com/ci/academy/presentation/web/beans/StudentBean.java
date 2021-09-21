@@ -25,7 +25,6 @@ import py.com.ci.academy.teacher.entities.Teacher;
  */
 @Named("studentBean")
 @SessionScoped
-@ViewScoped
 
 public class StudentBean implements Serializable {
 
