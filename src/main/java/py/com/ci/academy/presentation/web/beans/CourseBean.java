@@ -12,11 +12,18 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
+import py.com.ci.academy.teacher.boundary.TeacherManager;
+import py.com.ci.academy.teacher.entities.Teacher;
 
 @Named("courseBean")
 @SessionScoped
 public class CourseBean implements Serializable {
-
+    
+    
+    private List<Integer> teacherList;
+    private Teacher teacher;
+    private TeacherManager teacherManager;
+    
     private List<Course> courseList;
     private Course course;
     private CourseManager courseManager;
@@ -26,6 +33,11 @@ public class CourseBean implements Serializable {
         courseManager = new CourseManager();
         courseList = courseManager.getAll();
         course = new Course();
+        
+        teacher= new Teacher();
+        teacherManager= new TeacherManager();
+        teacherList= teacherManager.getTeacherId();
+        
         logCourses();
 //        RequestContext.getCurrentInstance().update("course-form:dtCourse");
     }
@@ -38,6 +50,26 @@ public class CourseBean implements Serializable {
         }
     }
 
+    public List<Integer> getTeacherList() {
+        return teacherList;
+    }
+
+    public void setTeacherList(List<Integer> teacherList) {
+        this.teacherList = teacherList;
+    }
+
+    
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    
+    
     public List<Course> getCourseList() {
         return courseList;
     }
@@ -54,7 +86,7 @@ public class CourseBean implements Serializable {
         this.course = course;
     }
 
-    ///C R U D
+    //---------C R U D
     public void addCourse() {
         courseManager.addCourse(course);
         init();
@@ -84,7 +116,7 @@ public class CourseBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    ///TABLE MANAGEMENT
+    //---------TABLE MANAGEMENT
     public void onRowSelected(SelectEvent event) {
         this.course = (Course) event.getObject();
 

@@ -12,22 +12,6 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <!--        <script type="text/javascript">
-                    function loadUpdate() {
-                        console.log("test");
-                        var v1 = "courseid";
-        
-                        document.getElementById("updateCourse.courseName").value = v1.courseName;
-                        document.getElementById("updateCourse.courseName").value = v1.courseId;
-                        document.getElementById("updateCourse.courseName").value = v1.teacherId;
-                    }
-                    
-                    function loadDelete(idCourse){
-                        document.getElementById("form-delete.courseIde").value=idCourse;
-                    }
-        
-                </script>-->
-
     </h:head>
     <h:body>
         <ui:composition template="/template/base.xhtml">
@@ -83,9 +67,12 @@ and open the template in the editor.
                         <p:outputLabel value="Name Course" for="nameCourse" />
                         <p:outputLabel value="Teacher Id" for="teacherId" />
 
-                        <h:inputHidden value="#{courseBean.course.courseId}"/>
+                        <h:inputHidden id="courseIdId" value="#{courseBean.course.courseId}"/>
                         <p:inputText id="nameCourse" required="true" value="#{courseBean.course.courseName}"  style="text-transform: none" />
-                        <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none" />
+                        <p:selectOneMenu id="teacherId" value="#{courseBean.course.teacherId}" >
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItems value="#{courseBean.teacherList}" />
+                        </p:selectOneMenu>
 
                         <p:commandButton 
                             value="Save" 
@@ -107,8 +94,10 @@ and open the template in the editor.
 
                             <h:inputHidden id="courseId" required="true" value="#{courseBean.course.courseId}"/>
                             <p:inputText id="courseName" required="true" value="#{courseBean.course.courseName}" style="text-transform: none" />
-                            <p:inputText id="teacherId" required="true" value="#{courseBean.course.teacherId}"  style="text-transform: none" />
-
+                            <p:selectOneMenu id="teacherId" value="#{courseBean.course.teacherId}" >
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{courseBean.teacherList}" />
+                            </p:selectOneMenu>
 
                             <p:commandButton 
                                 value="Save" 
