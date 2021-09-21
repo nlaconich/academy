@@ -1,10 +1,11 @@
 package py.com.ci.academy.account.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Account {
 
-    public Date expireDate;
+    public LocalDate expireDate;
     private int idAccount;
     private String status;
     private int idInscription;
@@ -23,11 +24,11 @@ public class Account {
         return idAccount;
     }
 
-    public Date getExpireDate() {
+    public LocalDate getExpireDate() {
         return expireDate;
     }
 
-    public void setExpireDate(Date expireDate) {
+    public void setExpireDate(LocalDate expireDate) {
         this.expireDate = expireDate;
     }
 
