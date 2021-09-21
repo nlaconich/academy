@@ -4,13 +4,13 @@ import py.com.ci.academy.inscription.entities.Inscription;
 
 import java.util.List;
 import java.util.Scanner;
-import py.com.ci.academy.inscription.boundary.InscriptionController;
+import py.com.ci.academy.inscription.boundary.InscriptionManager;
 
 public class InscriptionUI {
 
     Scanner sc = new Scanner(System.in);
     Inscription inscription = new Inscription();
-    InscriptionController inscriptionController = new InscriptionController();
+    InscriptionManager inscriptionManager = new InscriptionManager();
 
     public static void main(String[] args) {
         InscriptionUI test = new InscriptionUI();
@@ -54,7 +54,7 @@ public class InscriptionUI {
     }
 
     public void listAllInscriptions() {
-        List<Inscription> inscriptions = inscriptionController.getAll();
+        List<Inscription> inscriptions = inscriptionManager.getAll();
         if (!inscriptions.isEmpty()) {
             for (Inscription inscription : inscriptions) {
                 System.out.println(inscription);
@@ -82,7 +82,7 @@ public class InscriptionUI {
         inscription.setIdCxA(idCourse);
         inscription.setIdStudent(idStudent);
 
-        inscriptionController.addInscription(inscription);
+        inscriptionManager.addInscription(inscription);
     }
 
     private void deleteInscription() {
@@ -92,7 +92,7 @@ public class InscriptionUI {
         int id = sc.nextInt();
         inscription.setIdInscription(id);
 
-        boolean ban = inscriptionController.deleteInscription(inscription);
+        boolean ban = inscriptionManager.deleteInscription(inscription);
         if (ban == true) {
             System.out.println("Delete successful");
         } else {
@@ -122,7 +122,7 @@ public class InscriptionUI {
         inscription.setIdCxA(idCourse);
         inscription.setIdStudent(idStudent);
 
-        boolean ban = inscriptionController.updateInscription(inscription);
+        boolean ban = inscriptionManager.updateInscription(inscription);
         if (ban == true) {
             System.out.println("Update successful");
         } else {
