@@ -1,5 +1,6 @@
 package py.com.ci.academy.account.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Account {
@@ -23,7 +24,7 @@ public class Account {
         return idAccount;
     }
 
-    public Date getExpireDate() {
+    public LocalDate getExpireDate() {
         return expireDate;
     }
 

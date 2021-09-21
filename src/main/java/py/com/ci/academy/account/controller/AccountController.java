@@ -1,9 +1,10 @@
-package py.com.ci.academy.account.boundary;
+package py.com.ci.academy.account.controller;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 import java.util.Date;
 import java.util.List;
+import py.com.ci.academy.account.boundary.AccountManager;
 import py.com.ci.academy.account.entities.Account;
 
 public class AccountController {
@@ -49,7 +50,3 @@ public class AccountController {
     }
 
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> feature/AccntConttlrWeb

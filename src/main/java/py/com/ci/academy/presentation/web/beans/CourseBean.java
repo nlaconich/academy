@@ -12,18 +12,20 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
-import py.com.ci.academy.teacher.boundary.TeacherManager;
-import py.com.ci.academy.teacher.entities.Teacher;
 
 @Named("courseBean")
 @SessionScoped
 public class CourseBean implements Serializable {
+<<<<<<< HEAD
     
     
     private List<Teacher> teacherList;
     private Teacher teacher;
     private TeacherManager teacherManager;
     
+=======
+
+>>>>>>> feature/AccntConttlrWeb
     private List<Course> courseList;
     private Course course;
     private CourseManager courseManager;
@@ -33,6 +35,7 @@ public class CourseBean implements Serializable {
         courseManager = new CourseManager();
         courseList = courseManager.getAll();
         course = new Course();
+<<<<<<< HEAD
         
         teacher= new Teacher();
         teacherManager= new TeacherManager();
@@ -40,6 +43,8 @@ public class CourseBean implements Serializable {
         
         logCourses();
 //        RequestContext.getCurrentInstance().update("course-form:dtCourse");
+=======
+>>>>>>> feature/AccntConttlrWeb
     }
 
     public void logCourses() {
@@ -50,6 +55,7 @@ public class CourseBean implements Serializable {
         }
     }
 
+<<<<<<< HEAD
     public List<Teacher> getTeacherList() {
         return teacherList;
     }
@@ -70,6 +76,8 @@ public class CourseBean implements Serializable {
 
     
     
+=======
+>>>>>>> feature/AccntConttlrWeb
     public List<Course> getCourseList() {
         return courseList;
     }
