@@ -22,11 +22,11 @@ public class AccountBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        Account account = new Account();
-        AccountManager accountManager = new AccountManager();
-        List<Account> accountList = accountManager.getAll();
+        account = new Account();
+        accountManager = new AccountManager();
+        accountList = accountManager.getAll();
         logAccount();
-        RequestContext.getCurrentInstance().update("account-form:dtAccount");
+//        RequestContext.getCurrentInstance().update("account-form:dtAccount");
     }
 
     public void logAccount() {
