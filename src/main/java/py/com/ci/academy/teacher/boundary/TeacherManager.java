@@ -100,5 +100,4 @@ public class TeacherManager {
             return 0;
         }
     }
-
 }
