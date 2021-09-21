@@ -25,7 +25,6 @@ import py.com.ci.academy.teacher.entities.Teacher;
  */
 @Named("studentBean")
 @SessionScoped
-@ViewScoped
 
 public class StudentBean implements Serializable {
 
@@ -39,7 +38,6 @@ public class StudentBean implements Serializable {
         studentManager = new StudentManager();
         studentList = studentManager.getAll();
         student = new Student();
-        logStudent();
     }
 
     private void logStudent() {
