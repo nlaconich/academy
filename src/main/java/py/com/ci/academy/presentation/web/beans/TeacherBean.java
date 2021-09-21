@@ -30,7 +30,6 @@ public class TeacherBean implements Serializable {
         teacherManager= new TeacherManager();
         teacher= new Teacher();
         teacherList= teacherManager.getAll();
-        logTeacher();
         RequestContext.getCurrentInstance().update("teacher-form:dtTeachers");
 
     }

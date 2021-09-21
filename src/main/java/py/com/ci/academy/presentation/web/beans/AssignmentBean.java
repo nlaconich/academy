@@ -30,17 +30,16 @@ public class AssignmentBean implements Serializable {
         assignmentList = assignmentManager.getAll();
         assignment = new Assignment();
         cxa = new CourseAssignmentManager();
-        logAssigments();
 
     }
-
     @Inject
-    private CourseBean courseBean;
-
-    public void completarLista() {
-
+    CourseBean courseBean;
+    
+    public void generateAssignmentList() { 
+        System.out.println(courseBean.getCourse().getCourseId());
         assignmentList = cxa.getAssignmentByIdCourse(courseBean.getCourse().getCourseId());
-
+        System.out.println(assignmentList);
+        
     }
 
     private void logAssigments() {
