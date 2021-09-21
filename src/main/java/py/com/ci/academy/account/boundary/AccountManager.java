@@ -1,15 +1,12 @@
 package py.com.ci.academy.account.boundary;
 
 import py.com.ci.academy.account.entities.Account;
-import py.com.ci.academy.inscription.entities.Inscription;
 import py.com.ci.academy.utils.ConnectionManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Collections;
