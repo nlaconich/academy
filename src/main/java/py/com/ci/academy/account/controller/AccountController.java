@@ -24,6 +24,10 @@ public class AccountController {
         }
     }
     
+    public List<Account> getAll(){
+        List<Account> accounts = accountManager.getAll();
+        return accounts;
+    }
         
     public LocalDate convertToLocalDate(Date dateToConvert) {
         return dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -31,12 +35,6 @@ public class AccountController {
 
     public static Date convertToDate(LocalDate dateToConvert) {
         return java.sql.Date.valueOf(dateToConvert);
-    }
-
-
-    public List<Account> getAll(){
-        List<Account> accounts = accountManager.getAll();
-        return accounts;
     }
     
     public int updateAccount(Account account) {

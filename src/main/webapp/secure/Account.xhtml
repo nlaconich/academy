@@ -11,13 +11,10 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-    <h:head>
-    </h:head>
     <h:body>
         <ui:composition template="/template/base.xhtml">
             <ui:define name="content">
                 <h:form id="account-form">
-
                     <div class="card">
                         <p:dataTable id="dtAccount" var="account" value="#{accountBean.accountList}"
                                      rows="10" paginator="true" paginatorPosition="bottom"
@@ -46,8 +43,8 @@ and open the template in the editor.
                             </p:column>
 
                             <p:column headerText="Actions">
-                                <p:commandButton process="dtAccount" icon="ui-icon-document" update=":form-update" 
-                                                 value="Update"  oncomplete="PF('dlgAccountUpdate').show()"/>
+                                <p:commandButton process="dtAccount" icon="ui-icon-document" update=":form-add" 
+                                                 value="Add"  oncomplete="PF('dlgAccountadd').show()"/>
                                 <p:commandButton 
                                     value="Delete" 
                                     update="account-form" 
@@ -68,11 +65,9 @@ and open the template in the editor.
                         <p:messages id="messages" showDetail="true" autoUpdate="true" />
                         <p:panelGrid columns="3" columnClasses="column" id="addAccount">                            
 
-                            <p:outputLabel value="Expire Date" for="expireDate" />
                             <p:outputLabel value="InscriptionId" for="inscriptionId" />
 
                             <h:inputHidden value="#{accountBean.account.idAccount}"/>
-                            <p:inputText id="expireDate" required="true" value="#{accountBean.account.expireDate}"  style="text-transform: none" />
                             <p:inputText id="inscriptionId" required="true" value="#{accountBean.account.idInscription}"  style="text-transform: none" />
 
                             <p:commandButton 
