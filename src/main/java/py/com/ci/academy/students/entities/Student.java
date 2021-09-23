@@ -10,6 +10,7 @@ public class Student {
     private String cellphone;
     private String address;
     private String email;
+    
 
 
     public int getIdStudent() {

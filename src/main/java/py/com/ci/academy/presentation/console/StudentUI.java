@@ -24,7 +24,7 @@ public class StudentUI {
         System.out.println("2 : Add a student");
         System.out.println("3 : Delete a student");
         System.out.println("4 : Update a student");
-        System.out.println("5 : Exit");
+        System.out.println("5 : Exit ");
         System.out.print("Option: ");
         String option = sc.next();
         try {

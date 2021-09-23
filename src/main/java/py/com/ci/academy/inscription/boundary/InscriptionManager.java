@@ -15,7 +15,7 @@ import java.util.List;
 public class InscriptionManager {
     private String getStatement() {
         String sql="SELECT i.id_inscription, i.id_student, s.name, co.id_course, co.name_course, a.id_assignment, a.name_assignment FROM public.inscription i, public.student s, public.courseassignment ca, public.course co, public.assignment  a WHERE i.id_student=s.id_student and ca.id_course = co.id_course and ca.id_assignment= a.id_assignment and i.id_cxa = ca.id_cxa";
-        return sql;
+        return sql;// pasar datos a la bd 
     }
 
     private Inscription getFromRsInscription(ResultSet rs) {
