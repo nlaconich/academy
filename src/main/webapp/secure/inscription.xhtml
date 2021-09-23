@@ -95,14 +95,15 @@ and open the template in the editor.
 
                             </p:selectOneMenu>
 
-                            <p:commandButton 
-                                value="SAVE"  
-                                actionListener="#{inscriptionBean.newInscription()}"
-                                update=":form-inscription"
-                                id='btn-save-inscription'
-                                oncomplete="PF('dlgInscription').hide()"
+                            <p:commandButton value="ACCEPT" action="#{inscriptionBean.newInscription()}" update="log-form" styleClass="ui-button-danger" icon="pi pi-times" oncomplete="PF('dlgInscription').hide()">
+                                <p:confirm header="Confirmation" message="CONFIRM INSCRIPTION" icon="pi pi-info-circle"/>
 
-                                />
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+                            </p:confirmDialog>
 
                         </h:panelGrid>
                     </h:form>
@@ -124,6 +125,7 @@ and open the template in the editor.
                                          selectionMode="single">
                                 <p:column headerText="Student">
                                     <h:outputText value="#{log.nameStudent}" />
+
                                 </p:column>
 
                                 <p:column headerText="Course">
@@ -134,12 +136,15 @@ and open the template in the editor.
                                     <h:outputText value="#{log.nameAssignment}" />
                                 </p:column>
                                 <f:facet name="footer">
-                                    <p:commandButton 
-                                        value="DELETE" 
-                                        update="log-form" 
-                                        actionListener="#{inscriptionBean.deleteInscription()}"
-                                        id="btn-delete-inscription"
-                                        onclick="return confirm('DELETE INSCRIPTION?')"/>
+
+                                    <p:commandButton value="DELETE" action="#{inscriptionBean.deleteInscription()}" update="log-form" styleClass="ui-button-danger" icon="pi pi-times">
+                                        <p:confirm header="Confirmation" message="Do you want to delete this Inscription?" icon="pi pi-info-circle"/>
+                                    </p:commandButton>
+
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+                                    </p:confirmDialog>
                                 </f:facet>
                             </p:dataTable>
                         </div>

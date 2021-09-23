@@ -19,6 +19,7 @@ import org.primefaces.event.SelectEvent;
 import py.com.ci.academy.inscription.boundary.InscriptionManager;
 import py.com.ci.academy.inscription.controller.InscriptionController;
 import py.com.ci.academy.inscription.entities.Inscription;
+
 /**
  *
  * @author matias
@@ -36,7 +37,6 @@ public class InscriptionBean implements Serializable {
 //    private Student student;
 //    private Course course;
 //    private Assignment assignment;
-    
 
     @PostConstruct
     public void init() {
@@ -87,12 +87,15 @@ public class InscriptionBean implements Serializable {
     }
 
     public void deleteInscription() {
-        inscriptionManager.updateInscription(inscription);
+        inscriptionManager.deleteInscription(inscription);
+        deletePopUp();
+        
         init();
     }
 
     public void newInscription() throws SQLException {
         inscriptionController.newInscription(studentBean.getStudent(), courseBean.getCourse(), assignmentBean.getAssignment());
+        AddPopUp();
     }
 
     public void onSelect(SelectEvent event) {
@@ -100,7 +103,19 @@ public class InscriptionBean implements Serializable {
         FacesMessage msg = new FacesMessage("Inscription Selected id", String.valueOf(inscription.getIdInscription()));
         FacesContext.getCurrentInstance().addMessage(null, msg);
         System.out.println("InscriptionBean > Seleccionar Fila > " + this.inscription);
-
     }
+
+    public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+        public void deletePopUp() {
+        addMessage("Confirmed", "Inscription deleted");
+    }
+        
+        public void AddPopUp() {
+        addMessage("Confirmed", "New Inscription added");
+        }
 
 }
