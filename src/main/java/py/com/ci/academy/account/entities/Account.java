@@ -65,6 +65,9 @@ public class Account {
                 +", status= " + status
                 + ", idInscription= " + idInscription
                 + ", remark= " + remark
+                + ", amount= " + amount
+                + ", expireDate= " + expireDate
                 + "\n----------------------------------------";
     }
+
 }

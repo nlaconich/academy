@@ -1,6 +1,5 @@
 package py.com.ci.academy.inscription.controller;
 
-import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 import javax.annotation.PostConstruct;

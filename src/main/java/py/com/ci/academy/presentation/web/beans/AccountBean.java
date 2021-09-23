@@ -6,27 +6,40 @@ import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import org.primefaces.context.RequestContext;
+import javax.inject.Inject;
 import org.primefaces.event.SelectEvent;
 import py.com.ci.academy.account.boundary.AccountManager;
+import py.com.ci.academy.account.controller.AccountController;
 import py.com.ci.academy.account.entities.Account;
 
 @Named("accountBean")
 @SessionScoped
+@ViewScoped
+
 public class AccountBean implements Serializable {
 
     private List<Account> accountList;
     private Account account;
     private AccountManager accountManager;
+    private AccountController accountController;
 
     @PostConstruct
     public void init() {
-        Account account = new Account();
-        AccountManager accountManager = new AccountManager();
-        List<Account> accountList = accountManager.getAll();
+        account = new Account();
+        accountManager = new AccountManager();
+        accountList = accountManager.getAll();
+        accountController = new AccountController();
         logAccount();
-        RequestContext.getCurrentInstance().update("account-form:dtAccount");
+        //RequestContext.getCurrentInstance().update("account-form:dtAccount");
+    }
+    
+    @Inject
+    InscriptionBean inscriptionBean;
+    
+    public List<Account> getAccountList() {
+        return accountList;
     }
 
     public void logAccount() {
@@ -37,8 +50,12 @@ public class AccountBean implements Serializable {
         }
     }
 
-    public List<Account> getAccountList() {
-        return accountList;
+    public InscriptionBean getInscriptionBean() {
+        return inscriptionBean;
+    }
+
+    public void setInscriptionBean(InscriptionBean inscriptionBean) {
+        this.inscriptionBean = inscriptionBean;
     }
 
     public void setAccountList(List<Account> accountList) {

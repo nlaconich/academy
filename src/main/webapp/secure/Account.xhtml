@@ -15,6 +15,7 @@ and open the template in the editor.
         <ui:composition template="/template/base.xhtml">
             <ui:define name="content">
                 <h:form id="account-form">
+                    <p:growl id="msgs" showDetail="true" />
                     <div class="card">
                         <p:dataTable id="dtAccount" var="account" value="#{accountBean.accountList}"
                                      rows="10" paginator="true" paginatorPosition="bottom"
@@ -39,71 +40,47 @@ and open the template in the editor.
                             </p:column>
                             
                             <p:column headerText="Ammount">
-                                <h:outputText id="Ammount" value="#{account.amount}"/>
+                                <h:outputText id="Amount" value="#{account.amount}"/>
                             </p:column>
-
-                            <p:column headerText="Actions">
-                                <p:commandButton process="dtAccount" icon="ui-icon-document" update=":form-add" 
-                                                 value="Add"  oncomplete="PF('dlgAccountadd').show()"/>
-                                <p:commandButton 
-                                    value="Delete" 
-                                    update="account-form" 
-                                    actionListener="#{accountBean.deleteAccount()}"
-                                    id="btn-delete-account">
-                                </p:commandButton>                       
-                            </p:column>
-
-                            <p:ajax event="rowSelect" listener="#{accountBean.onRowSelected}"  />
+                           
+                            <f:facet name="footer">
+                            <p:commandButton process="dtAccount" icon="ui-icon-document" update=":form-Add" 
+                                                 value="New Account" oncomplete="PF('dlgAccount').show()" />
+                            </f:facet>
+                            
 
                         </p:dataTable>
                     </div>
                 </h:form>
-
-                <p:dialog header="Add" widgetVar="dlgAccountAdd" modal="true" showEffect="fade" resizable="false">
-                <h5>Add account</h5>
-                    <h:form id="form-add">
+                
+                <p:dialog header="Add" widgetVar="dlgAccount"
+                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <h:form id="form-Add" >
                         <p:messages id="messages" showDetail="true" autoUpdate="true" />
-                        <p:panelGrid columns="3" columnClasses="column" id="addAccount">                            
+                        <p:panelGrid columns="2" columnClasses="column" id="addAccount">                            
 
                             <p:outputLabel value="InscriptionId" for="inscriptionId" />
-
-                            <h:inputHidden value="#{accountBean.account.idAccount}"/>
-                            <p:inputText id="inscriptionId" required="true" value="#{accountBean.account.idInscription}"  style="text-transform: none" />
-
-                            <p:commandButton 
-                            value="Save" 
-                            update="form-add,:account-form" 
-                            actionListener="#{accountBean.addAccount()}"
-                            id='btn-save-account'
-                            />
-                        </p:panelGrid>
-                    </h:form>               	
-                </p:dialog>
-                
-                
-                    <h:form id="form-update" >
-                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
-                        <p:panelGrid columns="3" columnClasses="column" id="updateAccount">                            
-
-                            <p:outputLabel value="Expire Date" for="expireDate" />
-                            <p:outputLabel value="InscriptionId" for="inscriptionId" />
+                            
 
                             <h:inputHidden id="accountId" required="true" value="#{accountBean.account.idAccount}"/>
-                            <p:inputText id="expireDate" required="true" value="#{accountBean.account.expireDate}" style="text-transform: none" />
+                            <h:inputHidden id="expireDate" required="true" value="#{accountBean.account.expireDate}"/>
+                            <h:inputHidden id="Status" required="true" value="#{accountBean.account.status}"/>
+                            <h:inputHidden id="Ammount" required="true" value="#{accountBean.account.amount}"/>
                             <p:inputText id="inscriptionId" required="true" value="#{accountBean.account.idInscription}"  style="text-transform: none" />
 
 
                             <p:commandButton 
                                 value="Save" 
-                                actionListener="#{accountBean.updateAccount()}"
+                                actionListener="#{accountBean.addAccount()}"
                                 id="btn-update-account"
-                                update="form-update,:account-form" 
-                                
+                                update="form-Add,:account-form" 
+                                oncomplete="PF('dlgAccount').hide()" 
                                 />
                         </p:panelGrid>
 
 
-                    </h:form>	
+                    </h:form>
+                </p:dialog>    
             </ui:define>
         </ui:composition>
     </h:body>
