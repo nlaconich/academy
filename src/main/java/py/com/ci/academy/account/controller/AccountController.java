@@ -3,6 +3,7 @@ package py.com.ci.academy.account.controller;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import py.com.ci.academy.account.boundary.AccountManager;
@@ -10,24 +11,21 @@ import py.com.ci.academy.account.entities.Account;
 
 public class AccountController {
 
-    private Account account= new Account();
-    private AccountManager accountManager = new AccountManager();
+    Account account= new Account();
+    AccountManager accountManager = new AccountManager();
 
-//    @PostConstruct
-//    public void init() {
-//        accountList = accountManager.getAll();
-//        account = new Account();
-//    }
-
-    public void addAccount(int idAccount) {
+    public void addAccount(int idInscription) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
         
         LocalDate localdate;
-        account.setIdAccount(idAccount);
+        account.setIdInscription(idInscription);
         account.setStatus("Pending");
         account.setAmount(50000);
         for (int i = 0; i < 6; i++) {
-            localdate = LocalDate.now().plusMonths(i).with(lastDayOfMonth());
-            account.setExpireDate(localdate);
+            //localdate = LocalDate.now().plusMonths(i).with(lastDayOfMonth());
+            calendar.add(Calendar.MONTH, 1);
+            account.setExpireDate(calendar.getTime());
             accountManager.addAccount(account);
             System.out.println(account);
         }

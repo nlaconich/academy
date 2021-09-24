@@ -1,5 +1,6 @@
 package py.com.ci.academy.account.boundary;
 
+import java.sql.Date;
 import py.com.ci.academy.account.entities.Account;
 import py.com.ci.academy.utils.ConnectionManager;
 
@@ -7,19 +8,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+import py.com.ci.academy.account.controller.AccountController;
 
 public class AccountManager {
+
+    
 
     public String getStatement() {
         String statement = "SELECT ac.id_account, ac.date_account, ac.status, ac.remark, ac.amount, i.id_inscription FROM public.accounts ac, public.inscription i";
         return statement;
     }
-    
+
     public Account getFromRsAccount(ResultSet rs) {
+        AccountController accountController = new AccountController();
         try {
             //LocalDate localdate = LocalDate.now();
             Account account = new Account();
@@ -28,32 +32,36 @@ public class AccountManager {
             account.setRemark(rs.getString("remark"));
             account.setStatus(rs.getString("status"));
             account.setAmount(rs.getInt("amount"));
-            account.setExpireDate(LocalDate.EPOCH);
-            
-            //account.setExpireDate(localdate);
-            //account.setExpireDate(temporaryDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
+            //Convertir a dateTime
+            Date date = (rs.getDate("date_account"));
+            java.util.Date utilDate = new java.util.Date(date.getTime());
+            account.setExpireDate(accountController.convertToLocalDate(utilDate));
+                    //account.setExpireDate(localdate);
+                    //account.setExpireDate(temporaryDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             return account;
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
         }
-    }       
-
+    }
 
     public void addAccount(Account account) {
-        String sql = "INSERT INTO public.accounts(date_account,remark,status,id_inscription,amount) VALUES (?,?,?,?,?)";
-            try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
-                //s1.setDate(1, account.getExpireDate());
-                s1.setString(2, account.getRemark());
-                s1.setString(3, account.getStatus());
-                s1.setInt(4, account.getIdInscription());
-                s1.setInt(5, account.getAmount());
-                s1.executeUpdate();
-            } catch (SQLException throwable) {
-                throwable.printStackTrace();
-            }
+        AccountController accountController = new AccountController();
+        String sql = "INSERT INTO public.accounts(id_account, date_account,remark,status,id_inscription,amount) VALUES (?,?,?,?,?,?)";
+        java.sql.Date expire = (Date) accountController.convertToDate(account.getExpireDate());
+        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
+            s1.setInt(1,account.getIdAccount());
+            s1.setDate(2, expire);
+            s1.setString(3, account.getRemark());
+            s1.setString(4, account.getStatus());
+            s1.setInt(5, account.getIdInscription());
+            s1.setInt(6, account.getAmount());
+            s1.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-
+    }
 
     public Account getById(Integer IdAccount) {
         String sql = getStatement() + " where id_account = " + IdAccount;
@@ -91,7 +99,7 @@ public class AccountManager {
             s1.setString(2, account.getRemark());
             s1.setInt(3, account.getIdAccount());
             //s1.setDate(4, account.getExpireDate());
-            
+
             rows = s1.executeUpdate();
             return rows;
         } catch (SQLException throwable) {
@@ -115,7 +123,6 @@ public class AccountManager {
             return null;
         }
     }
-
 
     private LocalDate[] getlocalDate() {
         LocalDate expireDate[] = new LocalDate[7];

@@ -1,5 +1,6 @@
 package py.com.ci.academy.inscription.controller;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -16,8 +17,7 @@ import py.com.ci.academy.students.entities.Student;
  * @author matias
  */
 @Named
-
-public class InscriptionController {
+public class InscriptionController  implements Serializable{
 
     private List<Inscription> inscriptionList;
     private Inscription inscription;
@@ -27,18 +27,20 @@ public class InscriptionController {
 
     @PostConstruct
     public void init() {
-        inscriptionList = inscriptionManager.getAll();
+        inscriptionList = inscriptionManager.getAll();// ?? why?
         inscription = new Inscription();
     }
 
     public List<Assignment> getAssignmentByIdCourse(int courseId) {
-        init();
+        //init(); //?? again?
         List<Assignment> assignmentList = courseAssignmentManager.getAssignmentByIdCourse(courseId);
         return assignmentList;
     }
 
     public boolean inscriptionIsFull() {
-        init();
+        //init();//???
+        //MALA IMPLEMENtACION solo para obtener la cantidad
+        //Mejor hacer un select count de los datos
         return inscriptionList.size() != MAX_INSCRIPTIONS;
     }
 
