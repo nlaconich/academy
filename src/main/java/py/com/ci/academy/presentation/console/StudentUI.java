@@ -124,4 +124,6 @@ public class StudentUI {
         int rows = studentManager.updateById(student);
         System.out.println("Applied, " + rows + " affected");
     }
+
+    
 }

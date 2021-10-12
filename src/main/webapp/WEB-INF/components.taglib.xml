@@ -3,6 +3,4 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd">
   <namespace>http://academy</namespace>
   <composite-library-name>academy</composite-library-name>
- 
-
 </facelet-taglib>

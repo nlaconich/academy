@@ -69,6 +69,22 @@ public class TeacherManager {
         }
         return false;
     }
+    
+     public Teacher getById(Integer idTeacher) {
+        String sql = getStatement() + " where id_student =" + idTeacher;
+        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
+            s1.setMaxRows(100);
+            try (ResultSet rs = s1.executeQuery()) {
+                while (rs.next()) {
+                    return getFromRsTeacher(rs);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
 
     public int deleteTeacher(Teacher teacher) {       
         String sql = "DELETE FROM public.teacher WHERE id_teacher=?";

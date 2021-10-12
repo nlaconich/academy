@@ -13,7 +13,16 @@ public class Customer {
     
     private int idCustomer;
     private int idStudent;
-    private int idTeacher;
+    private String descripcion;
+    
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
     public int getIdCustomer() {
         return idCustomer;
@@ -31,13 +40,12 @@ public class Customer {
         this.idStudent = idStudent;
     }
 
-    public int getIdTeacher() {
-        return idTeacher;
+    @Override
+    public String toString() {
+        return "Customer{" + "idCustomer=" + idCustomer + ", idStudent=" + idStudent + ", descripcion=" + descripcion + '}';
     }
 
-    public void setIdTeacher(int idTeacher) {
-        this.idTeacher = idTeacher;
-    }
+    
     
     
     

@@ -114,28 +114,4 @@ public class StudentManager {
         }
     }
 
-    /*
-
-
-
-    public Boolean add(Student entity) {
-        String statement = "INSERT INTO public.student; (name, lastname,cellphone,address,email) VALUES ( ?,?,?,?,?)";
-        try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(statement)) {
-            //s1.setInt(1,entity.getId());
-            s1.setString(1, entity.getName());
-            s1.setString(2, entity.getLastName());
-            s1.setString(3, entity.getCellphone());
-            s1.setString(4, entity.getAddress());
-            s1.setString(5, entity.getEmail());
-            Integer rs = s1.executeUpdate();
-            if (rs > 0) {
-                return true;
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
-        }
-        return false;
-    }*/
-
 }

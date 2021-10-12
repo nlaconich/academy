@@ -12,22 +12,27 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import org.primefaces.event.SelectEvent;
 import py.com.ci.academy.inscription.boundary.InscriptionManager;
 import py.com.ci.academy.inscription.controller.InscriptionController;
 import py.com.ci.academy.inscription.entities.Inscription;
+
 /**
  *
  * @author matias
  */
 @Named("inscriptionBean")
 @SessionScoped
-@ViewScoped
-
 public class InscriptionBean implements Serializable {
+
+    @Inject
+    StudentBean studentBean;
+    @Inject
+    CourseBean courseBean;
+    @Inject
+    AssignmentBean assignmentBean;
 
     private InscriptionManager inscriptionManager;
     private Inscription inscription;
@@ -36,7 +41,6 @@ public class InscriptionBean implements Serializable {
 //    private Student student;
 //    private Course course;
 //    private Assignment assignment;
-    
 
     @PostConstruct
     public void init() {
@@ -50,12 +54,6 @@ public class InscriptionBean implements Serializable {
         logInscription();
 
     }
-    @Inject
-    StudentBean studentBean;
-    @Inject
-    CourseBean courseBean;
-    @Inject
-    AssignmentBean assignmentBean;
 
     private void logInscription() {
         if (inscriptionList != null && !inscriptionList.isEmpty()) {

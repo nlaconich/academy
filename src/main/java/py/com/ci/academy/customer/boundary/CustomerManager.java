@@ -1,18 +1,13 @@
 package py.com.ci.academy.customer.boundary;
 
-import py.com.ci.academy.account.boundary.AccountManager;
-import py.com.ci.academy.account.entities.Account;
-import py.com.ci.academy.inscription.entities.Inscription;
 import py.com.ci.academy.utils.ConnectionManager;
 import py.com.ci.academy.customer.entities.Customer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import py.com.ci.academy.students.entities.Student;
 
 /**
  *
@@ -22,17 +17,17 @@ public class CustomerManager {
 
     private String getStatement() //trae los datos de las columnas de la tabla 
     {
-        String sql = "SELECT id_customer, id_student,id_teacher FROM customer";
+        String sql = "SELECT * FROM public.customer";
         return sql;// pasar datos a la bd 
     }
 
     public void add(Customer customer) {
-        String sql = "INSERT INTO public.customer(id_customer,id_student,id_teacher) VALUES ( ?,?,?,?,?)";
+        String sql = "INSERT INTO public.customer(id_student_teacher,descripcion) VALUES (?,?)";
 
         try ( PreparedStatement sj = ConnectionManager.getConnection().prepareStatement(sql)) {
-            sj.setInt(1, customer.getIdCustomer());
-            sj.setInt(2, customer.getIdStudent());
-            sj.setInt(3, customer.getIdTeacher());
+           // sj.setInt(1, customer.getIdCustomer());
+            sj.setInt(1, customer.getIdStudent());
+            sj.setString(2, customer.getDescripcion());
 
             sj.executeUpdate();
         } catch (SQLException throwables) {
@@ -71,26 +66,27 @@ public class CustomerManager {
         }
     }
 
-    public int deleteById(Customer customer) {
+    public boolean deleteById(Customer customer) {
         String sql = "DELETE FROM public.customer WHERE id_customer= ?";
         int rows = 0;
         try ( PreparedStatement sj = ConnectionManager.getConnection().prepareStatement(sql)) {
             sj.setInt(1, customer.getIdStudent());
             rows = sj.executeUpdate();
-            return rows;
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return 0;
+            return false;
         }
     }
 
     public int updateById(Customer customer) {
         int rows = 0;
-        String sql = "UPDATE public.customer SET id_customer=?, id_student=?,id_teacher=? WHERE id_customer=?";
+        String sql = "UPDATE public.customer SET  id_student_teacher=?,id_teacher=? WHERE id_customer=?";
         try ( PreparedStatement sj = ConnectionManager.getConnection().prepareStatement(sql)) {
-            sj.setInt(1, customer.getIdCustomer());
-            sj.setInt(2, customer.getIdStudent());
-            sj.setInt(3, customer.getIdTeacher());
+            
+            sj.setInt(1, customer.getIdStudent());
+            sj.setString(2, customer.getDescripcion());
+            sj.setInt(3, customer.getIdCustomer());
 
             rows = sj.executeUpdate();
             return rows;
@@ -104,8 +100,9 @@ public class CustomerManager {
         try {
             Customer data = new Customer();
             data.setIdCustomer(rs.getInt("id_customer"));
-            data.setIdStudent(rs.getInt("id_student"));
-            data.setIdTeacher(rs.getInt("id_teacher"));
+            data.setIdStudent(rs.getInt("id_student_teacher"));
+            data.setDescripcion(rs.getString("descripcion"));
+            //data.setIdTeacher(rs.getInt("id_teacher"));
             return data;
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -113,9 +110,10 @@ public class CustomerManager {
         }
     }
 
-    public static void main(String[] args) {
+   public static void main(String[] args) {
         CustomerManager customerManager = new CustomerManager();
         List<Customer> listOfCustomers = customerManager.getAll();
         System.out.println("List of customers >" + listOfCustomers.size());
-    }
+    
+ }
 }

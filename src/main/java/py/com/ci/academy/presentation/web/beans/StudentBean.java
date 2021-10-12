@@ -11,13 +11,10 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
-import py.com.ci.academy.assignment.boundary.*;
 import py.com.ci.academy.students.boundary.StudentManager;
 import py.com.ci.academy.students.entities.Student;
-import py.com.ci.academy.teacher.entities.Teacher;
 
 /**
  *
@@ -25,7 +22,6 @@ import py.com.ci.academy.teacher.entities.Teacher;
  */
 @Named("studentBean")
 @SessionScoped
-
 public class StudentBean implements Serializable {
 
     private StudentManager studentManager;
