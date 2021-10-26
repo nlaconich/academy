@@ -14,6 +14,10 @@ public class Product {
     private int idProduct;
     private Double price;
     private Mark mark;
+    private String productdescription;
+
+   
+    
 
     public int getIdProduct() {
         return idProduct;
@@ -27,7 +31,7 @@ public class Product {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -39,10 +43,23 @@ public class Product {
         this.mark = mark;
     }
 
+    public String getProductdescription() {
+        return productdescription;
+    }
+
+    public void setProductdescription(String productdescription) {
+        this.productdescription = productdescription;
+    }
+
     @Override
     public String toString() {
-        return "Product{" + "idProduct=" + idProduct + ", price=" + price + ", mark=" + mark + '}';
+        return "Product{" + "idProduct=" + idProduct + ", price=" + price + ", mark=" + mark + ", productdescription=" + productdescription + '}';
     }
+
+
+
+  
+   
     
     
 }

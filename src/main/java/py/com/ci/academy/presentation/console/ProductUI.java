@@ -8,6 +8,7 @@ package py.com.ci.academy.presentation.console;
 import java.util.List;
 import java.util.Scanner;
 import org.postgresql.util.PSQLException;
+import static py.com.ci.academy.detailsale.boundary.DetailSaleManager.pm;
 import py.com.ci.academy.product.boundary.MarkManager;
 import py.com.ci.academy.product.boundary.ProductManager;
 import py.com.ci.academy.product.entities.Product;
@@ -27,6 +28,7 @@ public class ProductUI {
         ProductUI test = new ProductUI();
         test.mainMenu();
     }
+
     public void mainMenu() {
         Integer selectedOption = 1;
         do {
@@ -83,90 +85,107 @@ public class ProductUI {
         MarkUI markUI = new MarkUI();
         MarkManager mm = new MarkManager();
         int idproduct = 0;
-        
-        try  {
-        sc.nextLine();
-           
-        if(idproduct ==0){
+
+        try {
+            sc.nextLine();
+
+            
+          /* System.out.println("Insert the product Id");
+           idproduct = sc.nextInt();
+            List<Product> productes = pm.getAll();
+            if (!productes.isEmpty()) {
+                for (Product product : productes) {
+                    if (product.getIdProduct() == idproduct) {
+                        Product p = product;
+                    }
+                }
+            }
+
+            /*if(idproduct ==0){
         
          idproduct = manager.getIdProduct();
         }else{ 
             idproduct++;
-        }
-        markUI.listAllMarks();
-        System.out.println("Insert the mark Id");
-        int markId = sc.nextInt();
+        }*/
+            markUI.listAllMarks();
+            System.out.println("Insert the mark Id");
+            int markId = sc.nextInt();
 
-        sc.nextLine();
-        System.out.println("Insert the price of product");
-        Double price = sc.nextDouble();
+            sc.nextLine();
+            System.out.println("Insert the price of product");
+            Double price = sc.nextDouble();
 
-        product.setIdProduct(idproduct);
-        product.setPrice(price);
-        product.setMark(mm.getById(markId));
+            sc.nextLine();
+            System.out.println("Insert the description of product");
+            String productdescription = sc.nextLine();
 
-        manager.addProduct(product);
-        
+            product.setIdProduct(idproduct);
+            product.setPrice(price);
+            product.setMark(mm.getById(markId));
+            product.setProductdescription(productdescription);
+
+            manager.addProduct(product);
+
         } catch (Exception ex) {
-            
+
             //System.err.println(ex.getMessage());
-            
-        }  
-        
-            
-            //System.err.println(ex.getMessage());
-        
-         
-        
+        }
+
+        //System.err.println(ex.getMessage());
     }
 
     private void deleteProduct() {
         this.listAllProduct();
         System.out.println("Insert Id");
         int id = sc.nextInt();
-        product.setIdProduct(id); 
-         boolean ban = manager.deleteById(product);
+        product.setIdProduct(id);
+        boolean ban = manager.deleteById(product);
         if (ban == true) {
             System.out.println("Delete successful");
         } else {
             System.out.println("Error");
         }
     }
-  
 
     private void updateProduct() {
         MarkUI markUI = new MarkUI();
         MarkManager mm = new MarkManager();
-       try{
-        this.listAllProduct();
-        System.out.println("Insert Id");
-        int id = sc.nextInt();
-        
-        
-        markUI.listAllMarks();
-        System.out.println("Insert the new mark Id");
-        int markId = sc.nextInt();
+        try {
+            this.listAllProduct();
+            System.out.println("Insert Id");
+            int id = sc.nextInt();
 
-        sc.nextLine();
-        System.out.println("Insert the new price of product");
-        Double price = sc.nextDouble();
+            markUI.listAllMarks();
+            System.out.println("Insert the new mark Id");
+            int markId = sc.nextInt();
 
-        product.setIdProduct(id);
-        product.setPrice(price);
-        product.setMark(mm.getById(markId));
-        
-       }catch (Exception ex) {
+            sc.nextLine();
+            System.out.println("Insert the new price of product");
+            Double price = sc.nextDouble();
+
+            sc.nextLine();
+            System.out.println("Insert the new name of product");
+            String productdescription = sc.nextLine();
+
+            product.setIdProduct(id);
+            product.setPrice(price);
+            product.setMark(mm.getById(markId));
+            product.setProductdescription(productdescription);
             
-            System.err.println(ex.getMessage()); 
+            boolean ban = manager.updateProduct(product);
+            if (ban == true) {
+                System.out.println("Update successful");
+            } else {
+                System.out.println("Error");
+            }
 
-        boolean ban = manager.updateProduct(product);
-        if (ban == true) {
-            System.out.println("Update successful");
-        } else {
-            System.out.println("Error");
+
+        } catch (Exception ex) {
+
+            System.err.println(ex.getMessage());
+
+            
         }
 
     }
-
- }
 }

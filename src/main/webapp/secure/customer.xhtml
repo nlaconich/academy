@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <h:body>
+        <ui:composition template="/template/base.xhtml">
+            <ui:define name="content">
+                <h:form id="customer-form">
+
+                    <p:growl id="msgs" showDetail="true" />
+                    <div class="card">
+                        <p:dataTable id="dtCustomer" var="customer" value="#{customerBean.customerList}"
+
+                                     rows="10" paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     selection="#{customerBean.customer}" rowKey="#{customer.idCustomer}"
+                                     selectionMode="single">
+
+                            <p:column headerText="Customer ID">
+                                <h:outputText value="#{customer.idCustomer}" />
+                            </p:column>
+
+                            <p:column headerText="Descripcion">
+                                <h:outputText value="#{customer.description}" />
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton process="dtCustomer" icon="ui-icon-document" update=":form-update" 
+                                                 value="UPDATE" oncomplete="PF('dlgCustomerUpdate').show()" />
+                                <p:commandButton process="dtCustomer" icon="ui-icon-document" update=":form-add" 
+                                                 value="ADD" oncomplete="PF('dlgCustomerAdd').show()"  />
+                                <p:commandButton 
+                                    value="DELETE" 
+                                    update=":customer-form" 
+                                    actionListener="#{customerBean.deleteCustomer()}"
+                                    id="btn-delete-customer"
+                                    onclick="return confirm('DELETE CUSTOMER?')"/>
+
+                            </f:facet>
+                            <p:ajax event="rowSelect" listener="#{customerBean.onSelect}"  />
+                        </p:dataTable>
+                    </div>
+                </h:form> 
+
+                <p:dialog header="Customer" widgetVar="dlgCustomerAdd"
+                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <h5>Add Customer</h5>
+                    <h:form id="form-add">
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                        <p:panelGrid columns="7" columnClasses="column" id="addCustomer">                            
+                            <!--<p:outputLabel for="descripcion" value="Descripcion"/>
+
+                            <h:inputHidden value="#{customerBean.customer.idCustomer}"/>
+                            <p:inputText id="descripcion" value="#{customerBean.customer.description}"/>--> 
+
+                            <p:outputLabel for="@next" value="SELECT STUDENT" />
+                            <p:selectOneMenu id="student" value="#{studentBean.student}" converter="StudentConverter" panelStyle="width:300px"
+                                             effect="fade" style="width:300px" filter="true" filterMatchMode="startsWith">
+                                <f:selectItems value="#{studentBean.studentList}" var="st" itemLabel="#{st.idStudent}" itemValue="#{st}" />
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Name"/>
+                                    </f:facet>
+                                    <h:outputText value="#{st.idStudent}" />
+
+                                </p:column>
+
+                            </p:selectOneMenu>
+
+                            <p:outputLabel for="@next" value="SELECT TEACHER" />
+                            <p:selectOneMenu id="teacher" value="#{teacherBean.teacher}" converter="teacherConverter" panelStyle="width:300px"
+                                             effect="fade" style="width:300px" filter="true" filterMatchMode="startsWith">
+                                <f:selectItems value="#{teacherBean.teacherList}" var="tch" itemLabel="#{tch.idTeacher}" itemValue="#{tch}" />
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Name"/>
+                                    </f:facet>
+                                    <h:outputText value="#{tch.idTeacher}" />
+                                </p:column>
+
+                            </p:selectOneMenu>
+
+
+                            <p>Select the type of client:</p>
+
+                            <div>
+                                <input type="radio" id="student" name="drone" value="student"
+                                       checked="checked"/>
+                                <label for="student">Student</label>
+                            </div>
+
+                            <div>
+                                <input type="radio" id="teacherId" name="drone" value="teacher"/>
+
+                                <label for="teacher">Teacher</label>
+                            </div>
+
+
+                            <p:commandButton 
+                                value="Save"  
+                                actionListener="#{customerBean.agregarCustomer()}"
+                                update=":customer-form"
+                                oncomplete="PF('dlgCustomerAdd').hide()"
+                                id='btn-guardar-customer'
+                                />
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog header="Customer" widgetVar="dlgCustomerUpdate"
+                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+
+                    <h5>Update Customer</h5>
+                    <h:form id="form-update">
+
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                        <p:panelGrid columns="8" columnClasses="column" id="updateCustomer">  
+                            
+                        
+                            <h:inputHidden value="#{customerBean.customer.idCustomer}"/>
+                            <!--<p:outputLabel for="description" value="Description"/>
+
+                            <p:inputText id="description" value="#{customerBean.customer.description}" style="text-transform: none" />-->
+                        
+                            
+                        
+                            <p:outputLabel for="@next" value="SELECT CUSTOMER" />
+                            <p:selectOneMenu id="customer" value="#{customerBean.customer}" converter="CustomerConverter" panelStyle="width:300px"
+                                             effect="fade" style="width:300px" filter="true" filterMatchMode="startsWith">
+                                <f:selectItems value="#{customerBean.customerList}" var="cus" itemLabel="#{cus.idCustomer}" itemValue="#{cus}" />
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="idCustomer"/>
+                                    </f:facet>
+                                    <h:outputText value="#{cus.idCustomer}" /> 
+
+                                </p:column>
+
+                            </p:selectOneMenu>
+                        
+                            <p>Select the type of client:</p>
+
+                            <div>
+                                <input type="radio" id="student" name="drone" value="student"
+                                       checked="checked"/>
+                                <label for="student">Student</label>
+                                
+                            </div>
+
+                            <div>
+                                <input type="radio" id="teacherId" name="drone" value="teacher"/>
+
+                                <label for="teacher">Teacher</label>
+                                
+                                
+                            </div>
+
+
+                            <p:commandButton 
+                                value="Save" 
+                                actionListener="#{customerBean.updateCustomer()}"
+                                id="btn-update-customer"
+                                update=":customer-form" 
+                                oncomplete="PF('dlgCustomerUpdate').hide()"
+                                />
+                        </p:panelGrid>
+
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
+

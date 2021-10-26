@@ -240,11 +240,29 @@
     <navigation-rule>
         <from-view-id>/secure/*</from-view-id>
         <navigation-case>
+            <from-outcome>mark</from-outcome>
+            <to-view-id>/secure/mark.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>customer</from-outcome>
+            <to-view-id>/secure/customer.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <!--
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
             <from-outcome>tipoProducto</from-outcome>
             <to-view-id>/secure/tipoProductos.xhtml</to-view-id>
             <redirect />
         </navigation-case>
-    </navigation-rule>
+    </navigation-rule> -->
     <navigation-rule>
         <from-view-id>/secure/*</from-view-id>
         <navigation-case>
@@ -548,6 +566,16 @@
             <to-view-id>/secure/articulos.xhtml</to-view-id>
             <redirect />
         </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/secure/*</from-view-id>
+        <navigation-case>
+            <from-outcome>sale</from-outcome>
+            <to-view-id>/secure/sale.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        
     </navigation-rule>
     <managed-bean>
         <managed-bean-name>now</managed-bean-name>

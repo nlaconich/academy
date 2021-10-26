@@ -11,98 +11,96 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-    <h:body>
+   
         <h:body>
-        <ui:composition template="/template/base.xhtml">
-            <ui:define name="content">
-                <h:form id="mark-form">
+            <ui:composition template="/template/base.xhtml">
+              <ui:define name="content">
+              <h:form id="mark-form">
 
-                    <p:growl id="msgs" showDetail="true" />
-                    <div class="card">
-                        <p:dataTable id="dtMark" var="mark" value="#{markBean.markList}"
+                        <p:growl id="msgs" showDetail="true" />
+                        <div class="card">
+                            <p:dataTable id="dtMark" var="mark" value="#{markBean.markList}"
 
-                                     rows="10" paginator="true" paginatorPosition="bottom"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15"
-                                     selection="#{markBean.mark}" rowKey="#{mark.id_mark}"
-                                     selectionMode="single">
-                            
-                            <p:column headerText="Mark ID">
-                                <h:outputText value="#{mark.id_mark}" />
-                            </p:column>
+                                         rows="10" paginator="true" paginatorPosition="bottom"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15"
+                                         selection="#{markBean.mark}" rowKey="#{mark.id_mark}"
+                                         selectionMode="single">
 
-                            <p:column headerText="Name">
-                                <h:outputText value="#{mark.name}" />
-                            </p:column>
+                                <p:column headerText="Mark ID">
+                                    <h:outputText value="#{mark.id_mark}" />
+                                </p:column>
 
-                           
-                            </p:column>
-                            <f:facet name="footer">
-                                <p:commandButton process="dtMark" icon="ui-icon-document" update=":form-update" 
-                                                 value="UPDATE" oncomplete="PF('dlgMarkUpdate').show()" />
-                                <p:commandButton process="dtMark" icon="ui-icon-document" update=":form-add" 
-                                                 value="NEW" oncomplete="PF('dlgMarkAdd').show()"  />
+                                <p:column headerText="Name">
+                                    <h:outputText value="#{mark.name}" />
+                                </p:column>
+                                
+                                <f:facet name="footer">
+                                    <p:commandButton process="dtMark" icon="ui-icon-document" update=":form-update" 
+                                                     value="UPDATE" oncomplete="PF('dlgMarkUpdate').show()" />
+                                    <p:commandButton process="dtMark" icon="ui-icon-document" update=":form-add" 
+                                                     value="ADD" oncomplete="PF('dlgMarkAdd').show()"  />
+                                    <p:commandButton 
+                                        value="DELETE" 
+                                        update="mark-form" 
+                                        actionListener="#{markBean.deleteMark()}"
+                                        id="btn-delete-mark"
+                                        onclick="return confirm('DELETE MARK?')"/>
+
+                                </f:facet>
+                                <p:ajax event="rowSelect" listener="#{markBean.onSelect}"  />
+                            </p:dataTable>
+                        </div>
+                    </h:form> 
+
+                    
+                    <p:dialog header="Mark" widgetVar="dlgMarkAdd"
+                              modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <h5>Add Mark</h5>
+                        <h:form id="form-add">
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                            <p:panelGrid columns="4" columnClasses="column" id="addMark">                            
+                                <p:outputLabel for="name" value="Name"/>
+
+                                <h:inputHidden value="#{markBean.mark.id_mark}"/>
+                                <p:inputText id="name" value="#{markBean.mark.name}"/> 
+
                                 <p:commandButton 
-                                    value="DELETE" 
-                                    update="mark-form" 
-                                    actionListener="#{markBean.deleteMark()}"
-                                    id="btn-delete-mark"
-                                    onclick="return confirm('DELETE MARK?')"/>
+                                    value="Save"  
+                                    actionListener="#{markBean.agregarMark}"
+                                    update=":mark-form"
+                                    oncomplete="PF('dlgMarkAdd').hide()"
+                                    id='btn-guardar-mark'
+                                    />
+                            </p:panelGrid>
+                        </h:form>
+                    </p:dialog>
+                     
+                     <p:dialog header="Mark" widgetVar="dlgMarkUpdate"
+                              modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <h5>Update Mark</h5>
+                        <h:form id="form-update">
+                           
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                              <p:panelGrid columns="2" columnClasses="column" id="updateMark">                           
+                                <p:outputLabel for="name" value="Name"/>
 
-                            </f:facet>
-                            <p:ajax event="rowSelect" listener="#{markBean.onSelect}"  />
-                        </p:dataTable>
-                    </div>
-                </h:form> 
+                                <h:inputHidden value="#{markBean.mark.id_mark}"/>
+                                <p:inputText id="name" value="#{markBean.mark.name}" style="text-transform: none" />
 
-                <p:dialog header="Mark" widgetVar="dlgMarkAdd"
-                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                    <h5>Add Mark</h5>
-                    <h:form id="form-add">
-                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
-                        <p:panelGrid columns="6" columnClasses="column" id="addMark">                            
-                            <p:outputLabel for="name" value="Name"/>
-                         
-                            <h:inputHidden value="#{markBean.mark.id_mark}"/>
-                            <p:inputText id="name" value="#{studentMark.mark.name}"/> 
-                            
-                            <p:commandButton 
-                                value="Save"  
-                                actionListener="#{markBean.agregarMark}"
-                                update="form-add,:mark-form"
-                                oncomplete="PF('dlgMarkAdd').hide()"
-                                id='btn-guardar-mark'
-                                />
-                        </p:panelGrid>
-                    </h:form>
-                </p:dialog>
-
-                <p:dialog header="Mark" widgetVar="dlgMarkUpdate"
-                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                    <h5>Update Mark</h5>
-                    <h:form id="form-update">
-                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
-                        <p:panelGrid columns="6" columnClasses="column" id="updateMark">                            
-                            <p:outputLabel value="Name" for="name" />
-                            
-
-                            <h:inputHidden value="#{markBean.mark.id_mark}"/>
-                            <p:inputText id="name" required="true" value="#{markBean.mark.name}" style="text-transform: none" />
-
-
-                            <p:commandButton 
-                                value="Update" 
+                                <p:commandButton 
+                                value="Save" 
                                 actionListener="#{markBean.updateMark()}"
                                 id="btn-update-mark"
-                                update="form-update,:mark-form"
-                                oncomplete="PF('dlgMarkUpdate').hide()" 
-                                />
-                        </p:panelGrid>
-
-
-                    </h:form>	
-                </p:dialog>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+                                update="form-update,:mark-form" 
+                                oncomplete="PF('dlgMarkUpdate').hide()"
+                                    />
+                     </p:panelGrid>
+                         
+                        </h:form>
+                    </p:dialog>
+                  
+                </ui:define>
+            </ui:composition>
+        </h:body>
 </html>

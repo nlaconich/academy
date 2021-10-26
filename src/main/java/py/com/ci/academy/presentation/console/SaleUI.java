@@ -164,11 +164,17 @@ public class SaleUI {
             sc.nextLine();
             System.out.println("Insert the description of sale");
             String description = sc.nextLine();
+            
+            sc.nextLine();
+            System.out.println("Insert the total sale");
+            int totalSale= sc.nextInt();
+
 
             //sale.setIdSale(idSale);
             sale.setDate_sale(fec);
             sale.setCustomer(cm.getById(customerId));
             sale.setDescripcion(description);
+            sale.setTotalSale(totalSale);
             manager.add(sale);
 
             //    manager.addProduct(product);
@@ -262,8 +268,12 @@ public class SaleUI {
             int customerId = sc.nextInt();
 
             sc.nextLine();
-            System.out.println("Insert the description of sale");
+            System.out.println("Insert the new escription of sale");
             String description = sc.nextLine();
+            
+            sc.nextLine();
+            System.out.println("Insert the new total sale");
+            int totalSale = sc.nextInt();
 
             //sale.setIdSale(idSale);
             sale.setDate_sale(fec);

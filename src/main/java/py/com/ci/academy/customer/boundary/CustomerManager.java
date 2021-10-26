@@ -22,12 +22,13 @@ public class CustomerManager {
     }
 
     public void add(Customer customer) {
-        String sql = "INSERT INTO public.customer(id_student_teacher,descripcion) VALUES (?,?)";
+        String sql = "INSERT INTO public.customer(id_student,id_teacher,description) VALUES (?,?,?)";
 
         try ( PreparedStatement sj = ConnectionManager.getConnection().prepareStatement(sql)) {
            // sj.setInt(1, customer.getIdCustomer());
             sj.setInt(1, customer.getIdStudent());
-            sj.setString(2, customer.getDescripcion());
+            sj.setInt(2, customer.getIdTeacher());
+            sj.setString(3, customer.getDescription());
 
             sj.executeUpdate();
         } catch (SQLException throwables) {
@@ -70,7 +71,7 @@ public class CustomerManager {
         String sql = "DELETE FROM public.customer WHERE id_customer= ?";
         int rows = 0;
         try ( PreparedStatement sj = ConnectionManager.getConnection().prepareStatement(sql)) {
-            sj.setInt(1, customer.getIdStudent());
+            sj.setInt(1, customer.getIdCustomer());
             rows = sj.executeUpdate();
             return true;
         } catch (SQLException throwables) {
@@ -81,12 +82,14 @@ public class CustomerManager {
 
     public int updateById(Customer customer) {
         int rows = 0;
-        String sql = "UPDATE public.customer SET  id_student_teacher=?,id_teacher=? WHERE id_customer=?";
+        String sql = "UPDATE public.customer SET  id_student=?,id_teacher=?,description=? WHERE id_customer=?";
         try ( PreparedStatement sj = ConnectionManager.getConnection().prepareStatement(sql)) {
             
-            sj.setInt(1, customer.getIdStudent());
-            sj.setString(2, customer.getDescripcion());
-            sj.setInt(3, customer.getIdCustomer());
+
+             sj.setInt(1, customer.getIdStudent());
+             sj.setInt(2,customer.getIdTeacher());
+             sj.setString(1, customer.getDescription());
+             sj.setInt(1, customer.getIdCustomer());
 
             rows = sj.executeUpdate();
             return rows;
@@ -100,8 +103,9 @@ public class CustomerManager {
         try {
             Customer data = new Customer();
             data.setIdCustomer(rs.getInt("id_customer"));
-            data.setIdStudent(rs.getInt("id_student_teacher"));
-            data.setDescripcion(rs.getString("descripcion"));
+            data.setIdStudent(rs.getInt("id_student"));
+            data.setIdTeacher(rs.getInt("id_teacher"));
+            data.setDescription(rs.getString("description"));
             //data.setIdTeacher(rs.getInt("id_teacher"));
             return data;
         } catch (SQLException ex) {

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <ui:composition template="/template/base.xhtml">
+            <ui:define name="content">
+                <h:form id="product-form">
+
+                    <p:growl id="msgs" showDetail="true" />
+                    <div class="card">
+                        <p:dataTable id="dtProduct" var="product" value="#{productBean.productList}"
+
+                                     rows="10" paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     selection="#{productBean.product}" rowKey="#{product.idProduct}"
+                                     selectionMode="single">
+
+
+                            <p:column headerText="ProductDescrption">
+                                <h:outputText value="#{product.productdescription}" />
+                            </p:column>
+
+                            <p:column headerText="Price">
+                                <h:outputText value="#{product.price}" />
+                            </p:column>
+
+
+
+                            <f:facet name="footer">
+                                <p:commandButton process="dtProduct" icon="ui-icon-document" update=":form-update" 
+                                                 value="UPDATE" oncomplete="PF('dlgProductUpdate').show()" />
+                                <p:commandButton process="dtProduct" icon="ui-icon-document" update=":form-add" 
+                                                 value="ADD" oncomplete="PF('dlgProductAdd').show()"  />
+                                <p:commandButton 
+                                    value="DELETE" 
+                                    update="product-form" 
+                                    actionListener="#{productBean.deleteProduct()}"
+                                    id="btn-delete-product"
+                                    onclick="return confirm('DELETE PRODUCT?')"/>
+
+                            </f:facet>
+                            <p:ajax event="rowSelect" listener="#{productBean.onSelect}"  />
+                        </p:dataTable>
+                    </div>
+                </h:form> 
+
+                <p:dialog header="Product" widgetVar="dlgProductAdd"
+                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <h5>Add Product</h5>
+                    <h:form id="form-add">
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                         <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5" id="addProduct">
+                             
+                            <h:inputHidden value="#{productBean.product.idProduct}"/>
+
+                            <p:outputLabel for="price" value="Price"/>
+                            <p:inputText id="price" value="#{productBean.product.price}"/>
+
+                            <p:outputLabel for="productdescription" value="Product Description"/>
+                            <p:inputText id="productdescription" value="#{productBean.product.productdescription}" />
+                           
+                            <p:outputLabel for="@next" value="SELECT MARK" />
+                            <p:selectOneMenu id="mark" value="#{markBean.mark}" converter="MarkConverter" panelStyle="width:300px"
+                                             effect="fade" style="width:300px" filter="true" filterMatchMode="startsWith">
+                                <f:selectItems value="#{markBean.markList}" var="mrk" itemLabel="#{mrk.name}" itemValue="#{mrk}" />
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Name"/>
+                                    </f:facet>
+                                    <h:outputText value="#{mrk.name}" />
+                                </p:column>
+
+                            </p:selectOneMenu>
+
+
+
+
+                            <p:commandButton 
+                                value="Save"  
+                                actionListener="#{productBean.agregarProduct}"
+                                update="product-form"
+                                oncomplete="PF('dlgProductAdd').hide()"
+                                id='btn-guardar-product'
+                                />
+                        </h:panelGrid>
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog header="Product" widgetVar="dlgProductUpdate"
+                          modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <h5>Update Product</h5>
+                    <h:form id="form-update">
+                       <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                         <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5" id="updateProduct">
+                             
+                            <h:inputHidden value="#{productBean.product.idProduct}"/>
+
+                            <p:outputLabel for="price" value="Price"/>
+                            <p:inputText id="price" value="#{productBean.product.price}"/>
+
+                            <p:outputLabel for="productdescription" value="Product Description"/>
+                            <p:inputText id="productdescription" value="#{productBean.product.productdescription}" />
+                           
+                            <p:outputLabel for="@next" value="SELECT MARK" />
+                            <p:selectOneMenu id="mark" value="#{markBean.mark}" converter="MarkConverter" panelStyle="width:300px"
+                                             effect="fade" style="width:300px" filter="true" filterMatchMode="startsWith">
+                                <f:selectItems value="#{markBean.markList}" var="mrk" itemLabel="#{mrk.name}" itemValue="#{mrk}" />
+               
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Name"/>
+                                    </f:facet>
+                                    <h:outputText value="#{mrk.name}" />
+                                </p:column>
+
+                            </p:selectOneMenu>
+
+
+                            <p:commandButton 
+                                value="Update" 
+                                actionListener="#{productBean.updateProduct()}"
+                                id="btn-update-product"
+                                update=":product-form"
+                                oncomplete="PF('dlgProductUpdate').hide()" 
+                                />
+                        </h:panelGrid>
+
+
+                    </h:form>	
+                </p:dialog>
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>

@@ -10,18 +10,18 @@ package py.com.ci.academy.customer.entities;
  * @author jmendez
  */
 public class Customer {
-    
+
     private int idCustomer;
     private int idStudent;
-    private String descripcion;
-    
+    private int idTeacher;
+    private String description;
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getIdCustomer() {
@@ -40,13 +40,17 @@ public class Customer {
         this.idStudent = idStudent;
     }
 
-    @Override
-    public String toString() {
-        return "Customer{" + "idCustomer=" + idCustomer + ", idStudent=" + idStudent + ", descripcion=" + descripcion + '}';
+    public int getIdTeacher() {
+        return idTeacher;
     }
 
-    
-    
-    
-    
+    public void setIdTeacher(int idTeacher) {
+        this.idTeacher = idTeacher;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" + "idCustomer=" + idCustomer + ", idStudent=" + idStudent + ", idTeacher=" + idTeacher + ", description=" + description + '}';
+    }
+
 }

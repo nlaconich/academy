@@ -9,20 +9,23 @@ import java.util.List;
 import java.util.Scanner;
 import py.com.ci.academy.product.boundary.MarkManager;
 import py.com.ci.academy.product.entities.Mark;
+
 /**
  *
  * @author jmendez
  */
 public class MarkUI {
+
     Scanner sc = new Scanner(System.in);
     MarkManager manager = new MarkManager();
     Mark mark = new Mark();
-    
+
     public static void main(String[] args) {
         MarkUI test = new MarkUI();
         test.mainMenu();
-       //test.listAllMarks();
+        //test.listAllMarks();
     }
+
     public void mainMenu() {
         Integer selectedOption = 1;
         do {
@@ -63,11 +66,12 @@ public class MarkUI {
         } while (selectedOption < 5);
 
     }
-      public void listAllMarks() {
+
+    public void listAllMarks() {
         List<Mark> markes = manager.getAll();
         if (!markes.isEmpty()) {
             for (Mark mark : markes) {
-                System.out.println(mark.getId_mark()+" :  "+mark.getName());
+                System.out.println(mark.getId_mark() + " :  " + mark.getName());
             }
         } else {
             System.out.println("No mark found");
@@ -78,28 +82,28 @@ public class MarkUI {
         /*sc.nextLine();
         System.out.println("Insert the mark id");
         int idMark = sc.nextInt();*/
-        try{
-        sc.nextLine();
-        System.out.println("Insert the Mark Name");
-        String nameMark = sc.nextLine();
-        
-        //mark.setId_mark(idMark);
-        mark.setName(nameMark);
-        
-        manager.add(mark);
-   }catch (Exception ex) {
-            
+        try {
+            sc.nextLine();
+            System.out.println("Insert the Mark Name");
+            String nameMark = sc.nextLine();
+
+            //mark.setId_mark(idMark);
+            mark.setName(nameMark);
+
+            manager.add(mark);
+        } catch (Exception ex) {
+
             System.err.println(ex.getMessage());
-        
-        }  
-  }
+
+        }
+    }
 
     private void deleteMarks() {
         this.listAllMarks();
         sc.nextLine();
         System.out.println("Select the mark id");
         int idMark = sc.nextInt();
-       
+
         mark.setId_mark(idMark);
         boolean ban = manager.deleteById(mark);
         if (ban == true) {
@@ -107,26 +111,26 @@ public class MarkUI {
         } else {
             System.out.println("Error");
         }
- }
+    }
 
     private void updateMarks() {
-        this.listAllMarks();       
+        this.listAllMarks();
         sc.nextLine();
         System.out.println("Select the mark id");
         int idMark = sc.nextInt();
-        
+
         sc.nextLine();
         System.out.println("Insert the New Mark Name");
         String nameMark = sc.nextLine();
-        
+
         mark.setId_mark(idMark);
         mark.setName(nameMark);
-        
-         boolean ban = manager.updateMark(mark);
+
+        boolean ban = manager.updateMark(mark);
         if (ban == true) {
             System.out.println("Update successful");
         } else {
             System.out.println("Error");
         }
-   }
+    }
 }

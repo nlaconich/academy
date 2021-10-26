@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+   
+        <h:body>
+            <ui:composition template="/template/base.xhtml">
+              <ui:define name="content">
+              <h:form id="sale-form">
+
+                        <p:growl id="msgs" showDetail="true" />
+                        <div class="card">
+                            <p:dataTable id="dtSale" var="sale" value="#{saleBean.saleList}"
+
+                                         rows="10" paginator="true" paginatorPosition="bottom"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15"
+                                         selection="#{saleBean.sale}" rowKey="#{sale.idSale}"
+                                         selectionMode="single">
+
+                                <p:column headerText="Sale ID">
+                                    <h:outputText value="#{sale.idSale}" />
+                                </p:column>
+
+                                <p:column headerText="Date Sale">
+                                    <h:outputText value="#{sale.date_sale}" />
+                                </p:column>
+                                
+                                  <p:column headerText="Customer ID">
+                                      <h:outputText value="#{sale.customer}" />
+                                </p:column>
+                                
+                                  <p:column headerText="Descripcion">
+                                      <h:outputText value="#{sale.descripcion}" />
+                                  </p:column>
+                                
+                                  <p:column headerText="Total Sale">
+                                      <h:outputText value="#{sale.totalSale}" />
+                                </p:column>
+                                
+                                <f:facet name="footer">
+                                    <p:commandButton process="dtSale" icon="ui-icon-document" update=":form-update" 
+                                                     value="UPDATE" oncomplete="PF('dlgSaleUpdate').show()" />
+                                    <p:commandButton process="dtSale" icon="ui-icon-document" update=":form-add" 
+                                                     value="ADD" oncomplete="PF('dlgSaleAdd').show()"  />
+                                    <p:commandButton 
+                                        value="DELETE" 
+                                        update="sale-form" 
+                                        actionListener="#{saleBean.deleteSale()}"
+                                        id="btn-delete-sale"
+                                        onclick="return confirm('DELETE SALE?')"/>
+
+                                </f:facet>
+                                <p:ajax event="rowSelect" listener="#{saleBean.onSelect}"  />
+                            </p:dataTable>
+                        </div>
+                    </h:form> 
+
+                    
+                    <p:dialog header="Sale" widgetVar="dlgSaleAdd"
+                              modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <h5>Add Sale</h5>
+                        <h:form id="form-add">
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                            <p:panelGrid columns="4" columnClasses="column" id="addSale">                            
+                             
+
+                                <h:inputHidden value="#{saleBean.sale.idSale}"/>
+                                
+                                <p:inputText id="datesale" value="#{saleBean.sale.date_sale}"/> 
+                                
+                                <p:outputLabel for="@next" value="SELECT CUSTOMER" />
+                            <p:selectOneMenu id="customer" value="#{customerBean.customer}" converter="CustomerConverter" panelStyle="width:300px"
+                                             effect="fade" style="width:300px" filter="true" filterMatchMode="startsWith">
+                                <f:selectItems value="#{customerBean.customerList}" var="ctb" itemLabel="#{ctb.description}" itemValue="#{ctb}" />
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Descripction"/>
+                                    </f:facet>
+                                    <h:outputText value="#{ctb.description}" />
+                                </p:column>
+
+                            </p:selectOneMenu>
+                                
+                                <p:inputText id="descripcion" value="#{saleBean.sale.descripcion}"/> 
+                                <p:inputText id="totalSale" value="#{saleBean.sale.totalSale}"/> 
+
+
+                                <p:commandButton 
+                                    value="Save"  
+                                    actionListener="#{saleBean.agregarSale}"
+                                    update=":sale-form"
+                                    oncomplete="PF('dlgMforsaleAdd').hide()"
+                                    id='btn-guardar-sale'
+                                    />
+                            </p:panelGrid>
+                        </h:form>
+                    </p:dialog>   
+                     
+                     <p:dialog header="Mark" widgetVar="dlgMarkUpdate"
+                              modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <h5>Update Sale</h5>
+                        <h:form id="form-update">
+                           
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                              <p:panelGrid columns="2" columnClasses="column" id="updateSale">                           
+                               
+
+                                <h:inputHidden value="#{saleBean.sale.idSale}"/>
+                               <p:inputText id="datesale" value="#{saleBean.sale.date_sale}"/> 
+                                
+                                <p:outputLabel for="@next" value="SELECT CUSTOMER" />
+                            <p:selectOneMenu id="customer" value="#{customerBean.customer}" converter="CustomerConverter" panelStyle="width:300px"
+                                             effect="fade" style="width:300px" filter="true" filterMatchMode="startsWith">
+                                <f:selectItems value="#{customerBean.customerList}" var="ctb" itemLabel="#{ctb.description}" itemValue="#{ctb}" />
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Descripction"/>
+                                    </f:facet>
+                                    <h:outputText value="#{ctb.description}" />
+                                </p:column>
+
+                            </p:selectOneMenu>
+                                
+                                <p:inputText id="descripcion" value="#{saleBean.sale.descripcion}"/> 
+                                <p:inputText id="totalSale" value="#{saleBean.sale.totalSale}"/> 
+
+                                <p:commandButton 
+                                value="Save" 
+                                actionListener="#{saleBean.updateSale()}"
+                                id="btn-update-sale"
+                                update=":sale-form" 
+                                oncomplete="PF('dlgSaleUpdate').hide()"
+                                    />
+                     </p:panelGrid>
+                         
+                        </h:form>
+                    </p:dialog>
+                  
+                </ui:define>
+            </ui:composition>
+        </h:body>
+</html>

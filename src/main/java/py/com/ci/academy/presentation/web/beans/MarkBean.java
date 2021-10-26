@@ -46,7 +46,7 @@ public class MarkBean implements Serializable {
     }
 
     public List<Mark> getMarkList() {
-        return markManager.getAll();
+        return markList;
     }
 
     public void setMarktList(List<Mark> markList) {

@@ -31,13 +31,14 @@ public class SaleManager {
     }
     
     public void add(Sale sale) {
-        String sql = "INSERT INTO public.sale(date_sale,id_customer,descripcion) VALUES ( ?,?,?)";
+        String sql = "INSERT INTO public.sale(date_sale,id_customer,descripcion,total_sale) VALUES ( ?,?,?,?)";
 
         try ( PreparedStatement sj = ConnectionManager.getConnection().prepareStatement(sql)) {
             //sj.setInt(1, sale.getIdSale());
             sj.setDate(1, (Date) sale.getDate_sale());
             sj.setInt(2, sale.getCustomer().getIdCustomer());
             sj.setString(3, sale.getDescripcion());
+            sj.setInt(4, sale.getTotalSale());
           
             
 
@@ -80,13 +81,14 @@ public class SaleManager {
     }
      
       public boolean updateSale(Sale sale) {
-        String sql = "UPDATE public.sale SET  date_sale=?, id_customer=?, descripcion=? WHERE id_sale=?";
+        String sql = "UPDATE public.sale SET  date_sale=?, id_customer=?, descripcion=?,total_sale=? WHERE id_sale=?";
         try (PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql)) {
            
             s1.setInt(2, sale.getCustomer().getIdCustomer());
             s1.setDate(1,sale.getDate_sale());
             s1.setString(3,sale.getDescripcion());
-             s1.setInt(4, sale.getIdSale());
+            s1.setInt(4, sale.getTotalSale());
+            s1.setInt(5, sale.getIdSale());
            
             //s1.setInt(4, product.getIdProduct());
             s1.executeUpdate();
@@ -116,15 +118,16 @@ public class SaleManager {
             Sale data = new Sale();
             data.setIdSale(rs.getInt("id_sale"));
             data.setDate_sale(rs.getDate("date_sale"));
+            data.setTotalSale(rs.getInt("total_sale"));
+            
            //data.setIdCustomer(rs.getInt("id_customer"));
            // asignamos todos los datos de customer a la venta (sale)
            data.setCustomer(cm.getById(rs.getInt("id_customer")));
-           if(data.getCustomer() == null){
-               data.getCustomer().setIdCustomer(rs.getInt("id_customer"));
-           }
+
                    
             data.setDescripcion(rs.getString("descripcion"));
             return data;
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;

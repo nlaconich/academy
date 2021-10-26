@@ -90,7 +90,7 @@ public class CustomerUI {
         TeacherManager tm = new TeacherManager();
         TeacherUI tui = new TeacherUI();
 
-        String descripcion = "";
+        String description = "";
         try {
             sc.nextLine();
             System.out.println("Insert the option (0= Student, 1= Teacher)");
@@ -100,20 +100,21 @@ public class CustomerUI {
                 System.out.println("Insert the student Id");
                 int idStudent = sc.nextInt();
                 customer.setIdStudent(idStudent);
-                descripcion = "STUDENT";
+                description = "Student";
             } else {
                 if (option == 1) {
                     tui.listAllTeachers();
                     System.out.println("Insert the teacher Id");
                     int idTeacher = sc.nextInt();
-                    customer.setIdStudent(idTeacher);
-                    descripcion = "TEACHER";
+                    customer.setIdTeacher(idTeacher);
+                    description = "Teacher";
                 }
             }
 
-            // customer.setIdCustomer(option);
-            // customer.setIdStudent(option);
-            customer.setDescripcion(descripcion);
+            customer.setIdCustomer(option);
+            //customer.setIdStudent(option);
+           // customer.setIdTeacher(option);
+            customer.setDescription(description);
             manager.add(customer);
 
             //    manager.addProduct(product);
@@ -144,8 +145,16 @@ public class CustomerUI {
         TeacherManager tm = new TeacherManager();
         TeacherUI tui = new TeacherUI();
 
-        String descripcion = "";
-        try {
+        String description = "";
+        
+        this.listAllCustomer();
+        sc.nextLine();
+        System.out.println("Insert the new customer description");
+        String descprtion = sc.nextLine();
+        
+        customer.setDescription(description);
+        
+       /* try {
             this.listAllCustomer();
             System.out.println("Insert the Customer Id");
             int id = sc.nextInt();
@@ -158,27 +167,28 @@ public class CustomerUI {
                 System.out.println("Insert the new student Id");
                 int idStudent = sc.nextInt();
                 customer.setIdStudent(idStudent);
-                descripcion = "STUDENT";
+                description = "Student";
             } else {
                 if (option == 1) {
                     tui.listAllTeachers();
                     System.out.println("Insert the new teacher Id");
                     int idTeacher = sc.nextInt();
                     customer.setIdStudent(idTeacher);
-                    descripcion = "TEACHER";
+                    description = "Teacher";
                 }
             }
 
-            // customer.setIdCustomer(option);
-            // customer.setIdStudent(option);
-            customer.setDescripcion(descripcion);
+            customer.setIdCustomer(option);
+            customer.setIdStudent(option);
+            customer.setIdTeacher(option);
+            customer.setDescription(description);
 
             //    manager.addProduct(product);
         } catch (Exception ex) {
 
             System.err.println(ex.getMessage());
 
-        }
-
+        }*/
+       
     }
 }

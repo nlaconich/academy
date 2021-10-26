@@ -18,6 +18,7 @@ public class Sale {
     private Customer customer;
     private Date date_sale;
     private String descripcion;
+    private int totalSale;
     
 
     
@@ -54,10 +55,20 @@ public class Sale {
         this.descripcion = descripcion;
     } 
 
+    public int getTotalSale() {
+        return totalSale;
+    }
+
+    public void setTotalSale(int totalSale) {
+        this.totalSale = totalSale;
+    }
+
     @Override
     public String toString() {
-        return "Sale{" + "idSale=" + idSale + ", customer=" + customer + ", date_sale=" + date_sale + ", descripcion=" + descripcion + '}';
+        return "Sale{" + "idSale=" + idSale + ", customer=" + customer + ", date_sale=" + date_sale + ", descripcion=" + descripcion + ", totalSale=" + totalSale + '}';
     }
+
+   
     
     
 }
