@@ -1,5 +1,4 @@
 package py.com.ci.academy.utils;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -22,15 +21,6 @@ public class ConnectionManager {
             return null;
         }
 
-/*
-        if(connection!=null){
-            System.out.println("Connections ready");
-
-        }
-        else{
-            System.out.println("Error connections");
-        }
-*/
         return connection;
     }
 

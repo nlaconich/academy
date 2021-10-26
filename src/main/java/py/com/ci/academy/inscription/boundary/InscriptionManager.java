@@ -14,9 +14,23 @@ import java.util.List;
 
 public class InscriptionManager {
 
+    private static final String GET_SIZE_STATEMENT = "SELECT COUNT(id_inscription) AS 'size' FROM public.inscription";
+
     private String getStatement() {
         String sql = "SELECT i.id_inscription, i.id_student, s.name, co.id_course, co.name_course, a.id_assignment, a.name_assignment FROM public.inscription i, public.student s, public.courseassignment ca, public.course co, public.assignment  a WHERE i.id_student=s.id_student and ca.id_course = co.id_course and ca.id_assignment= a.id_assignment and i.id_cxa = ca.id_cxa";
         return sql;
+    }
+
+    public Integer getSize() {
+
+        try ( PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(GET_SIZE_STATEMENT)) {
+            ResultSet rs = stmt.executeQuery();
+            return rs.getInt(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 9999;
     }
 
     private Inscription getFromRsInscription(ResultSet rs) {
@@ -89,13 +103,12 @@ public class InscriptionManager {
     public boolean deleteInscription(Inscription inscription) {
         String sql = "DELETE FROM public.accounts WHERE id_inscription= ?";
         String sql2 = "DELETE FROM public.inscription WHERE id_inscription= ?";
-        try ( PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql);
-              PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql2)) {
+        try ( PreparedStatement s1 = ConnectionManager.getConnection().prepareStatement(sql);  PreparedStatement stmt = ConnectionManager.getConnection().prepareStatement(sql2)) {
             s1.setInt(1, inscription.getIdInscription());
             s1.executeUpdate();
             stmt.setInt(1, inscription.getIdInscription());
             stmt.executeUpdate();
-            return true;  
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return false;

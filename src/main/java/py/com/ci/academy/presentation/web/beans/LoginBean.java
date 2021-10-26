@@ -2,33 +2,34 @@ package py.com.ci.academy.presentation.web.beans;
 
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
-import py.com.ci.academy.user.entities.SystemUser;
+import javax.servlet.http.HttpSession;
+import org.primefaces.context.RequestContext;
+import py.com.ci.academy.login.controller.LoginController;
 
-/**
- *
- * @author cbustamante
- */
-@Named
+@Named("loginBean")
 @SessionScoped
 public class LoginBean implements Serializable {
-    
-    private String username;
+
+    private static final long serialVersionUID = -2152389656664659476L;
+    private String user;
     private String password;
-    private SystemUser loggedUser;
-    
-    public String login(){
-        System.out.println("Logged User:" + username );
-        //@TODO: Loggin Process
-        return "home";
+    private boolean logged = false;
+    private LoginController loginController = new LoginController();
+
+    public boolean isLogged() {
+        return logged;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getPassword() {
@@ -39,13 +40,32 @@ public class LoginBean implements Serializable {
         this.password = password;
     }
 
-    public SystemUser getLoggedUser() {
-        return loggedUser;
+    public String login(ActionEvent actionEvent) {
+        RequestContext context = RequestContext.getCurrentInstance();
+        FacesMessage msg = null;
+
+        if (loginController.lookForUser(user, password)) {
+            logged = true;
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", user);
+        } else {
+            logged = false;
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid USER or PASSWORD");
+
+        }
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        context.addCallbackParam("isLogged", logged);
+        if (logged) {
+            context.addCallbackParam("view", "home.xhtml");
+        }
+            return "home";
     }
 
-    public void setLoggedUser(SystemUser loggedUser) {
-        this.loggedUser = loggedUser;
+    
+
+    public void logout() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        session.invalidate();
+        logged = false;
     }
-    
-    
 }

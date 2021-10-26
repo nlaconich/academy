@@ -9,6 +9,7 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <h:body>
+        <p:commandLink id="logout" actionListener="#{loginBean.logout}" style="margin-right:20px;" oncomplete="logout(xhr, status, args)"><h:outputText value="logout" /></p:commandLink>
         <ui:composition template="/template/base.xhtml">
             <ui:define name="content">
                 <p:panel >
@@ -21,4 +22,5 @@
             </ui:define>
         </ui:composition>
     </h:body>
+    <script type="text/javascript">   //<![CDATA[   function logout(xhr, status, args) {     setTimeout(function() {       window.location = 'login.xhtml';     }, 500);   } //]]> </script>
 </html>
